@@ -387,15 +387,26 @@
     <script>
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            // 设置当前日期
-            const setCurrentDate = () => {
+            // 设置当前日期和时间
+            const setCurrentDateTime = () => {
                 const now = new Date();
                 const year = now.getFullYear();
                 const month = now.getMonth() + 1;
                 const day = now.getDate();
-                document.getElementById('current-date').textContent = `${year}年${month}月${day}日`;
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+                
+                // 格式化数字为两位数
+                const formatTwoDigits = (num) => num.toString().padStart(2, '0');
+                
+                document.getElementById('current-date').textContent = 
+                    `${year}年${month}月${day}日 ${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`;
             };
-            setCurrentDate();
+
+            // 立即执行一次，然后每秒更新一次
+            setCurrentDateTime();
+            setInterval(setCurrentDateTime, 1000);
             
             // 主题切换
             const themeToggle = document.getElementById('theme-toggle');
