@@ -48,6 +48,109 @@
             }
         }
     </style>
+    <!-- 深色模式样式 -->
+    <style>
+        body.dark-mode {
+            background-color: #111827 !important;
+            color: #f3f4f6 !important;
+        }
+        body.dark-mode #navbar,
+        body.dark-mode footer {
+            background-color: #1f2937 !important;
+            border-color: #374151 !important;
+        }
+        body.dark-mode .bg-white,
+        body.dark-mode .bg-gray-50,
+        body.dark-mode .bg-white\/80,
+        body.dark-mode .bg-white\/80.backdrop-blur-sm,
+        body.dark-mode .bg-gray-50.rounded-lg {
+            background-color: #1f2937 !important;
+            background-image: none !important;
+        }
+        body.dark-mode .shadow-lg,
+        body.dark-mode .shadow-xl {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
+        }
+        body.dark-mode .text-gray-700,
+        body.dark-mode .text-gray-500,
+        body.dark-mode .text-gray-600,
+        body.dark-mode .text-gray-400 {
+            color: #d1d5db !important;
+        }
+        body.dark-mode .text-dark {
+            color: #f3f4f6 !important;
+        }
+        body.dark-mode .border-gray-200,
+        body.dark-mode .border-gray-100 {
+            border-color: #374151 !important;
+        }
+        body.dark-mode .bg-gray-50 {
+            background-color: #2d3748 !important;
+        }
+        body.dark-mode .bg-primary\/10 {
+            background-color: rgba(22, 93, 255, 0.2) !important;
+        }
+        body.dark-mode .text-primary {
+            color: #60a5fa !important;
+        }
+        body.dark-mode .text-secondary {
+            color: #2dd4bf !important;
+        }
+        body.dark-mode .text-accent {
+            color: #c084fc !important;
+        }
+        body.dark-mode button.bg-gray-200,
+        body.dark-mode .bg-gray-200 {
+            background-color: #374151 !important;
+            color: #f3f4f6 !important;
+        }
+        body.dark-mode .bg-gray-200:hover {
+            background-color: #4b5563 !important;
+        }
+        body.dark-mode select,
+        body.dark-mode input {
+            background-color: #2d3748 !important;
+            border-color: #4b5563 !important;
+            color: #f3f4f6 !important;
+        }
+        body.dark-mode select:focus,
+        body.dark-mode input:focus {
+            border-color: #3b82f6 !important;
+            ring-color: rgba(59,130,246,0.5) !important;
+        }
+        body.dark-mode .hover\:bg-gray-100:hover {
+            background-color: #374151 !important;
+        }
+        body.dark-mode .hover\:bg-gray-50:hover {
+            background-color: #2d3748 !important;
+        }
+        body.dark-mode .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+            border-color: #374151 !important;
+        }
+        body.dark-mode .bg-black\/50 {
+            background-color: rgba(0, 0, 0, 0.7) !important;
+        }
+        body.dark-mode #ip-details-modal .bg-white {
+            background-color: #1f2937 !important;
+        }
+        body.dark-mode .bg-blue-100 {
+            background-color: #1e3a8a !important;
+        }
+        body.dark-mode .text-blue-800 {
+            color: #bfdbfe !important;
+        }
+        /* 确保图表在深色模式下文字可见（Chart.js 默认使用黑色文字，这里覆盖） */
+        body.dark-mode canvas {
+            filter: brightness(0.9);
+        }
+        /* 加载指示器背景 */
+        body.dark-mode #loading-indicator {
+            background-color: rgba(17, 24, 39, 0.8) !important;
+        }
+        body.dark-mode #loading-indicator .bg-white {
+            background-color: #1f2937 !important;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 font-inter text-dark min-h-screen flex flex-col">
     <!-- 导航栏 -->
