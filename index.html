@@ -488,13 +488,47 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <script>
-        // 检测存在的月份文件夹（本地检测）
+        // 自动检测存在的月份文件夹
         async function detectExistingMonths() {
-            // 本地存在的月份文件夹列表（根据实际文件夹命名）
-            const localMonths = ['2502', '2503', '2505', '2510', '2511', '2512', '2601', '2602', '2603'];
-            
-            console.log('本地检测到的月份文件夹:', localMonths);
-            return localMonths;
+            const verifiedMonths = [];
+            const startYear = 25; // 2025
+            const endYear = 27;   // 2027
+            const maxConcurrent = 10; // 限制并发请求数量
+
+            // 生成所有可能的月份
+            const allPossibleMonths = [];
+            for (let year = startYear; year <= endYear; year++) {
+                for (let month = 1; month <= 12; month++) {
+                    const monthStr = month.toString().padStart(2, '0');
+                    allPossibleMonths.push(`${year}${monthStr}`);
+                }
+            }
+
+            // 分批检查文件夹是否存在
+            for (let i = 0; i < allPossibleMonths.length; i += maxConcurrent) {
+                const batch = allPossibleMonths.slice(i, i + maxConcurrent);
+                const promises = batch.map(async (month) => {
+                    try {
+                        const response = await fetch(`${month}/`, { method: 'HEAD' });
+                        if (response.ok) {
+                            return month;
+                        }
+                    } catch (error) {
+                        // 忽略错误，继续下一个
+                    }
+                    return null;
+                });
+
+                const results = await Promise.all(promises);
+                results.forEach(result => {
+                    if (result) {
+                        verifiedMonths.push(result);
+                    }
+                });
+            }
+
+            console.log('自动检测到的月份文件夹:', verifiedMonths);
+            return verifiedMonths;
         }
         
         // 页面加载完成后执行
