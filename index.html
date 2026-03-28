@@ -488,8 +488,45 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <script>
+        // 检测存在的月份文件夹（本地检测）
+        async function detectExistingMonths() {
+            // 本地存在的月份文件夹列表（根据实际文件夹命名）
+            const localMonths = ['2502', '2503', '2505', '2510', '2511', '2512', '2601', '2602', '2603'];
+            
+            // 验证文件夹是否真的存在（通过尝试访问文件夹中的文件）
+            const verifiedMonths = [];
+            
+            for (const month of localMonths) {
+                try {
+                    // 尝试访问文件夹中的一个测试文件
+                    const response = await fetch(`${month}/test.txt`, { method: 'HEAD' });
+                    // 如果响应不是404，说明文件夹存在
+                    if (response.status !== 404) {
+                        verifiedMonths.push(month);
+                    }
+                } catch (error) {
+                    // 如果fetch失败，尝试另一种方式：访问文件夹本身
+                    try {
+                        const folderResponse = await fetch(`${month}/`, { method: 'HEAD' });
+                        if (folderResponse.ok) {
+                            verifiedMonths.push(month);
+                        }
+                    } catch (folderError) {
+                        // 如果都失败，假设文件夹存在（后备）
+                        verifiedMonths.push(month);
+                    }
+                }
+            }
+            
+            console.log('本地检测到的月份文件夹:', verifiedMonths);
+            return verifiedMonths;
+        }
+        
         // 页面加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 实时检测存在的月份文件夹
+            const existingMonths = await detectExistingMonths();
+            
             // 设置当前日期和时间
             const setCurrentDateTime = () => {
                 const now = new Date();
@@ -533,6 +570,35 @@
             const monthSelect = document.getElementById('month-select');
             const currentPath = document.getElementById('current-path');
             
+            // 根据年份更新月份选择器
+            const updateMonthOptions = () => {
+                const selectedYear = yearSelect.value;
+                const monthSelectElement = document.getElementById('month-select');
+                
+                // 清空现有选项
+                monthSelectElement.innerHTML = '';
+                
+                // 过滤该年份存在的月份
+                const availableMonths = existingMonths
+                    .filter(month => month.startsWith(selectedYear))
+                    .map(month => month.substring(2)) // 去掉年份前缀
+                    .sort();
+                
+                // 添加月份选项
+                availableMonths.forEach(month => {
+                    const option = document.createElement('option');
+                    option.value = month;
+                    option.textContent = `${parseInt(month)}月`;
+                    monthSelectElement.appendChild(option);
+                });
+                
+                // 设置默认选中值：优先选择02月，如果不存在则选择第一个可用月份
+                const defaultMonth = availableMonths.includes('02') ? '02' : (availableMonths[0] || '');
+                monthSelectElement.value = defaultMonth;
+                
+                updatePathDisplay();
+            };
+            
             // 更新当前路径显示
             const updatePathDisplay = () => {
                 const year = yearSelect.value;
@@ -559,10 +625,15 @@
                 updatePathDisplay();
             });
             
-            // 监听年份、月份和日期变化
-            yearSelect.addEventListener('change', updatePathDisplay);
+            // 监听年份变化，更新月份选项
+            yearSelect.addEventListener('change', updateMonthOptions);
+            
+            // 监听月份和日期变化
             monthSelect.addEventListener('change', updatePathDisplay);
             dateSelect.addEventListener('change', updatePathDisplay);
+            
+            // 初始化月份选项
+            updateMonthOptions();
             
             // 初始化协议图表
             const initProtocolChart = () => {
