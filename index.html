@@ -491,8 +491,8 @@
         // 自动检测存在的月份文件夹
         async function detectExistingMonths() {
             const verifiedMonths = [];
-            const startYear = 25; // 2025
-            const endYear = 90;   // 2029
+            const startYear = 24; // 2024
+            const endYear = 90;   // 2090
             const maxConcurrent = 30; // 限制并发请求数量
 
             // 生成所有可能的月份
@@ -528,13 +528,37 @@
             }
 
             console.log('自动检测到的月份文件夹:', verifiedMonths);
+            
+            // 如果没有检测到任何月份，使用默认列表（用于本地开发）
+            if (verifiedMonths.length === 0) {
+                verifiedMonths.push('2502', '2503', '2505', '2510', '2511', '2512', '2601', '2602', '2603');
+                console.log('使用默认月份列表:', verifiedMonths);
+            }
+            
             return verifiedMonths;
         }
         
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', async function() {
+            // 动态填充年份选择器
+            const populateYearSelect = () => {
+                const yearSelectElement = document.getElementById('year-select');
+                const uniqueYears = [...new Set(existingMonths.map(month => month.substring(0, 2)))].sort();
+                
+                yearSelectElement.innerHTML = '';
+                uniqueYears.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = `20${year}年`;
+                    yearSelectElement.appendChild(option);
+                });
+            };
+            
             // 实时检测存在的月份文件夹
             const existingMonths = await detectExistingMonths();
+            
+            // 动态填充年份选择器
+            populateYearSelect();
             
             // 设置当前日期和时间
             const setCurrentDateTime = () => {
