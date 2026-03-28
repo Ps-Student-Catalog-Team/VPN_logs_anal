@@ -493,33 +493,8 @@
             // 本地存在的月份文件夹列表（根据实际文件夹命名）
             const localMonths = ['2502', '2503', '2505', '2510', '2511', '2512', '2601', '2602', '2603'];
             
-            // 验证文件夹是否真的存在（通过尝试访问文件夹中的文件）
-            const verifiedMonths = [];
-            
-            for (const month of localMonths) {
-                try {
-                    // 尝试访问文件夹中的一个测试文件
-                    const response = await fetch(`${month}/test.txt`, { method: 'HEAD' });
-                    // 如果响应不是404，说明文件夹存在
-                    if (response.status !== 404) {
-                        verifiedMonths.push(month);
-                    }
-                } catch (error) {
-                    // 如果fetch失败，尝试另一种方式：访问文件夹本身
-                    try {
-                        const folderResponse = await fetch(`${month}/`, { method: 'HEAD' });
-                        if (folderResponse.ok) {
-                            verifiedMonths.push(month);
-                        }
-                    } catch (folderError) {
-                        // 如果都失败，假设文件夹存在（后备）
-                        verifiedMonths.push(month);
-                    }
-                }
-            }
-            
-            console.log('本地检测到的月份文件夹:', verifiedMonths);
-            return verifiedMonths;
+            console.log('本地检测到的月份文件夹:', localMonths);
+            return localMonths;
         }
         
         // 页面加载完成后执行
