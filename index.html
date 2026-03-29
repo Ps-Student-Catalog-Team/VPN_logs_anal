@@ -116,7 +116,7 @@
         body.dark-mode select:focus,
         body.dark-mode input:focus {
             border-color: #3b82f6 !important;
-            ring-color: rgba(59,130,246,0.5) !important;
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.5) !important;
         }
         body.dark-mode .hover\:bg-gray-100:hover {
             background-color: #374151 !important;
@@ -162,7 +162,7 @@
             <div class="flex items-center space-x-4">
                 <div class="hidden md:flex items-center space-x-1 text-gray-500">
                     <i class="fa fa-clock-o"></i>
-                    <span id="current-date">2026年3月21日</span>
+                    <span id="current-date">2026年3月29日</span>
                 </div>
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
                     <i class="fa fa-moon-o text-gray-600"></i>
@@ -789,8 +789,24 @@
                         fileNames.push(`vpn_20${year}${month}${day}.log`);
                     }
                     
+                    const folder = `${year}${month}`;
+                    let logData = await loadCachedLogData(folder, fileNames);
+                    if (logData) {
+                        updateStats(logData);
+                        updateIPStatsTable(logData.ipStats);
+                        updateCharts(logData);
+                        document.getElementById('loading-indicator').classList.add('hidden');
+                        showNotification('缓存命中：直接显示上次计算结果', 'success');
+                        return;
+                    }
+
+                    const fileMetas = await buildFileMetadata(folder, fileNames);
+                    
                     // 读取并分析日志文件
-                    const logData = await readAndAnalyzeLogs(`${year}${month}`, fileNames);
+                    logData = await readAndAnalyzeLogs(folder, fileNames);
+                    
+                    // 保存缓存结果
+                    saveCache(folder, fileNames, logData, fileMetas);
                     
                     // 更新统计信息
                     updateStats(logData);
@@ -1227,6 +1243,103 @@
                 timeChart.update();
             }
             
+            // 生成缓存键
+            function getCacheKey(folder, fileNames) {
+                return `vpn-analysis-cache:${folder}:${fileNames.join(',')}`;
+            }
+
+            // 尝试获取单个日志文件的 HTTP 头信息，用于判断文件是否发生变更
+            async function getFileMetadata(folder, fileName) {
+                try {
+                    const response = await fetch(`${folder}/${fileName}`, { method: 'HEAD' });
+                    if (!response.ok) {
+                        return null;
+                    }
+
+                    return {
+                        fileName,
+                        lastModified: response.headers.get('Last-Modified'),
+                        contentLength: response.headers.get('Content-Length'),
+                        eTag: response.headers.get('ETag')
+                    };
+                } catch (error) {
+                    return null;
+                }
+            }
+
+            async function isCacheValid(cache) {
+                if (!cache || !Array.isArray(cache.files) || cache.files.length === 0) {
+                    return false;
+                }
+
+                const checks = await Promise.all(cache.files.map(file => getFileMetadata(cache.folder, file.fileName)));
+                for (let i = 0; i < cache.files.length; i++) {
+                    const saved = cache.files[i];
+                    const current = checks[i];
+
+                    if (!current) {
+                        return false;
+                    }
+
+                    if (saved.lastModified && current.lastModified && saved.lastModified !== current.lastModified) {
+                        return false;
+                    }
+                    if (saved.contentLength && current.contentLength && saved.contentLength !== current.contentLength) {
+                        return false;
+                    }
+                    if (saved.eTag && current.eTag && saved.eTag !== current.eTag) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            async function loadCachedLogData(folder, fileNames) {
+                const cacheKey = getCacheKey(folder, fileNames);
+                const raw = localStorage.getItem(cacheKey);
+                if (!raw) {
+                    return null;
+                }
+
+                let cache;
+                try {
+                    cache = JSON.parse(raw);
+                } catch (error) {
+                    localStorage.removeItem(cacheKey);
+                    return null;
+                }
+
+                if (!cache || cache.folder !== folder || !Array.isArray(cache.fileNames) || cache.fileNames.length !== fileNames.length || !cache.fileNames.every((fileName, index) => fileName === fileNames[index])) {
+                    localStorage.removeItem(cacheKey);
+                    return null;
+                }
+
+                const valid = await isCacheValid(cache);
+                if (!valid) {
+                    localStorage.removeItem(cacheKey);
+                    return null;
+                }
+
+                return cache.logData;
+            }
+
+            function saveCache(folder, fileNames, logData, fileMetas) {
+                const cacheKey = getCacheKey(folder, fileNames);
+                const cache = {
+                    folder,
+                    fileNames,
+                    files: fileMetas,
+                    logData,
+                    updatedAt: Date.now()
+                };
+                localStorage.setItem(cacheKey, JSON.stringify(cache));
+            }
+
+            async function buildFileMetadata(folder, fileNames) {
+                return await Promise.all(fileNames.map(fileName => getFileMetadata(folder, fileName)));
+            }
+
             // 分页按钮事件
             document.getElementById('prev-page').addEventListener('click', function() {
                 if (currentPage > 1) {
