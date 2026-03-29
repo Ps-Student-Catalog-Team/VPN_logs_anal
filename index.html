@@ -139,7 +139,6 @@
         body.dark-mode .text-blue-800 {
             color: #bfdbfe !important;
         }
-        /* 确保图表在深色模式下文字可见（Chart.js 默认使用黑色文字，这里覆盖） */
         body.dark-mode canvas {
             filter: brightness(0.9);
         }
@@ -531,7 +530,7 @@
             
             // 如果没有检测到任何月份，使用默认列表（用于本地开发）
             if (verifiedMonths.length === 0) {
-                verifiedMonths.push('2502', '2503', '2505', '2510', '2511', '2512', '2601', '2602', '2603');
+                verifiedMonths.push('2501','2502','2503', '2505','2506','2507','2508','2509','2510', '2511', '2512', '2601', '2602', '2603', '2604', '2605', '2606', '2607', '2608', '2609', '2610', '2611', '2612');
                 console.log('使用默认月份列表:', verifiedMonths);
             }
             
