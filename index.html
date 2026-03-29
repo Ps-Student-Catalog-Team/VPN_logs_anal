@@ -1291,9 +1291,23 @@
                     return false;
                 }
 
-                const checks = await Promise.all(cache.files.map(file => getFileMetadata(cache.folder, file.fileName)));
-                for (let i = 0; i < cache.files.length; i++) {
-                    const saved = cache.files[i];
+                // 如果缓存是旧格式（由字符串文件名组成），统一转换为对象格式
+                const normalizedFiles = cache.files.map(file => {
+                    if (!file) return null;
+                    if (typeof file === 'string') {
+                        return { fileName: file };
+                    }
+                    return file;
+                });
+
+                // 组件防御性检查，避免 null.fileName 造成的异常
+                if (normalizedFiles.some(file => !file || !file.fileName)) {
+                    return false;
+                }
+
+                const checks = await Promise.all(normalizedFiles.map(file => getFileMetadata(cache.folder, file.fileName)));
+                for (let i = 0; i < normalizedFiles.length; i++) {
+                    const saved = normalizedFiles[i];
                     const current = checks[i];
 
                     if (!current) {
