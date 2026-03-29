@@ -258,7 +258,11 @@
                 </div>
             </div>
             
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-3">
+                <button id="clear-cache-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 focus:ring-4 focus:ring-gray-300 flex items-center text-sm">
+                    <i class="fa fa-trash mr-2"></i>
+                    清除缓存
+                </button>
                 <button id="analyze-btn" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-primary/30 flex items-center">
                     <i class="fa fa-search mr-2"></i>
                     分析日志
@@ -852,6 +856,22 @@
                 }
             });
             
+            // 清除缓存按钮点击事件
+            document.getElementById('clear-cache-btn').addEventListener('click', function() {
+                // 清除所有以vpn-analysis-cache开头的localStorage项
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('vpn-analysis-cache:')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                
+                showNotification(`已清除 ${keysToRemove.length} 个缓存项`, 'success');
+            });
+            
             // 读取并分析日志文件
             async function readAndAnalyzeLogs(folder, fileNames) {
                 const loadingIndicator = document.getElementById('loading-indicator');
@@ -1267,6 +1287,11 @@
                 return `vpn-analysis-cache:${folder}:${fileNames.join(',')}`;
             }
 
+            // 检测是否在GitHub Pages环境
+            function isGitHubPages() {
+                return window.location.hostname.includes('github.io');
+            }
+
             // 尝试获取单个日志文件的 HTTP 头信息，用于判断文件是否发生变更
             async function getFileMetadata(folder, fileName) {
                 try {
@@ -1348,16 +1373,27 @@
                     return null;
                 }
 
-                const valid = await isCacheValid(cache);
-                if (!valid) {
-                    localStorage.removeItem(cacheKey);
-                    return null;
+                // 尝试验证缓存有效性，如果失败则跳过（兼容GitHub Pages）
+                try {
+                    const valid = await isCacheValid(cache);
+                    if (!valid) {
+                        localStorage.removeItem(cacheKey);
+                        return null;
+                    }
+                } catch (error) {
+                    // 如果验证失败（比如GitHub Pages不支持HEAD请求），则信任缓存但添加时间限制
+                    const cacheAge = Date.now() - cache.updatedAt;
+                    const maxCacheAge = 24 * 60 * 60 * 1000; // 24小时
+                    if (cacheAge > maxCacheAge) {
+                        localStorage.removeItem(cacheKey);
+                        return null;
+                    }
                 }
 
                 return cache.logData;
             }
 
-            function saveCache(folder, fileNames, logData, fileMetas) {
+            async function saveCache(folder, fileNames, logData, fileMetas) {
                 const cacheKey = getCacheKey(folder, fileNames);
                 const cache = {
                     folder,
@@ -1366,7 +1402,13 @@
                     logData,
                     updatedAt: Date.now()
                 };
-                localStorage.setItem(cacheKey, JSON.stringify(cache));
+
+                try {
+                    localStorage.setItem(cacheKey, JSON.stringify(cache));
+                    console.log('缓存已保存到浏览器本地存储');
+                } catch (error) {
+                    console.error('保存缓存失败:', error);
+                }
             }
 
             async function buildFileMetadata(folder, fileNames) {

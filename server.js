@@ -5,7 +5,7 @@ const path = require('path');
 const server = http.createServer((req, res) => {
   // 直接使用根目录下的文件，默认 index.html
   let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
-  
+
   const extname = String(path.extname(filePath)).toLowerCase();
   const contentType = {
     '.html': 'text/html',
