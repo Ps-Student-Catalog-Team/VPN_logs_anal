@@ -981,28 +981,39 @@
                 if (isAllLogs) {
                     yearSelect.innerHTML = '<option value="">全部年份</option>';
                     monthSelect.innerHTML = '<option value="">全部月份</option>';
-                } else if (isFullYear) {
-                    // 全年模式下，月份选择器显示选中年份的所有月份
-                    const year = yearSelect.value;
-                    const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
-                    monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
-                    if (months.length) monthSelect.value = months[0];
-                } else if (isPartialMonths) {
-                    // 多月选择模式
-                    const year = yearSelect.value;
-                    generateMonthCheckboxes(year);
-                    multiMonthContainer.classList.remove('hidden');
-                } else if (isDateRange) {
-                    // 日期范围模式
-                    dateRangeContainer.classList.remove('hidden');
-                } else if (isCustomDates) {
-                    // 自定义日期模式
-                    const year = yearSelect.value;
-                    const month = monthSelect.value;
-                    generateDateCheckboxes(year, month);
-                    customDatesContainer.classList.remove('hidden');
                 } else {
-                    updateMonthOptions();
+                    // 从全部日志切换到其他选项时，重新生成年份选择器选项
+                    const years = [...new Set(existingMonths.map(m => m.slice(0,2)))].sort();
+                    yearSelect.innerHTML = years.map(y => `<option value="${y}">20${y}年</option>`).join('');
+                    
+                    // 重置年份选择器值
+                    if (years.length > 0) {
+                        yearSelect.value = years[0];
+                    }
+                    
+                    if (isFullYear) {
+                        // 全年模式下，月份选择器显示选中年份的所有月份
+                        const year = yearSelect.value;
+                        const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
+                        monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
+                        if (months.length) monthSelect.value = months[0];
+                    } else if (isPartialMonths) {
+                        // 多月选择模式
+                        const year = yearSelect.value;
+                        generateMonthCheckboxes(year);
+                        multiMonthContainer.classList.remove('hidden');
+                    } else if (isDateRange) {
+                        // 日期范围模式
+                        dateRangeContainer.classList.remove('hidden');
+                    } else if (isCustomDates) {
+                        // 自定义日期模式
+                        const year = yearSelect.value;
+                        const month = monthSelect.value;
+                        generateDateCheckboxes(year, month);
+                        customDatesContainer.classList.remove('hidden');
+                    } else {
+                        updateMonthOptions();
+                    }
                 }
                 
                 updatePathDisplay();
