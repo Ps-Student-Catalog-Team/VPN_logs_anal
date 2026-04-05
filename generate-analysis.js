@@ -16,123 +16,201 @@ async function analyzeLogFile(filePath) {
             dailyStats: {}
         };
         
-        const activeSessions = {};
-        const connToSessionMap = {};
-        
-        // 使用流式读取文件
-        const readStream = fs.createReadStream(filePath, 'utf8');
-        let buffer = '';
-        
-        for await (const chunk of readStream) {
-            buffer += chunk;
-            let lines = buffer.split('\n');
-            buffer = lines.pop(); // 保留最后不完整的行
+        // 检查文件扩展名
+        if (filePath.endsWith('.md')) {
+            // 解析 Markdown 文件
+            const data = fs.readFileSync(filePath, 'utf8');
+            const lines = data.split('\n');
+            let currentDate = null;
             
-            for (const line of lines) {
-                // 检测连接建立 (CID)
-                const connMatch = line.match(/连接 "(CID-\d+)" 已建立/);
-                if (connMatch) {
-                    const connId = connMatch[1];
-                    const ipMatch = line.match(/IP 地址[：:]\s*(\d+\.\d+\.\d+\.\d+)/);
-                    const ip = ipMatch ? ipMatch[1] : '未知IP';
-                    const timestamp = line.substring(0, 19);
-                    connToSessionMap[connId] = { ip, startTime: timestamp };
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                // 检测日期标题
+                const dateMatch = line.match(/## vpn_20(\d{6})\.log/);
+                if (dateMatch) {
+                    const dateStr = dateMatch[1];
+                    currentDate = `20${dateStr.substring(0, 2)}-${dateStr.substring(2, 4)}-${dateStr.substring(4, 6)}`;
                     continue;
                 }
                 
-                // 检测会话创建 (SID)
-                const sessionCreateMatch = line.match(/连接 "(CID-\d+)": 已创建新会话 "(SID-[^"]+)"/);
-                if (sessionCreateMatch) {
-                    const connId = sessionCreateMatch[1];
-                    const sessionId = sessionCreateMatch[2];
-                    const connInfo = connToSessionMap[connId];
-                    if (connInfo) {
-                        // 提取协议信息
-                        const protoMatch = line.match(/物理底层协议："([^"]+)"/);
-                        let vpnProtocol = protoMatch ? protoMatch[1] : '未知协议';
+                // 检测表格行
+                if (currentDate && line.startsWith('|') && !line.includes('| IP地址 |') && !line.includes('|---------|')) {
+                    const parts = line.split('|').map(p => p.trim()).filter(p => p);
+                    if (parts.length >= 4) {
+                        const ip = parts[0];
+                        const startTime = parts[1];
+                        const endTime = parts[2];
+                        const durationStr = parts[3];
+                        const vpnProtocol = parts[4] || '未知';
                         
-                        // 简化VPN协议名称
-                        if (vpnProtocol.includes('OPENVPN')) {
-                            vpnProtocol = 'OpenVPN';
-                        } else if (vpnProtocol.includes('L2TP')) {
-                            vpnProtocol = 'L2TP';
+                        // 解析持续时间（秒转换为分钟）
+                        let duration = 0;
+                        const durationMatch = durationStr.match(/([\d.]+)/);
+                        if (durationMatch) {
+                            duration = parseFloat(durationMatch[1]) / 60; // 转换为分钟
                         }
-                        
-                        // 创建会话记录
-                        activeSessions[sessionId] = {
-                            sessionId: sessionId,
-                            connectionId: connId,
-                            ip: connInfo.ip,
-                            vpnProtocol: vpnProtocol,
-                            startTime: connInfo.startTime,
-                            endTime: null,
-                            duration: 0,
-                            inputData: 0,
-                            outputData: 0
-                        };
-                        
-                        // 统计时段
-                        const hour = parseInt(connInfo.startTime.substring(11, 13));
-                        logData.timeStats[hour]++;
                         
                         // 初始化IP统计
-                        if (!logData.ipStats[connInfo.ip]) {
-                            logData.ipStats[connInfo.ip] = { connections: 0, totalDuration: 0, totalData: 0, vpnProtocols: {} };
+                        if (!logData.ipStats[ip]) {
+                            logData.ipStats[ip] = { connections: 0, totalDuration: 0, totalData: 0, vpnProtocols: {}, sessions: [] };
                         }
+                        
+                        // 更新IP统计
+                        const stats = logData.ipStats[ip];
+                        stats.connections++;
+                        stats.totalDuration += duration;
+                        stats.vpnProtocols[vpnProtocol] = (stats.vpnProtocols[vpnProtocol] || 0) + 1;
                         
                         // 统计协议
                         logData.vpnProtocolStats[vpnProtocol] = (logData.vpnProtocolStats[vpnProtocol] || 0) + 1;
-                        logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] = (logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] || 0) + 1;
-                        
-                        // 清理连接映射
-                        delete connToSessionMap[connId];
-                    }
-                    continue;
-                }
-                
-                // 检测会话结束
-                const endMatch = line.match(/会话 "(SID-[^"]+)": 会话已结束。统计信息如下: 总输出数据大小: (\d+) 字节，总输入数据大小: (\d+) 字节/);
-                if (endMatch) {
-                    const sessionId = endMatch[1];
-                    const output = parseInt(endMatch[2]);
-                    const input = parseInt(endMatch[3]);
-                    
-                    const session = activeSessions[sessionId];
-                    if (session) {
-                        session.endTime = line.substring(0, 19);
-                        const startDate = new Date(session.startTime.replace(' ', 'T') + 'Z');
-                        const endDate = new Date(session.endTime.replace(' ', 'T') + 'Z');
-                        session.duration = (endDate - startDate) / (1000 * 60);
-                        session.inputData = input;
-                        session.outputData = output;
-                        
-                        // 更新IP统计
-                        const stats = logData.ipStats[session.ip];
-                        if (stats) {
-                            stats.connections++;
-                            stats.totalDuration += session.duration;
-                            stats.totalData += input + output;
-                        }
                         
                         // 每日统计
-                        const date = session.startTime.substring(0, 10);
-                        if (!logData.dailyStats[date]) {
-                            logData.dailyStats[date] = { connections: 0, totalDuration: 0, totalData: 0 };
+                        if (!logData.dailyStats[currentDate]) {
+                            logData.dailyStats[currentDate] = { connections: 0, totalDuration: 0, totalData: 0 };
                         }
-                        logData.dailyStats[date].connections++;
-                        logData.dailyStats[date].totalDuration += session.duration;
-                        logData.dailyStats[date].totalData += input + output;
+                        logData.dailyStats[currentDate].connections++;
+                        logData.dailyStats[currentDate].totalDuration += duration;
                         
-                        // 清理会话
-                        delete activeSessions[sessionId];
+                        // 统计时间分布
+                        if (startTime && startTime.includes(' ')) {
+                            const hour = parseInt(startTime.split(' ')[1].substring(0, 2));
+                            if (!isNaN(hour)) {
+                                logData.timeStats[hour]++;
+                            }
+                        }
+                        
+                        // 添加会话信息
+                        const session = {
+                            sessionId: `SID-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                            ip: ip,
+                            vpnProtocol: vpnProtocol,
+                            startTime: startTime,
+                            endTime: endTime,
+                            duration: duration,
+                            inputData: 0,
+                            outputData: 0
+                        };
+                        stats.sessions.push(session);
                     }
                 }
             }
-        }
-        
-        // 处理最后剩余的行
-        if (buffer) {
-            // 处理最后一行
+        } else {
+            // 解析普通日志文件
+            const activeSessions = {};
+            const connToSessionMap = {};
+            
+            // 使用流式读取文件
+            const readStream = fs.createReadStream(filePath, 'utf8');
+            let buffer = '';
+            
+            for await (const chunk of readStream) {
+                buffer += chunk;
+                let lines = buffer.split('\n');
+                buffer = lines.pop(); // 保留最后不完整的行
+                
+                for (const line of lines) {
+                    // 检测连接建立 (CID)
+                    const connMatch = line.match(/连接 "(CID-\d+)" 已建立/);
+                    if (connMatch) {
+                        const connId = connMatch[1];
+                        const ipMatch = line.match(/IP 地址[：:]\s*(\d+\.\d+\.\d+\.\d+)/);
+                        const ip = ipMatch ? ipMatch[1] : '未知IP';
+                        const timestamp = line.substring(0, 19);
+                        connToSessionMap[connId] = { ip, startTime: timestamp };
+                        continue;
+                    }
+                    
+                    // 检测会话创建 (SID)
+                    const sessionCreateMatch = line.match(/连接 "(CID-\d+)": 已创建新会话 "(SID-[^"]+)"/);
+                    if (sessionCreateMatch) {
+                        const connId = sessionCreateMatch[1];
+                        const sessionId = sessionCreateMatch[2];
+                        const connInfo = connToSessionMap[connId];
+                        if (connInfo) {
+                            // 提取协议信息
+                            const protoMatch = line.match(/物理底层协议："([^"]+)"/);
+                            let vpnProtocol = protoMatch ? protoMatch[1] : '未知协议';
+                            
+                            // 简化VPN协议名称
+                            if (vpnProtocol.includes('OPENVPN')) {
+                                vpnProtocol = 'OpenVPN';
+                            } else if (vpnProtocol.includes('L2TP')) {
+                                vpnProtocol = 'L2TP';
+                            }
+                            
+                            // 创建会话记录
+                            activeSessions[sessionId] = {
+                                sessionId: sessionId,
+                                connectionId: connId,
+                                ip: connInfo.ip,
+                                vpnProtocol: vpnProtocol,
+                                startTime: connInfo.startTime,
+                                endTime: null,
+                                duration: 0,
+                                inputData: 0,
+                                outputData: 0
+                            };
+                            
+                            // 统计时段
+                            const hour = parseInt(connInfo.startTime.substring(11, 13));
+                            logData.timeStats[hour]++;
+                            
+                            // 初始化IP统计
+                            if (!logData.ipStats[connInfo.ip]) {
+                                logData.ipStats[connInfo.ip] = { connections: 0, totalDuration: 0, totalData: 0, vpnProtocols: {}, sessions: [] };
+                            }
+                            
+                            // 统计协议
+                            logData.vpnProtocolStats[vpnProtocol] = (logData.vpnProtocolStats[vpnProtocol] || 0) + 1;
+                            logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] = (logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] || 0) + 1;
+                            
+                            // 清理连接映射
+                            delete connToSessionMap[connId];
+                        }
+                        continue;
+                    }
+                    
+                    // 检测会话结束
+                    const endMatch = line.match(/会话 "(SID-[^"]+)": 会话已结束。统计信息如下: 总输出数据大小: (\d+) 字节，总输入数据大小: (\d+) 字节/);
+                    if (endMatch) {
+                        const sessionId = endMatch[1];
+                        const output = parseInt(endMatch[2]);
+                        const input = parseInt(endMatch[3]);
+                        
+                        const session = activeSessions[sessionId];
+                        if (session) {
+                            session.endTime = line.substring(0, 19);
+                            const startDate = new Date(session.startTime.replace(' ', 'T') + 'Z');
+                            const endDate = new Date(session.endTime.replace(' ', 'T') + 'Z');
+                            session.duration = (endDate - startDate) / (1000 * 60);
+                            session.inputData = input;
+                            session.outputData = output;
+                            
+                            // 更新IP统计
+                            const stats = logData.ipStats[session.ip];
+                            if (stats) {
+                                stats.connections++;
+                                stats.totalDuration += session.duration;
+                                stats.totalData += input + output;
+                                stats.sessions.push({ ...session });
+                            }
+                            
+                            // 每日统计
+                            const date = session.startTime.substring(0, 10);
+                            if (!logData.dailyStats[date]) {
+                                logData.dailyStats[date] = { connections: 0, totalDuration: 0, totalData: 0 };
+                            }
+                            logData.dailyStats[date].connections++;
+                            logData.dailyStats[date].totalDuration += session.duration;
+                            logData.dailyStats[date].totalData += input + output;
+                            
+                            // 清理会话
+                            delete activeSessions[sessionId];
+                        }
+                    }
+                }
+            }
         }
         
         // 计算唯一IP数量和平均连接时长
@@ -183,17 +261,24 @@ function getFilesInMonth(monthFolder) {
     const folderPath = path.join(__dirname, monthFolder);
     
     if (fs.existsSync(folderPath)) {
-        const year = monthFolder.slice(0, 2);
-        const month = monthFolder.slice(2);
-        const days = new Date(parseInt(year) + 2000, parseInt(month), 0).getDate();
-        
-        for (let d = 1; d <= days; d++) {
-            const dd = d.toString().padStart(2, '0');
-            const fileName = `vpn_20${year}${month}${dd}.log`;
-            const filePath = path.join(folderPath, fileName);
+        // 检查是否存在 .md 文件
+        const mdFilePath = path.join(folderPath, `${monthFolder}.md`);
+        if (fs.existsSync(mdFilePath)) {
+            files.push(mdFilePath);
+        } else {
+            // 如果没有 .md 文件，检查 .log 文件
+            const year = monthFolder.slice(0, 2);
+            const month = monthFolder.slice(2);
+            const days = new Date(parseInt(year) + 2000, parseInt(month), 0).getDate();
             
-            if (fs.existsSync(filePath)) {
-                files.push(filePath);
+            for (let d = 1; d <= days; d++) {
+                const dd = d.toString().padStart(2, '0');
+                const fileName = `vpn_20${year}${month}${dd}.log`;
+                const filePath = path.join(folderPath, fileName);
+                
+                if (fs.existsSync(filePath)) {
+                    files.push(filePath);
+                }
             }
         }
     }
@@ -250,7 +335,8 @@ async function analyzeSingleMonth(month) {
                         connections: stats.connections, 
                         totalDuration: stats.totalDuration, 
                         totalData: stats.totalData, 
-                        vpnProtocols: { ...stats.vpnProtocols }
+                        vpnProtocols: { ...stats.vpnProtocols },
+                        sessions: stats.sessions || []
                     };
                 } else {
                     monthLogData.ipStats[ip].connections += stats.connections;
@@ -260,6 +346,12 @@ async function analyzeSingleMonth(month) {
                     // 合并VPN协议统计
                     for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
                         monthLogData.ipStats[ip].vpnProtocols[proto] = (monthLogData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                    }
+                    
+                    // 合并会话信息
+                    if (stats.sessions && Array.isArray(stats.sessions)) {
+                        monthLogData.ipStats[ip].sessions = monthLogData.ipStats[ip].sessions || [];
+                        monthLogData.ipStats[ip].sessions.push(...stats.sessions);
                     }
                 }
             }
@@ -332,7 +424,8 @@ async function analyzeSingleYear(year) {
                         connections: stats.connections, 
                         totalDuration: stats.totalDuration, 
                         totalData: stats.totalData, 
-                        vpnProtocols: { ...stats.vpnProtocols }
+                        vpnProtocols: { ...stats.vpnProtocols },
+                        sessions: stats.sessions || []
                     };
                 } else {
                     yearLogData.ipStats[ip].connections += stats.connections;
@@ -342,6 +435,12 @@ async function analyzeSingleYear(year) {
                     // 合并VPN协议统计
                     for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
                         yearLogData.ipStats[ip].vpnProtocols[proto] = (yearLogData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                    }
+                    
+                    // 合并会话信息
+                    if (stats.sessions && Array.isArray(stats.sessions)) {
+                        yearLogData.ipStats[ip].sessions = yearLogData.ipStats[ip].sessions || [];
+                        yearLogData.ipStats[ip].sessions.push(...stats.sessions);
                     }
                 }
             }
@@ -413,7 +512,8 @@ async function analyzeAllLogs() {
                         connections: stats.connections, 
                         totalDuration: stats.totalDuration, 
                         totalData: stats.totalData, 
-                        vpnProtocols: { ...stats.vpnProtocols }
+                        vpnProtocols: { ...stats.vpnProtocols },
+                        sessions: stats.sessions || []
                     };
                 } else {
                     allLogData.ipStats[ip].connections += stats.connections;
@@ -423,6 +523,12 @@ async function analyzeAllLogs() {
                     // 合并VPN协议统计
                     for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
                         allLogData.ipStats[ip].vpnProtocols[proto] = (allLogData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                    }
+                    
+                    // 合并会话信息
+                    if (stats.sessions && Array.isArray(stats.sessions)) {
+                        allLogData.ipStats[ip].sessions = allLogData.ipStats[ip].sessions || [];
+                        allLogData.ipStats[ip].sessions.push(...stats.sessions);
                     }
                 }
             }
