@@ -91,7 +91,14 @@
                 <i class="fa fa-file-text-o text-primary mr-2"></i>
                 日志选择
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">分析模式</label>
+                    <select id="analysis-mode" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                        <option value="local">本地分析</option>
+                        <option value="server">服务器分析</option>
+                    </select>
+                </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">范围类型</label>
                     <select id="range-type" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
@@ -291,7 +298,7 @@
             setTimeout(() => { if (notification.parentNode) { notification.classList.add('translate-x-full'); setTimeout(() => notification.remove(), 300); } }, 5000);
         }
 
-        // ======================== 检测存在的月份和年份（可靠版） ========================
+        // ======================== 检测存在的月份和年份 ========================
         async function detectExistingMonths() {
             const existing = new Set();
             const testDays = ['01', '15']; // 轻量检测
@@ -312,7 +319,7 @@
                 }
             }
             if (existing.size === 0) {
-                // 回退默认常见月份（根据实际部署修改）
+                // 回退默认常见月份
                 return ['2502', '2603'];
             }
             return Array.from(existing).sort();
@@ -1060,9 +1067,59 @@
             const currentFileSpan = document.getElementById('current-file');
             analyzeBtn.onclick = async () => {
                 loadingDiv.classList.remove('hidden');
+                const analysisMode = document.getElementById('analysis-mode').value;
                 const rangeType = document.getElementById('range-type').value;
                 const year = yearSelect.value;
                 const month = monthSelect.value;
+                
+                if (analysisMode === 'server') {
+                    // 服务器分析模式 - 直接加载预生成的分析结果文件
+                    try {
+                        // 检查是否支持当前范围类型
+                        if (!['single-month', 'full-year', 'all-logs'].includes(rangeType)) {
+                            showNotification('服务器分析模式仅支持单月、单年与全部日志', 'error');
+                            loadingDiv.classList.add('hidden');
+                            return;
+                        }
+                        
+                        // 生成分析结果文件路径
+                        let analysisFile = '';
+                        
+                        if (rangeType === 'single-month') {
+                            analysisFile = `analysis/${year}${month}.json`;
+                        } else if (rangeType === 'full-year') {
+                            analysisFile = `analysis/${year}.json`;
+                        } else if (rangeType === 'all-logs') {
+                            analysisFile = 'analysis/all.json';
+                        }
+                        
+                        // 加载分析结果文件
+                        currentFileSpan.textContent = `正在加载分析结果...`;
+                        
+                        const response = await fetch(analysisFile);
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        
+                        const logData = await response.json();
+                        
+                        updateStats(logData);
+                        allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections, totalDuration: st.totalDuration, totalData: st.totalData, mostUsedVPNProtocol: Object.entries(st.vpnProtocols).sort((a,b)=>b[1]-a[1])[0]?.[0] || '未知', sessions: st.sessions }));
+                        filteredIPStats = [...allIPStats];
+                        currentPage = 1;
+                        renderIPStatsTable();
+                        updateCharts(logData);
+                        loadingDiv.classList.add('hidden');
+                        showNotification('✅ 服务器分析完成', 'success');
+                    } catch (error) {
+                        console.error('服务器分析失败:', error);
+                        showNotification(`服务器分析失败: ${error.message}`, 'error');
+                        loadingDiv.classList.add('hidden');
+                    }
+                    return;
+                }
+                
+                // 本地分析模式
                 
                 // 为每个选中的月份生成文件列表
                 let allFileNames = [];
@@ -1141,7 +1198,7 @@
                     renderIPStatsTable();
                     updateCharts(logData);
                     loadingDiv.classList.add('hidden');
-                    showNotification('✅ 缓存命中，直接显示结果', 'success');
+                    showNotification('缓存命中，直接显示结果', 'success');
                     return;
                 }
                 
