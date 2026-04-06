@@ -16,9 +16,18 @@
                         accent: '#722ED1',
                         dark: '#1D2129',
                         light: '#F2F3F5',
+                        success: '#52C41A',
+                        warning: '#FAAD14',
+                        error: '#F5222D',
+                        info: '#1890FF',
                     },
                     fontFamily: {
                         inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
+                        'medium': '0 4px 16px rgba(0, 0, 0, 0.12)',
+                        'strong': '0 8px 32px rgba(0, 0, 0, 0.16)',
                     },
                 }
             }
@@ -31,53 +40,66 @@
             .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
             .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
             .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+            .animate-slide-up { animation: slideUp 0.3s ease-out; }
+            .animate-scale-in { animation: scaleIn 0.2s ease-out; }
+            .card-hover { transition: all 0.3s ease; }
+            .card-hover:hover { transform: translateY(-4px); }
             @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+            @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         }
     </style>
     <!-- 深色模式样式 -->
     <style>
-        body.dark-mode { background-color: #111827 !important; color: #f3f4f6 !important; }
-        body.dark-mode #navbar, body.dark-mode footer { background-color: #1f2937 !important; border-color: #374151 !important; }
+        body.dark-mode { background-color: #0f172a !important; color: #f8fafc !important; }
+        body.dark-mode #navbar, body.dark-mode footer { background-color: #1e293b !important; border-color: #334155 !important; }
         body.dark-mode .bg-white, body.dark-mode .bg-gray-50, body.dark-mode .bg-white\/80,
-        body.dark-mode .bg-white\/80.backdrop-blur-sm, body.dark-mode .bg-gray-50.rounded-lg { background-color: #1f2937 !important; background-image: none !important; }
-        body.dark-mode .shadow-lg, body.dark-mode .shadow-xl { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3) !important; }
-        body.dark-mode .text-gray-700, body.dark-mode .text-gray-500, body.dark-mode .text-gray-600, body.dark-mode .text-gray-400 { color: #d1d5db !important; }
-        body.dark-mode .text-dark { color: #f3f4f6 !important; }
-        body.dark-mode .border-gray-200, body.dark-mode .border-gray-100 { border-color: #374151 !important; }
+        body.dark-mode .bg-white\/80.backdrop-blur-sm, body.dark-mode .bg-gray-50.rounded-lg { background-color: #1e293b !important; background-image: none !important; }
+        body.dark-mode .shadow-lg, body.dark-mode .shadow-xl, body.dark-mode .shadow-soft, body.dark-mode .shadow-medium, body.dark-mode .shadow-strong { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.6), 0 4px 6px -2px rgba(0,0,0,0.4) !important; }
+        body.dark-mode .text-gray-700, body.dark-mode .text-gray-500, body.dark-mode .text-gray-600, body.dark-mode .text-gray-400 { color: #cbd5e1 !important; }
+        body.dark-mode .text-dark { color: #f8fafc !important; }
+        body.dark-mode .border-gray-200, body.dark-mode .border-gray-100 { border-color: #334155 !important; }
         body.dark-mode .bg-gray-50 { background-color: #2d3748 !important; }
-        body.dark-mode .bg-primary\/10 { background-color: rgba(22,93,255,0.2) !important; }
+        body.dark-mode .bg-primary\/10 { background-color: rgba(22,93,255,0.15) !important; }
         body.dark-mode .text-primary { color: #60a5fa !important; }
         body.dark-mode .text-secondary { color: #2dd4bf !important; }
         body.dark-mode .text-accent { color: #c084fc !important; }
-        body.dark-mode button.bg-gray-200, body.dark-mode .bg-gray-200 { background-color: #374151 !important; color: #f3f4f6 !important; }
-        body.dark-mode .bg-gray-200:hover { background-color: #4b5563 !important; }
-        body.dark-mode select, body.dark-mode input { background-color: #2d3748 !important; border-color: #4b5563 !important; color: #f3f4f6 !important; }
-        body.dark-mode select:focus, body.dark-mode input:focus { border-color: #3b82f6 !important; box-shadow: 0 0 0 2px rgba(59,130,246,0.5) !important; }
-        body.dark-mode .hover\:bg-gray-100:hover { background-color: #374151 !important; }
+        body.dark-mode .text-success { color: #73d13d !important; }
+        body.dark-mode .text-warning { color: #ffc53d !important; }
+        body.dark-mode .text-error { color: #ff4d4f !important; }
+        body.dark-mode .text-info { color: #40a9ff !important; }
+        body.dark-mode button.bg-gray-200, body.dark-mode .bg-gray-200 { background-color: #334155 !important; color: #f8fafc !important; }
+        body.dark-mode .bg-gray-200:hover { background-color: #475569 !important; }
+        body.dark-mode select, body.dark-mode input { background-color: #2d3748 !important; border-color: #475569 !important; color: #f8fafc !important; }
+        body.dark-mode select:focus, body.dark-mode input:focus { border-color: #3b82f6 !important; box-shadow: 0 0 0 2px rgba(59,130,246,0.4) !important; }
+        body.dark-mode .hover\:bg-gray-100:hover { background-color: #334155 !important; }
         body.dark-mode .hover\:bg-gray-50:hover { background-color: #2d3748 !important; }
-        body.dark-mode .divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: #374151 !important; }
-        body.dark-mode .bg-black\/50 { background-color: rgba(0,0,0,0.7) !important; }
-        body.dark-mode #ip-details-modal .bg-white { background-color: #1f2937 !important; }
+        body.dark-mode .divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: #334155 !important; }
+        body.dark-mode .bg-black\/50 { background-color: rgba(0,0,0,0.75) !important; }
+        body.dark-mode #ip-details-modal .bg-white { background-color: #1e293b !important; }
         body.dark-mode .bg-blue-100 { background-color: #1e3a8a !important; }
         body.dark-mode .text-blue-800 { color: #bfdbfe !important; }
-        body.dark-mode canvas { filter: brightness(0.9); }
-        body.dark-mode #loading-indicator { background-color: rgba(17,24,39,0.8) !important; }
-        body.dark-mode #loading-indicator .bg-white { background-color: #1f2937 !important; }
+        body.dark-mode canvas { filter: brightness(0.95) contrast(1.05); }
+        body.dark-mode #loading-indicator { background-color: rgba(15,23,42,0.85) !important; }
+        body.dark-mode #loading-indicator .bg-white { background-color: #1e293b !important; }
+        body.dark-mode .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0,0,0,0.7), 0 6px 8px -3px rgba(0,0,0,0.5) !important; }
     </style>
 </head>
 <body class="bg-gray-50 font-inter text-dark min-h-screen flex flex-col">
-    <header class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa fa-line-chart text-primary text-2xl"></i>
-                <h1 class="text-xl md:text-2xl font-bold text-dark">来....来看个日志吧ヾ(≧ ▽ ≦)ゝ</h1>
+    <header class="bg-white shadow-soft sticky top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <i class="fa fa-line-chart text-primary text-2xl"></i>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold text-dark">来....来看个日志吧 <span class="text-primary">ヾ(≧ ▽ ≦)ゝ</span></h1>
             </div>
             <div class="flex items-center space-x-4">
-                <div class="hidden md:flex items-center space-x-1 text-gray-500">
+                <div class="hidden md:flex items-center space-x-2 text-gray-500 bg-gray-100 px-3 py-2 rounded-full">
                     <i class="fa fa-clock-o"></i>
-                    <span id="current-date">2026年4月3日</span>
+                    <span id="current-date" class="font-medium">2026年4月3日</span>
                 </div>
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
                     <i class="fa fa-moon-o text-gray-600"></i>
                 </button>
             </div>
@@ -86,22 +108,24 @@
 
     <main class="flex-grow container mx-auto px-4 py-6">
         <!-- 日志选择器 -->
-        <section class="bg-white rounded-xl shadow-lg p-6 mb-6 transition-all duration-300 hover:shadow-xl">
-            <h2 class="text-xl font-bold mb-4 flex items-center">
-                <i class="fa fa-file-text-o text-primary mr-2"></i>
+        <section class="bg-white rounded-xl shadow-soft p-6 mb-6 transition-all duration-300 card-hover animate-slide-up">
+            <h2 class="text-xl font-bold mb-6 flex items-center text-dark">
+                <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                    <i class="fa fa-file-text-o text-primary"></i>
+                </div>
                 日志选择
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">分析模式</label>
-                    <select id="analysis-mode" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">分析模式</label>
+                    <select id="analysis-mode" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
                         <option value="local">本地分析</option>
                         <option value="server">服务器分析</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">范围类型</label>
-                    <select id="range-type" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">范围类型</label>
+                    <select id="range-type" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
                         <option value="single-month">单月</option>
                         <option value="full-year">全年</option>
                         <option value="partial-months">多月选择</option>
@@ -110,155 +134,336 @@
                         <option value="all-logs">全部日志</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">年份</label>
-                    <select id="year-select" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"></select>
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">年份</label>
+                    <select id="year-select" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300"></select>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">月份</label>
-                    <select id="month-select" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"></select>
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">月份</label>
+                    <select id="month-select" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300"></select>
                 </div>
             </div>
             
             <!-- 多选月份容器 -->
-            <div id="multi-month-container" class="mb-4 hidden">
-                <label class="block text-sm font-medium text-gray-700 mb-2">选择月份</label>
-                <div id="month-checkboxes" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
+            <div id="multi-month-container" class="mb-6 hidden">
+                <label class="block text-sm font-medium text-gray-700 mb-3">选择月份</label>
+                <div id="month-checkboxes" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3"></div>
             </div>
             
             <!-- 日期范围选择容器 -->
-            <div id="date-range-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 hidden">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">开始日期</label>
-                    <input type="date" id="start-date" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+            <div id="date-range-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 hidden">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">开始日期</label>
+                    <input type="date" id="start-date" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">结束日期</label>
-                    <input type="date" id="end-date" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">结束日期</label>
+                    <input type="date" id="end-date" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
                 </div>
             </div>
             
             <!-- 自定义日期选择容器 -->
-            <div id="custom-dates-container" class="mb-4 hidden">
-                <label class="block text-sm font-medium text-gray-700 mb-2">选择日期</label>
-                <div id="date-checkboxes" class="grid grid-cols-7 gap-1"></div>
+            <div id="custom-dates-container" class="mb-6 hidden">
+                <label class="block text-sm font-medium text-gray-700 mb-3">选择日期</label>
+                <div id="date-checkboxes" class="grid grid-cols-7 gap-2"></div>
             </div>
             
-            <div class="flex flex-wrap gap-2 mb-4">
-                <div class="flex items-center px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-                    <i class="fa fa-folder-o mr-1"></i>
+            <div class="flex flex-wrap gap-3 mb-6">
+                <div class="flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    <i class="fa fa-folder-o mr-2"></i>
                     <span id="current-path">2603</span>
                 </div>
             </div>
-            <div class="flex justify-end gap-3">
-                <button id="clear-cache-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 focus:ring-4 focus:ring-gray-300 flex items-center text-sm">
+            <div class="flex justify-end gap-4">
+                <button id="clear-cache-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-gray-300 flex items-center text-sm">
                     <i class="fa fa-trash mr-2"></i> 清除缓存
                 </button>
-                <button id="analyze-btn" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-primary/30 flex items-center">
+                <button id="analyze-btn" class="bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-primary/30 flex items-center">
                     <i class="fa fa-search mr-2"></i> 分析日志
                 </button>
             </div>
         </section>
 
         <!-- 加载指示器 -->
-        <section id="loading-indicator" class="hidden bg-white/80 backdrop-blur-sm fixed inset-0 flex items-center justify-center z-50">
-            <div class="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center w-96">
-                <div class="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-4"></div>
-                <h3 class="text-lg font-medium text-gray-700 mb-2">正在分析日志文件...</h3>
-                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-                    <div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+        <section id="loading-indicator" class="hidden bg-black/50 backdrop-blur-sm fixed inset-0 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl shadow-strong p-8 flex flex-col items-center w-96 animate-scale-in">
+                <div class="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-6"></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">正在分析日志文件...</h3>
+                <div class="w-full bg-gray-100 rounded-full h-3 mb-3">
+                    <div id="progress-bar" class="bg-primary h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <p id="progress-text" class="text-sm text-gray-500">0% 完成</p>
+                <p id="progress-text" class="text-sm font-medium text-gray-600 mb-2">0% 完成</p>
                 <p id="current-file" class="text-sm font-medium text-gray-700 mt-2 truncate w-full text-center">准备开始...</p>
-                <p class="text-sm text-gray-500 mt-1">请稍候，这可能需要一些时间...</p>
+                <p class="text-sm text-gray-500 mt-3">请稍候，这可能需要一些时间...</p>
             </div>
         </section>
 
         <!-- 分析结果区域 -->
         <section id="results-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-                    <h2 class="text-xl font-bold mb-4 flex items-center"><i class="fa fa-bar-chart text-primary mr-2"></i>统计概览</h2>
+                <div class="bg-white rounded-xl shadow-soft p-6 mb-6 card-hover animate-slide-up">
+                    <h2 class="text-lg md:text-xl font-bold mb-6 flex items-center text-dark">
+                        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                            <i class="fa fa-bar-chart text-primary"></i>
+                        </div>
+                        统计概览
+                    </h2>
                     <div class="space-y-4">
-                        <div class="bg-gray-50 rounded-lg p-4"><div class="flex justify-between items-start"><div><p class="text-sm text-gray-500">总连接次数</p><p class="text-2xl font-bold" id="total-connections">0</p></div><div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><i class="fa fa-exchange text-primary"></i></div></div></div>
-                        <div class="bg-gray-50 rounded-lg p-4"><div class="flex justify-between items-start"><div><p class="text-sm text-gray-500">唯一IP数量</p><p class="text-2xl font-bold" id="unique-ips">0</p></div><div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center"><i class="fa fa-users text-secondary"></i></div></div></div>
-                        <div class="bg-gray-50 rounded-lg p-4"><div class="flex justify-between items-start"><div><p class="text-sm text-gray-500">总传输数据</p><p class="text-2xl font-bold" id="total-data">0 MB</p></div><div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center"><i class="fa fa-database text-accent"></i></div></div></div>
-                        <div class="bg-gray-50 rounded-lg p-4"><div class="flex justify-between items-start"><div><p class="text-sm text-gray-500">平均连接时长</p><p class="text-2xl font-bold" id="avg-duration">0 分钟</p></div><div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><i class="fa fa-clock-o text-primary"></i></div></div></div>
+                        <div class="bg-gray-50 rounded-lg p-4 md:p-5 transition-all duration-300 hover:shadow-soft">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">总连接次数</p>
+                                    <p class="text-xl md:text-2xl font-bold" id="total-connections">0</p>
+                                </div>
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                    <i class="fa fa-exchange text-primary text-lg md:text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 md:p-5 transition-all duration-300 hover:shadow-soft">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">唯一IP数量</p>
+                                    <p class="text-xl md:text-2xl font-bold" id="unique-ips">0</p>
+                                </div>
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+                                    <i class="fa fa-users text-secondary text-lg md:text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 md:p-5 transition-all duration-300 hover:shadow-soft">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">总传输数据</p>
+                                    <p class="text-xl md:text-2xl font-bold" id="total-data">0 MB</p>
+                                </div>
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <i class="fa fa-database text-accent text-lg md:text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 md:p-5 transition-all duration-300 hover:shadow-soft">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-500">平均连接时长</p>
+                                    <p class="text-xl md:text-2xl font-bold" id="avg-duration">0 分钟</p>
+                                </div>
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                    <i class="fa fa-clock-o text-primary text-lg md:text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="protocol-chart-container" class="bg-white rounded-xl shadow-lg p-6 mb-6 cursor-pointer hover:shadow-xl transition-shadow duration-300"><h2 class="text-xl font-bold mb-4 flex items-center"><i class="fa fa-exchange text-primary mr-2"></i>VPN协议分布</h2><div class="h-64"><canvas id="protocol-chart"></canvas></div></div>
-                <div id="time-chart-container" class="bg-white rounded-xl shadow-lg p-6 mb-6 cursor-pointer hover:shadow-xl transition-shadow duration-300"><h2 class="text-xl font-bold mb-4 flex items-center"><i class="fa fa-clock-o text-primary mr-2"></i>连接时段分布</h2><div class="h-64"><canvas id="time-chart"></canvas></div></div>
-                <div id="daily-chart-container" class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow duration-300"><h2 class="text-xl font-bold mb-4 flex items-center"><i class="fa fa-line-chart text-primary mr-2"></i>每日连接数、使用时长与数据使用量</h2><div class="h-64"><canvas id="daily-chart"></canvas></div></div>
+                <div id="protocol-chart-container" class="bg-white rounded-xl shadow-soft p-4 md:p-6 mb-6 cursor-pointer card-hover transition-all duration-300">
+                    <h2 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center text-dark">
+                        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                            <i class="fa fa-exchange text-primary"></i>
+                        </div>
+                        VPN协议分布
+                    </h2>
+                    <div class="h-56 md:h-64">
+                        <canvas id="protocol-chart"></canvas>
+                    </div>
+                </div>
+                <div id="time-chart-container" class="bg-white rounded-xl shadow-soft p-4 md:p-6 mb-6 cursor-pointer card-hover transition-all duration-300">
+                    <h2 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center text-dark">
+                        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                            <i class="fa fa-clock-o text-primary"></i>
+                        </div>
+                        连接时段分布
+                    </h2>
+                    <div class="h-56 md:h-64">
+                        <canvas id="time-chart"></canvas>
+                    </div>
+                </div>
+                <div id="daily-chart-container" class="bg-white rounded-xl shadow-soft p-4 md:p-6 cursor-pointer card-hover transition-all duration-300">
+                    <h2 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center text-dark">
+                        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                            <i class="fa fa-line-chart text-primary"></i>
+                        </div>
+                        每日连接数、使用时长与数据使用量
+                    </h2>
+                    <div class="h-56 md:h-64">
+                        <canvas id="daily-chart"></canvas>
+                    </div>
+                </div>
             </div>
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-                    <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
-                        <h2 class="text-xl font-bold flex items-center"><i class="fa fa-list-alt text-primary mr-2"></i>IP连接统计</h2>
-                        <div class="flex items-center space-x-2">
-                            <div class="relative"><input type="text" id="ip-search" placeholder="搜索IP地址..." class="pl-8 pr-4 py-2 border border-gray-200 rounded-lg"><i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i></div>
-                            <select id="sort-select" class="px-4 py-2 border border-gray-200 rounded-lg"><option value="connections">连接次数</option><option value="duration">连接时长</option><option value="data">传输数据</option></select>
+                <div class="bg-white rounded-xl shadow-soft p-4 md:p-6 mb-6 card-hover animate-slide-up">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6 gap-4">
+                        <h2 class="text-lg md:text-xl font-bold flex items-center text-dark">
+                            <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                                <i class="fa fa-list-alt text-primary"></i>
+                            </div>
+                            IP连接统计
+                        </h2>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="text" id="ip-search" placeholder="搜索IP地址..." class="w-full sm:w-64 pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
+                                <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                            <select id="sort-select" class="w-full sm:w-auto px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
+                                <option value="connections">连接次数</option>
+                                <option value="duration">连接时长</option>
+                                <option value="data">传输数据</option>
+                            </select>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">IP地址</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">连接次数</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">总时长</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">传输数据</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">常用VPN协议</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">详情</th></tr></thead>
-                            <tbody id="ip-stats-table" class="bg-white divide-y divide-gray-200"><tr class="animate-pulse-slow"><td colspan="6" class="px-6 py-12 text-center text-gray-500"><div class="flex flex-col items-center"><i class="fa fa-file-text-o text-4xl mb-3 text-gray-300"></i><p>点击"分析日志"按钮开始分析</p></div></td></tr></tbody>
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP地址</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">连接次数</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">总时长</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">传输数据</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">常用VPN协议</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">详情</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ip-stats-table" class="bg-white divide-y divide-gray-200">
+                                <tr class="animate-pulse-slow">
+                                    <td colspan="6" class="px-4 md:px-6 py-12 text-center text-gray-500">
+                                        <div class="flex flex-col items-center">
+                                            <i class="fa fa-file-text-o text-4xl mb-3 text-gray-300"></i>
+                                            <p>点击"分析日志"按钮开始分析</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
-                    <div class="flex justify-between items-center mt-4"><p class="text-sm text-gray-500">显示 <span id="shown-ips">0</span> 条记录</p><div class="flex space-x-2"><button id="prev-page" class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>上一页</button><button id="next-page" class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>下一页</button></div></div>
+                    <div class="flex justify-between items-center mt-4 md:mt-6">
+                        <p class="text-sm text-gray-500">显示 <span id="shown-ips">0</span> 条记录</p>
+                        <div class="flex space-x-3">
+                            <button id="prev-page" class="px-3 md:px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300" disabled>上一页</button>
+                            <button id="next-page" class="px-3 md:px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300" disabled>下一页</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- IP详情模态框 -->
                 <div id="ip-details-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col animate-fade-in">
-                        <div class="p-6 border-b border-gray-200 flex justify-between items-center"><h3 class="text-xl font-bold" id="modal-title">IP详情</h3><button id="close-modal" class="text-gray-400 hover:text-gray-600"><i class="fa fa-times text-xl"></i></button></div>
-                        <div class="flex-grow overflow-y-auto p-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"><div><p class="text-sm text-gray-500">IP地址</p><p class="text-xl font-bold" id="detail-ip">-</p></div><div><p class="text-sm text-gray-500">连接次数</p><p class="text-xl font-bold" id="detail-connections">-</p></div><div><p class="text-sm text-gray-500">总连接时长</p><p class="text-xl font-bold" id="detail-duration">-</p></div><div><p class="text-sm text-gray-500">总传输数据</p><p class="text-xl font-bold" id="detail-data">-</p></div></div>
-                            <h4 class="text-lg font-semibold mb-3">连接记录</h4>
-                            <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">开始时间</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">结束时间</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">持续时间</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">VPN协议</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">传输数据</th></tr></thead><tbody id="connection-details" class="bg-white divide-y divide-gray-200"></tbody></table></div>
+                    <div class="bg-white rounded-2xl shadow-strong w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
+                        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-dark" id="modal-title">IP详情</h3>
+                            <button id="close-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
+                                <i class="fa fa-times text-gray-600 text-xl"></i>
+                            </button>
                         </div>
-                        <div class="p-6 border-t border-gray-200 flex justify-end"><button id="close-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg">关闭</button></div>
+                        <div class="flex-grow overflow-y-auto p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-500">IP地址</p>
+                                    <p class="text-xl font-bold" id="detail-ip">-</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-500">连接次数</p>
+                                    <p class="text-xl font-bold" id="detail-connections">-</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-500">总连接时长</p>
+                                    <p class="text-xl font-bold" id="detail-duration">-</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-500">总传输数据</p>
+                                    <p class="text-xl font-bold" id="detail-data">-</p>
+                                </div>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-4 text-dark">连接记录</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">开始时间</th>
+                                            <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">结束时间</th>
+                                            <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">持续时间</th>
+                                            <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">VPN协议</th>
+                                            <th class="px-4 md:px-6 py-3 md:py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">传输数据</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="connection-details" class="bg-white divide-y divide-gray-200"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-gray-200 flex justify-end">
+                            <button id="close-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2.5 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">关闭</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- 每日连接数与使用时长对比放大模态框 -->
                 <div id="daily-chart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-xl shadow-xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-fade-in">
-                        <div class="p-6 border-b border-gray-200 flex justify-between items-center"><h3 class="text-xl font-bold">每日连接数、使用时长与数据使用量</h3><button id="close-daily-modal" class="text-gray-400 hover:text-gray-600"><i class="fa fa-times text-xl"></i></button></div>
+                    <div class="bg-white rounded-2xl shadow-strong w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
+                        <div class="p-6 border-b border-gray-200 flex flex-wrap justify-between items-center gap-4">
+                            <h3 class="text-xl font-bold text-dark">每日连接数、使用时长与数据使用量</h3>
+                            <div class="flex items-center space-x-2">
+                                <label class="text-sm font-medium text-gray-700">图表类型：</label>
+                                <select id="chart-type-select" class="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300 text-sm">
+                                    <option value="bar">柱状图</option>
+                                    <option value="line">折线图</option>
+                                </select>
+                            </div>
+                            <button id="close-daily-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
+                                <i class="fa fa-times text-gray-600 text-xl"></i>
+                            </button>
+                        </div>
                         <div class="flex-grow p-6">
                             <div class="h-[600px]"><canvas id="daily-chart-large"></canvas></div>
                         </div>
-                        <div class="p-6 border-t border-gray-200 flex justify-end"><button id="close-daily-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg">关闭</button></div>
+                        <div class="p-6 border-t border-gray-200 flex justify-end">
+                            <button id="close-daily-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2.5 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">关闭</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- VPN协议分布放大模态框 -->
                 <div id="protocol-chart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col animate-fade-in">
-                        <div class="p-6 border-b border-gray-200 flex justify-between items-center"><h3 class="text-xl font-bold">VPN协议分布</h3><button id="close-protocol-modal" class="text-gray-400 hover:text-gray-600"><i class="fa fa-times text-xl"></i></button></div>
+                    <div class="bg-white rounded-2xl shadow-strong w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
+                        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-dark">VPN协议分布</h3>
+                            <button id="close-protocol-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
+                                <i class="fa fa-times text-gray-600 text-xl"></i>
+                            </button>
+                        </div>
                         <div class="flex-grow p-6">
                             <div class="h-[500px]"><canvas id="protocol-chart-large"></canvas></div>
                         </div>
-                        <div class="p-6 border-t border-gray-200 flex justify-end"><button id="close-protocol-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg">关闭</button></div>
+                        <div class="p-6 border-t border-gray-200 flex justify-end">
+                            <button id="close-protocol-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2.5 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">关闭</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- 连接时段分布放大模态框 -->
                 <div id="time-chart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-xl shadow-xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-fade-in">
-                        <div class="p-6 border-b border-gray-200 flex justify-between items-center"><h3 class="text-xl font-bold">连接时段分布</h3><button id="close-time-modal" class="text-gray-400 hover:text-gray-600"><i class="fa fa-times text-xl"></i></button></div>
+                    <div class="bg-white rounded-2xl shadow-strong w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
+                        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-dark">连接时段分布</h3>
+                            <button id="close-time-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
+                                <i class="fa fa-times text-gray-600 text-xl"></i>
+                            </button>
+                        </div>
                         <div class="flex-grow p-6">
                             <div class="h-[500px]"><canvas id="time-chart-large"></canvas></div>
                         </div>
-                        <div class="p-6 border-t border-gray-200 flex justify-end"><button id="close-time-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg">关闭</button></div>
+                        <div class="p-6 border-t border-gray-200 flex justify-end">
+                            <button id="close-time-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2.5 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">关闭</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 py-6"><div class="container mx-auto px-4 text-center text-gray-500 text-sm"><p>© 2025 VPN日志分析工具 | Yuebi</p></div></footer>
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p class="mb-2">© 2026 VPN日志分析工具 | Yuebi</p>
+            <p class="text-xs text-gray-400">提供直观、高效的VPN日志分析功能</p>
+        </div>
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js" defer></script>
     <script>
         // ======================== 工具函数 ========================
         const formatTwoDigits = (num) => num.toString().padStart(2, '0');
@@ -294,12 +499,37 @@
             notification.innerHTML = `<div class="flex items-center"><div class="flex-shrink-0"><i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} text-xl"></i></div><div class="ml-3"><p class="text-sm font-medium">${message}</p></div><button class="ml-auto focus:outline-none"><i class="fa fa-times text-gray-400 hover:text-gray-600"></i></button></div>`;
             document.body.appendChild(notification);
             setTimeout(() => notification.classList.remove('translate-x-full'), 100);
-            notification.querySelector('button').onclick = () => { notification.classList.add('translate-x-full'); setTimeout(() => notification.remove(), 300); };
-            setTimeout(() => { if (notification.parentNode) { notification.classList.add('translate-x-full'); setTimeout(() => notification.remove(), 300); } }, 5000);
+            const closeBtn = notification.querySelector('button');
+            if (closeBtn) {
+                closeBtn.onclick = () => {
+                    notification.classList.add('translate-x-full');
+                    setTimeout(() => notification.remove(), 300);
+                };
+            }
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.classList.add('translate-x-full');
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
         }
 
         // ======================== 检测存在的月份和年份 ========================
         async function detectExistingMonths() {
+            try {
+                // 从 existing-months.json 文件读取存在的月份
+                const res = await fetch('analysis/existing-months.json');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Array.isArray(data.months) && data.months.length > 0) {
+                        return data.months.sort();
+                    }
+                }
+            } catch(e) {
+                console.warn('读取 existing-months.json 失败，使用回退方法检测月份:', e);
+            }
+            
+            // 回退方法：通过尝试访问日志文件来检测月份
             const existing = new Set();
             const testDays = ['01', '15']; // 轻量检测
             // 检测所有可能的年份（从目录结构推断）
@@ -640,8 +870,11 @@
             document.getElementById('avg-duration').textContent = logData.avgDuration.toFixed(1) + ' 分钟';
         }
 
-        let protocolChart, protocolChartLarge, timeChart, timeChartLarge, dailyChart, dailyChartLarge, allIPStats = [], filteredIPStats = [], currentPage = 1;
+        let protocolChart, protocolChartLarge, timeChart, timeChartLarge, dailyChart, dailyChartLarge, allIPStats = [], filteredIPStats = [], currentPage = 1, currentChartType = 'bar', currentLogData = null;
         function updateCharts(logData) {
+            // 保存当前日志数据
+            currentLogData = logData;
+            
             protocolChart.data.labels = Object.keys(logData.vpnProtocolStats);
             protocolChart.data.datasets[0].data = Object.values(logData.vpnProtocolStats);
             protocolChart.update();
@@ -676,13 +909,14 @@
             const start = (currentPage-1)*10;
             const end = Math.min(start+10, filteredIPStats.length);
             tbody.innerHTML = '';
-            if (filteredIPStats.length === 0) { tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-12 text-center text-gray-500">无数据</td></tr>`; return; }
+            if (filteredIPStats.length === 0) { tbody.innerHTML = `<tr><td colspan="6" class="px-4 md:px-6 py-12 text-center text-gray-500">无数据</td></tr>`; return; }
             const formatSize = (b) => b<1024 ? b+'B' : b<1048576 ? (b/1024).toFixed(2)+'KB' : (b/1048576).toFixed(2)+'MB';
             const formatDur = (min) => min<60 ? min.toFixed(1)+'分钟' : Math.floor(min/60)+'小时'+(min%60).toFixed(1)+'分钟';
             for (let i=start; i<end; i++) {
                 const d = filteredIPStats[i];
                 const row = tbody.insertRow();
-                row.innerHTML = `<td class="px-6 py-4"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-6 py-4">${d.connections}</td><td class="px-6 py-4">${formatDur(d.totalDuration)}</td><td class="px-6 py-4">${formatSize(d.totalData)}</td><td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-6 py-4"><button class="text-primary view-details" data-ip="${d.ip}">查看详情</button></td>`;
+                row.className = 'transition-all duration-300 hover:bg-gray-50';
+                row.innerHTML = `<td class="px-4 md:px-6 py-4"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDur(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button></td>`;
             }
             document.querySelectorAll('.view-details').forEach(btn => btn.onclick = () => showIPDetails(btn.dataset.ip));
             document.getElementById('shown-ips').textContent = filteredIPStats.length;
@@ -703,7 +937,8 @@
             connTbody.innerHTML = '';
             data.sessions.sort((a,b)=>new Date(a.startTime)-new Date(b.startTime)).forEach(s => {
                 const row = connTbody.insertRow();
-                row.innerHTML = `<td class="px-6 py-4">${s.startTime}</td><td class="px-6 py-4">${s.endTime || '-'}</td><td class="px-6 py-4">${formatDur(s.duration)}</td><td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${s.vpnProtocol}</span></td><td class="px-6 py-4">${formatSize(s.inputData+s.outputData)}</td>`;
+                row.className = 'transition-all duration-300 hover:bg-gray-50';
+                row.innerHTML = `<td class="px-4 md:px-6 py-4">${s.startTime}</td><td class="px-4 md:px-6 py-4">${s.endTime || '-'}</td><td class="px-4 md:px-6 py-4">${formatDur(s.duration)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${s.vpnProtocol}</span></td><td class="px-4 md:px-6 py-4">${formatSize(s.inputData+s.outputData)}</td>`;
             });
             document.getElementById('ip-details-modal').classList.remove('hidden');
         }
@@ -729,130 +964,94 @@
                 type: 'bar', data: { labels: Array.from({length:24},(_,i)=>i+':00'), datasets: [{ label: '连接次数', data: Array(24).fill(0), backgroundColor: '#165DFF' }] },
                 options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
             });
-            dailyChart = new Chart(document.getElementById('daily-chart'), {
-                type: 'bar', 
-                data: { 
-                    labels: [], 
-                    datasets: [
-                        { 
-                            label: '连接次数', 
-                            data: [], 
-                            backgroundColor: '#165DFF',
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: '使用时长（分钟）',
-                            data: [], 
-                            backgroundColor: '#0FC6C2',
-                            yAxisID: 'y1'
-                        },
-                        {
-                            label: '数据使用量（MB）',
-                            data: [], 
-                            backgroundColor: '#FF7D00',
-                            yAxisID: 'y2'
-                        }
-                    ] 
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    scales: { 
-                        y: { 
-                            beginAtZero: true, 
-                            position: 'left',
-                            title: { 
-                                display: true, 
-                                text: '连接次数'
-                            }
-                        },
-                        y1: {
-                            beginAtZero: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: '使用时长（分钟）'
+            // 初始化图表
+            function createDailyChart(canvasId, type) {
+                return new Chart(document.getElementById(canvasId), {
+                    type: type, 
+                    data: { 
+                        labels: [], 
+                        datasets: [
+                            { 
+                                label: '连接次数', 
+                                data: [], 
+                                backgroundColor: '#165DFF',
+                                borderColor: '#165DFF',
+                                borderWidth: 2,
+                                yAxisID: 'y'
                             },
-                            grid: {
-                                drawOnChartArea: false
-                            }
-                        },
-                        y2: {
-                            beginAtZero: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: '数据使用量（MB）'
+                            { 
+                                label: '使用时长（分钟）',
+                                data: [], 
+                                backgroundColor: '#0FC6C2',
+                                borderColor: '#0FC6C2',
+                                borderWidth: 2,
+                                yAxisID: 'y1'
                             },
-                            grid: {
-                                drawOnChartArea: false
+                            { 
+                                label: '数据使用量（MB）',
+                                data: [], 
+                                backgroundColor: '#FF7D00',
+                                borderColor: '#FF7D00',
+                                borderWidth: 2,
+                                yAxisID: 'y2'
+                            }
+                        ] 
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        scales: { 
+                            y: { 
+                                beginAtZero: true, 
+                                position: 'left',
+                                title: { 
+                                    display: true, 
+                                    text: '连接次数'
+                                }
+                            },
+                            y1: {
+                                beginAtZero: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: '使用时长（分钟）'
+                                },
+                                grid: {
+                                    drawOnChartArea: false
+                                }
+                            },
+                            y2: {
+                                beginAtZero: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: '数据使用量（MB）'
+                                },
+                                grid: {
+                                    drawOnChartArea: false
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
             
-            // 初始化大图表
-            dailyChartLarge = new Chart(document.getElementById('daily-chart-large'), {
-                type: 'bar', 
-                data: { 
-                    labels: [], 
-                    datasets: [
-                        { 
-                            label: '连接次数', 
-                            data: [], 
-                            backgroundColor: '#165DFF',
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: '使用时长（分钟）',
-                            data: [], 
-                            backgroundColor: '#0FC6C2',
-                            yAxisID: 'y1'
-                        },
-                        {
-                            label: '数据使用量（MB）',
-                            data: [], 
-                            backgroundColor: '#FF7D00',
-                            yAxisID: 'y2'
-                        }
-                    ] 
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    scales: { 
-                        y: { 
-                            beginAtZero: true, 
-                            position: 'left',
-                            title: { 
-                                display: true, 
-                                text: '连接次数'
-                            }
-                        },
-                        y1: {
-                            beginAtZero: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: '使用时长（分钟）'
-                            },
-                            grid: {
-                                drawOnChartArea: false
-                            }
-                        },
-                        y2: {
-                            beginAtZero: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: '数据使用量（MB）'
-                            },
-                            grid: {
-                                drawOnChartArea: false
-                            }
-                        }
-                    }
+            dailyChart = createDailyChart('daily-chart', currentChartType);
+            dailyChartLarge = createDailyChart('daily-chart-large', currentChartType);
+            
+
+            
+            // 图表类型选择器事件
+            document.getElementById('chart-type-select').addEventListener('change', function() {
+                currentChartType = this.value;
+                // 重新创建图表
+                dailyChart.destroy();
+                dailyChartLarge.destroy();
+                dailyChart = createDailyChart('daily-chart', currentChartType);
+                dailyChartLarge = createDailyChart('daily-chart-large', currentChartType);
+                // 更新图表数据
+                if (currentLogData) {
+                    updateCharts(currentLogData);
                 }
             });
 
