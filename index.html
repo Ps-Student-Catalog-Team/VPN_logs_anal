@@ -1167,6 +1167,7 @@
             
             const updateUIForRangeType = () => {
                 const rangeType = rangeTypeSelect.value;
+                const analysisMode = document.getElementById('analysis-mode').value;
                 const isSingleMonth = rangeType === 'single-month';
                 const isPartialMonths = rangeType === 'partial-months';
                 const isFullYear = rangeType === 'full-year';
@@ -1225,6 +1226,9 @@
                 updatePathDisplay();
             };
             
+            // 分析模式切换事件
+            document.getElementById('analysis-mode').addEventListener('change', updateUIForRangeType);
+            
             rangeTypeSelect.addEventListener('change', updateUIForRangeType);
             yearSelect.addEventListener('change', () => { 
                 if (rangeTypeSelect.value !== 'all-logs') {
@@ -1275,32 +1279,234 @@
                     // 服务器分析模式 - 直接加载预生成的分析结果文件
                     try {
                         // 检查是否支持当前范围类型
-                        if (!['single-month', 'full-year', 'all-logs'].includes(rangeType)) {
-                            showNotification('服务器分析模式仅支持单月、单年与全部日志', 'error');
+                        if (!['single-month', 'full-year', 'all-logs', 'partial-months', 'date-range'].includes(rangeType)) {
+                            showNotification('服务器分析模式仅支持单月、单年、多月、日期范围与全部日志', 'error');
                             loadingDiv.classList.add('hidden');
                             return;
                         }
                         
-                        // 生成分析结果文件路径
-                        let analysisFile = '';
+                        let logData = { connections: 0, uniqueIps: 0, totalData: 0, totalDuration: 0, avgDuration: 0, ipStats: {}, vpnProtocolStats: {}, timeStats: Array(24).fill(0), dailyStats: {} };
                         
                         if (rangeType === 'single-month') {
-                            analysisFile = `analysis/${year}${month}.json`;
+                            // 单月模式
+                            const analysisFile = `analysis/${year}${month}.json`;
+                            currentFileSpan.textContent = `正在加载分析结果...`;
+                            const response = await fetch(analysisFile);
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            logData = await response.json();
                         } else if (rangeType === 'full-year') {
-                            analysisFile = `analysis/${year}.json`;
+                            // 全年模式
+                            const analysisFile = `analysis/${year}.json`;
+                            currentFileSpan.textContent = `正在加载分析结果...`;
+                            const response = await fetch(analysisFile);
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            logData = await response.json();
                         } else if (rangeType === 'all-logs') {
-                            analysisFile = 'analysis/all.json';
+                            // 全部日志模式
+                            const analysisFile = 'analysis/all.json';
+                            currentFileSpan.textContent = `正在加载分析结果...`;
+                            const response = await fetch(analysisFile);
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            logData = await response.json();
+                        } else if (rangeType === 'partial-months') {
+                            // 多月选择模式
+                            const selectedMonths = [];
+                            document.querySelectorAll('#month-checkboxes input:checked').forEach(checkbox => {
+                                const month = checkbox.value;
+                                selectedMonths.push(`${year}${month}`);
+                            });
+                            
+                            if (selectedMonths.length === 0) {
+                                showNotification('请至少选择一个月份', 'error');
+                                loadingDiv.classList.add('hidden');
+                                return;
+                            }
+                            
+                            currentFileSpan.textContent = `正在加载 ${selectedMonths.length} 个月份的分析结果...`;
+                            
+                            // 加载并合并多个月份的分析结果
+                            for (let i = 0; i < selectedMonths.length; i++) {
+                                const monthStr = selectedMonths[i];
+                                const analysisFile = `analysis/${monthStr}.json`;
+                                
+                                const response = await fetch(analysisFile);
+                                if (!response.ok) {
+                                    console.warn(`无法加载 ${monthStr} 的分析结果，跳过`);
+                                    continue;
+                                }
+                                
+                                const monthData = await response.json();
+                                
+                                // 合并结果
+                                logData.connections += monthData.connections;
+                                logData.totalData += monthData.totalData;
+                                logData.totalDuration += monthData.totalDuration;
+                                
+                                // 合并IP统计
+                                for (const [ip, stats] of Object.entries(monthData.ipStats)) {
+                                    if (!logData.ipStats[ip]) {
+                                        logData.ipStats[ip] = { 
+                                            connections: stats.connections, 
+                                            totalDuration: stats.totalDuration, 
+                                            totalData: stats.totalData, 
+                                            vpnProtocols: { ...stats.vpnProtocols },
+                                            sessions: stats.sessions || []
+                                        };
+                                    } else {
+                                        logData.ipStats[ip].connections += stats.connections;
+                                        logData.ipStats[ip].totalDuration += stats.totalDuration;
+                                        logData.ipStats[ip].totalData += stats.totalData;
+                                        
+                                        // 合并VPN协议统计
+                                        for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
+                                            logData.ipStats[ip].vpnProtocols[proto] = (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                                        }
+                                        
+                                        // 合并会话信息
+                                        if (stats.sessions && Array.isArray(stats.sessions)) {
+                                            logData.ipStats[ip].sessions = logData.ipStats[ip].sessions || [];
+                                            logData.ipStats[ip].sessions.push(...stats.sessions);
+                                        }
+                                    }
+                                }
+                                
+                                // 合并VPN协议统计
+                                for (const [proto, count] of Object.entries(monthData.vpnProtocolStats)) {
+                                    logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
+                                }
+                                
+                                // 合并时间统计
+                                for (let h = 0; h < 24; h++) {
+                                    logData.timeStats[h] += monthData.timeStats[h];
+                                }
+                                
+                                // 合并每日统计
+                                for (const [date, daily] of Object.entries(monthData.dailyStats)) {
+                                    if (!logData.dailyStats[date]) {
+                                        logData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData };
+                                    } else {
+                                        logData.dailyStats[date].connections += daily.connections;
+                                        logData.dailyStats[date].totalDuration += daily.totalDuration;
+                                        logData.dailyStats[date].totalData += daily.totalData;
+                                    }
+                                }
+                            }
+                            
+                            // 计算唯一IP数量和平均连接时长
+                            logData.uniqueIps = Object.keys(logData.ipStats).length;
+                            logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
+                        } else if (rangeType === 'date-range') {
+                            // 日期范围模式 - 基于月份的分析结果进行合并
+                            const startDate = document.getElementById('start-date').value;
+                            const endDate = document.getElementById('end-date').value;
+                            if (!startDate || !endDate) {
+                                showNotification('请选择开始和结束日期', 'error');
+                                loadingDiv.classList.add('hidden');
+                                return;
+                            }
+                            
+                            // 计算日期范围包含的月份
+                            const startYear = startDate.substring(2, 4);
+                            const startMonth = startDate.substring(5, 7);
+                            const endYear = endDate.substring(2, 4);
+                            const endMonth = endDate.substring(5, 7);
+                            
+                            const months = [];
+                            let currentYear = parseInt(startYear);
+                            let currentMonth = parseInt(startMonth);
+                            const endYearInt = parseInt(endYear);
+                            const endMonthInt = parseInt(endMonth);
+                            
+                            while (currentYear < endYearInt || (currentYear === endYearInt && currentMonth <= endMonthInt)) {
+                                const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
+                                months.push(monthStr);
+                                currentMonth++;
+                                if (currentMonth > 12) {
+                                    currentMonth = 1;
+                                    currentYear++;
+                                }
+                            }
+                            
+                            currentFileSpan.textContent = `正在加载 ${months.length} 个月份的分析结果...`;
+                            
+                            // 加载并合并多个月份的分析结果
+                            for (let i = 0; i < months.length; i++) {
+                                const monthStr = months[i];
+                                const analysisFile = `analysis/${monthStr}.json`;
+                                
+                                const response = await fetch(analysisFile);
+                                if (!response.ok) {
+                                    console.warn(`无法加载 ${monthStr} 的分析结果，跳过`);
+                                    continue;
+                                }
+                                
+                                const monthData = await response.json();
+                                
+                                // 合并结果
+                                logData.connections += monthData.connections;
+                                logData.totalData += monthData.totalData;
+                                logData.totalDuration += monthData.totalDuration;
+                                
+                                // 合并IP统计
+                                for (const [ip, stats] of Object.entries(monthData.ipStats)) {
+                                    if (!logData.ipStats[ip]) {
+                                        logData.ipStats[ip] = { 
+                                            connections: stats.connections, 
+                                            totalDuration: stats.totalDuration, 
+                                            totalData: stats.totalData, 
+                                            vpnProtocols: { ...stats.vpnProtocols },
+                                            sessions: stats.sessions || []
+                                        };
+                                    } else {
+                                        logData.ipStats[ip].connections += stats.connections;
+                                        logData.ipStats[ip].totalDuration += stats.totalDuration;
+                                        logData.ipStats[ip].totalData += stats.totalData;
+                                        
+                                        // 合并VPN协议统计
+                                        for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
+                                            logData.ipStats[ip].vpnProtocols[proto] = (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                                        }
+                                        
+                                        // 合并会话信息
+                                        if (stats.sessions && Array.isArray(stats.sessions)) {
+                                            logData.ipStats[ip].sessions = logData.ipStats[ip].sessions || [];
+                                            logData.ipStats[ip].sessions.push(...stats.sessions);
+                                        }
+                                    }
+                                }
+                                
+                                // 合并VPN协议统计
+                                for (const [proto, count] of Object.entries(monthData.vpnProtocolStats)) {
+                                    logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
+                                }
+                                
+                                // 合并时间统计
+                                for (let h = 0; h < 24; h++) {
+                                    logData.timeStats[h] += monthData.timeStats[h];
+                                }
+                                
+                                // 合并每日统计
+                                for (const [date, daily] of Object.entries(monthData.dailyStats)) {
+                                    if (!logData.dailyStats[date]) {
+                                        logData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData };
+                                    } else {
+                                        logData.dailyStats[date].connections += daily.connections;
+                                        logData.dailyStats[date].totalDuration += daily.totalDuration;
+                                        logData.dailyStats[date].totalData += daily.totalData;
+                                    }
+                                }
+                            }
+                            
+                            // 计算唯一IP数量和平均连接时长
+                            logData.uniqueIps = Object.keys(logData.ipStats).length;
+                            logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
                         }
-                        
-                        // 加载分析结果文件
-                        currentFileSpan.textContent = `正在加载分析结果...`;
-                        
-                        const response = await fetch(analysisFile);
-                        if (!response.ok) {
-                            throw new Error(`HTTP ${response.status}`);
-                        }
-                        
-                        const logData = await response.json();
                         
                         updateStats(logData);
                         allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections, totalDuration: st.totalDuration, totalData: st.totalData, mostUsedVPNProtocol: Object.entries(st.vpnProtocols).sort((a,b)=>b[1]-a[1])[0]?.[0] || '未知', sessions: st.sessions }));
