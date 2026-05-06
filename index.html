@@ -116,7 +116,7 @@
                 日志选择
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div class="space-y-2">
+                <div class="space-y-2" hidden>
                     <label class="block text-sm font-medium text-gray-700">分析模式</label>
                     <select id="analysis-mode" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
                         <option value="local">本地分析</option>
@@ -1167,7 +1167,7 @@
             
             const updateUIForRangeType = () => {
                 const rangeType = rangeTypeSelect.value;
-                const analysisMode = document.getElementById('analysis-mode').value;
+                const analysisMode = 'server'; // document.getElementById('analysis-mode').value;
                 const isSingleMonth = rangeType === 'single-month';
                 const isPartialMonths = rangeType === 'partial-months';
                 const isFullYear = rangeType === 'full-year';
@@ -1515,7 +1515,7 @@
                         renderIPStatsTable();
                         updateCharts(logData);
                         loadingDiv.classList.add('hidden');
-                        showNotification('✅ 服务器分析完成', 'success');
+                        showNotification('服务器分析完成', 'success');
                     } catch (error) {
                         console.error('服务器分析失败:', error);
                         showNotification(`服务器分析失败: ${error.message}`, 'error');
