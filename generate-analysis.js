@@ -1,42 +1,276 @@
 const fs = require('fs');
 const path = require('path');
 
+// ==================== 配置部分 ====================
+const CONFIG = {
+    // 是否保存session详细信息（true时会占用大量内存）
+    storeSessions: false,
+    // 时区（UTC 或 local）
+    timezone: 'local',
+    // 并行处理月份数
+    parallelMonths: 10,
+    // Markdown文件缓冲区大小（字节）
+    markdownBufferSize: 64 * 1024 // 64KB
+};
+
+// ==================== 预编译的正则表达式 ====================
+const REGEX = {
+    // 日期标题
+    dateTitle: /## vpn_20(\d{6})\.log/,
+    // 表格行（非标题行和分隔线）
+    tableLine: /^\|/,
+    // 连接建立
+    connEstablished: /连接 "(CID-\d+)" 已建立/,
+    // IP地址
+    ipAddress: /IP 地址[:：] *(\d+\.\d+\.\d+\.\d+)/,
+    // 会话创建
+    sessionCreate: /连接 "(CID-\d+)": 已创建新会话 "(SID-[^"]+)"/,
+    // 协议信息
+    protocol: /物理底层协议："([^"]+)"/,
+    // 会话结束
+    sessionEnd: /会话 "(SID-[^"]+)": 会话已结束。统计信息如下: 总输出数据大小: (\d+) 字节，总输入数据大小: (\d+) 字节/,
+    // 数字提取
+    number: /([\d.]+)/
+};
+
+// ==================== 工具函数 ====================
+
+/**
+ * 合并日志数据
+ * @param {Object} targetData - 目标数据对象
+ * @param {Object} sourceData - 源数据对象
+ * @param {Boolean} storeSessions - 是否保存session信息
+ */
+function mergeLogData(targetData, sourceData, storeSessions = CONFIG.storeSessions) {
+    targetData.connections += sourceData.connections;
+    targetData.totalData += sourceData.totalData;
+    targetData.totalDuration += sourceData.totalDuration;
+    
+    // 合并IP统计
+    for (const [ip, stats] of Object.entries(sourceData.ipStats)) {
+        if (!targetData.ipStats[ip]) {
+            targetData.ipStats[ip] = {
+                connections: stats.connections,
+                totalDuration: stats.totalDuration,
+                totalData: stats.totalData,
+                vpnProtocols: { ...stats.vpnProtocols },
+                sessions: storeSessions && stats.sessions ? [...stats.sessions] : []
+            };
+        } else {
+            targetData.ipStats[ip].connections += stats.connections;
+            targetData.ipStats[ip].totalDuration += stats.totalDuration;
+            targetData.ipStats[ip].totalData += stats.totalData;
+            
+            // 合并VPN协议统计
+            for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
+                targetData.ipStats[ip].vpnProtocols[proto] = 
+                    (targetData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+            }
+            
+            // 合并会话信息
+            if (storeSessions && stats.sessions && Array.isArray(stats.sessions)) {
+                targetData.ipStats[ip].sessions.push(...stats.sessions);
+            }
+        }
+    }
+    
+    // 合并VPN协议统计
+    for (const [proto, count] of Object.entries(sourceData.vpnProtocolStats)) {
+        targetData.vpnProtocolStats[proto] = (targetData.vpnProtocolStats[proto] || 0) + count;
+    }
+    
+    // 合并时间统计
+    for (let h = 0; h < 24; h++) {
+        targetData.timeStats[h] += sourceData.timeStats[h];
+    }
+    
+    // 合并每日统计
+    for (const [date, daily] of Object.entries(sourceData.dailyStats)) {
+        if (!targetData.dailyStats[date]) {
+            targetData.dailyStats[date] = {
+                connections: daily.connections,
+                totalDuration: daily.totalDuration,
+                totalData: daily.totalData
+            };
+        } else {
+            targetData.dailyStats[date].connections += daily.connections;
+            targetData.dailyStats[date].totalDuration += daily.totalDuration;
+            targetData.dailyStats[date].totalData += daily.totalData;
+        }
+    }
+}
+
+/**
+ * 初始化空的日志数据对象
+ */
+function createEmptyLogData() {
+    return {
+        connections: 0,
+        uniqueIps: 0,
+        totalData: 0,
+        totalDuration: 0,
+        avgDuration: 0,
+        ipStats: {},
+        vpnProtocolStats: {},
+        timeStats: Array(24).fill(0),
+        dailyStats: {}
+    };
+}
+
+/**
+ * 完成日志数据计算
+ */
+function finalizeLogData(logData) {
+    logData.uniqueIps = Object.keys(logData.ipStats).length;
+    logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
+}
+
+/**
+ * 将时间戳应用时区转换
+ * @param {string} dateStr - 日期字符串（YYYY-MM-DD）
+ * @returns {Date} - 转换后的日期
+ */
+function applyTimezone(dateStr) {
+    if (CONFIG.timezone === 'local') {
+        return new Date(dateStr + 'T00:00:00');
+    } else if (CONFIG.timezone === 'UTC') {
+        return new Date(dateStr + 'T00:00:00Z');
+    }
+    return new Date(dateStr + 'T00:00:00');
+}
+
+/**
+ * 解析日期时间字符串并应用时区
+ * @param {string} dateTimeStr - 日期时间字符串（YYYY-MM-DD HH:MM:SS）
+ * @returns {Date} - 转换后的日期
+ */
+function parseDateTime(dateTimeStr) {
+    if (CONFIG.timezone === 'local') {
+        return new Date(dateTimeStr.replace(' ', 'T'));
+    } else if (CONFIG.timezone === 'UTC') {
+        return new Date(dateTimeStr.replace(' ', 'T') + 'Z');
+    }
+    return new Date(dateTimeStr.replace(' ', 'T'));
+}
+
 // 分析日志文件的函数
 async function analyzeLogFile(filePath) {
     try {
-        const logData = {
-            connections: 0,
-            uniqueIps: 0,
-            totalData: 0,
-            totalDuration: 0,
-            avgDuration: 0,
-            ipStats: {},
-            vpnProtocolStats: {},
-            timeStats: Array(24).fill(0),
-            dailyStats: {}
-        };
+        const logData = createEmptyLogData();
         
         // 检查文件扩展名
         if (filePath.endsWith('.md')) {
-            // 解析 Markdown 文件
-            const data = fs.readFileSync(filePath, 'utf8');
-            const lines = data.split('\n');
+            // 使用流式读取解析 Markdown 文件
+            const readStream = fs.createReadStream(filePath, {
+                encoding: 'utf8',
+                highWaterMark: CONFIG.markdownBufferSize
+            });
+            
+            let buffer = '';
             let currentDate = null;
             
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i].trim();
+            for await (const chunk of readStream) {
+                buffer += chunk;
+                let lines = buffer.split('\n');
+                buffer = lines.pop(); // 保留最后不完整的行
                 
-                // 检测日期标题
-                const dateMatch = line.match(/## vpn_20(\d{6})\.log/);
+                for (const line of lines) {
+                    const trimmed = line.trim();
+                    
+                    // 检测日期标题
+                    const dateMatch = trimmed.match(REGEX.dateTitle);
+                    if (dateMatch) {
+                        const dateStr = dateMatch[1];
+                        currentDate = `20${dateStr.substring(0, 2)}-${dateStr.substring(2, 4)}-${dateStr.substring(4, 6)}`;
+                        continue;
+                    }
+                    
+                    // 检测表格行
+                    if (currentDate && REGEX.tableLine.test(trimmed) && !trimmed.includes('| IP地址 |') && !trimmed.includes('|---------|')) {
+                        const parts = trimmed.split('|').map(p => p.trim()).filter(p => p);
+                        if (parts.length >= 4) {
+                            const ip = parts[0];
+                            const startTime = parts[1];
+                            const endTime = parts[2];
+                            const durationStr = parts[3];
+                            const vpnProtocol = parts[4] || '未知';
+                            
+                            // 解析持续时间（秒转换为分钟）
+                            let duration = 0;
+                            const durationMatch = durationStr.match(REGEX.number);
+                            if (durationMatch) {
+                                duration = parseFloat(durationMatch[1]) / 60;
+                            }
+                            
+                            // 初始化IP统计
+                            if (!logData.ipStats[ip]) {
+                                logData.ipStats[ip] = {
+                                    connections: 0,
+                                    totalDuration: 0,
+                                    totalData: 0,
+                                    vpnProtocols: {},
+                                    sessions: []
+                                };
+                            }
+                            
+                            // 更新IP统计
+                            const stats = logData.ipStats[ip];
+                            stats.connections++;
+                            stats.totalDuration += duration;
+                            stats.vpnProtocols[vpnProtocol] = (stats.vpnProtocols[vpnProtocol] || 0) + 1;
+                            
+                            // 更新顶层统计
+                            logData.connections++;
+                            logData.totalDuration += duration;
+                            // Markdown没有流量数据，totalData保持为0
+                            
+                            // 统计协议
+                            logData.vpnProtocolStats[vpnProtocol] = (logData.vpnProtocolStats[vpnProtocol] || 0) + 1;
+                            
+                            // 每日统计
+                            if (!logData.dailyStats[currentDate]) {
+                                logData.dailyStats[currentDate] = { connections: 0, totalDuration: 0, totalData: 0 };
+                            }
+                            logData.dailyStats[currentDate].connections++;
+                            logData.dailyStats[currentDate].totalDuration += duration;
+                            
+                            // 统计时间分布
+                            if (startTime && startTime.includes(' ')) {
+                                const hour = parseDateTime(startTime).getHours();
+                                if (!isNaN(hour)) {
+                                    logData.timeStats[hour]++;
+                                }
+                            }
+                            
+                            // 添加会话信息（如果启用）
+                            if (CONFIG.storeSessions) {
+                                const session = {
+                                    sessionId: `SID-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                                    ip: ip,
+                                    vpnProtocol: vpnProtocol,
+                                    startTime: startTime,
+                                    endTime: endTime,
+                                    duration: duration,
+                                    inputData: 0,
+                                    outputData: 0
+                                };
+                                stats.sessions.push(session);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // 处理最后的缓冲区
+            if (buffer.trim()) {
+                const trimmed = buffer.trim();
+                const dateMatch = trimmed.match(REGEX.dateTitle);
                 if (dateMatch) {
                     const dateStr = dateMatch[1];
                     currentDate = `20${dateStr.substring(0, 2)}-${dateStr.substring(2, 4)}-${dateStr.substring(4, 6)}`;
-                    continue;
-                }
-                
-                // 检测表格行
-                if (currentDate && line.startsWith('|') && !line.includes('| IP地址 |') && !line.includes('|---------|')) {
-                    const parts = line.split('|').map(p => p.trim()).filter(p => p);
+                } else if (currentDate && REGEX.tableLine.test(trimmed) && !trimmed.includes('| IP地址 |') && !trimmed.includes('|---------|')) {
+                    // 处理最后缓冲区中的表格行 - 修复数据丢失问题
+                    const parts = trimmed.split('|').map(p => p.trim()).filter(p => p);
                     if (parts.length >= 4) {
                         const ip = parts[0];
                         const startTime = parts[1];
@@ -46,14 +280,20 @@ async function analyzeLogFile(filePath) {
                         
                         // 解析持续时间（秒转换为分钟）
                         let duration = 0;
-                        const durationMatch = durationStr.match(/([\d.]+)/);
+                        const durationMatch = durationStr.match(REGEX.number);
                         if (durationMatch) {
-                            duration = parseFloat(durationMatch[1]) / 60; // 转换为分钟
+                            duration = parseFloat(durationMatch[1]) / 60;
                         }
                         
                         // 初始化IP统计
                         if (!logData.ipStats[ip]) {
-                            logData.ipStats[ip] = { connections: 0, totalDuration: 0, totalData: 0, vpnProtocols: {}, sessions: [] };
+                            logData.ipStats[ip] = {
+                                connections: 0,
+                                totalDuration: 0,
+                                totalData: 0,
+                                vpnProtocols: {},
+                                sessions: []
+                            };
                         }
                         
                         // 更新IP统计
@@ -61,6 +301,10 @@ async function analyzeLogFile(filePath) {
                         stats.connections++;
                         stats.totalDuration += duration;
                         stats.vpnProtocols[vpnProtocol] = (stats.vpnProtocols[vpnProtocol] || 0) + 1;
+                        
+                        // 更新顶层统计
+                        logData.connections++;
+                        logData.totalDuration += duration;
                         
                         // 统计协议
                         logData.vpnProtocolStats[vpnProtocol] = (logData.vpnProtocolStats[vpnProtocol] || 0) + 1;
@@ -72,26 +316,19 @@ async function analyzeLogFile(filePath) {
                         logData.dailyStats[currentDate].connections++;
                         logData.dailyStats[currentDate].totalDuration += duration;
                         
-                        // 统计时间分布
-                        if (startTime && startTime.includes(' ')) {
-                            const hour = parseInt(startTime.split(' ')[1].substring(0, 2));
-                            if (!isNaN(hour)) {
-                                logData.timeStats[hour]++;
-                            }
+                        if (CONFIG.storeSessions) {
+                            const session = {
+                                sessionId: `SID-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                                ip: ip,
+                                vpnProtocol: vpnProtocol,
+                                startTime: startTime,
+                                endTime: endTime,
+                                duration: duration,
+                                inputData: 0,
+                                outputData: 0
+                            };
+                            stats.sessions.push(session);
                         }
-                        
-                        // 添加会话信息
-                        const session = {
-                            sessionId: `SID-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-                            ip: ip,
-                            vpnProtocol: vpnProtocol,
-                            startTime: startTime,
-                            endTime: endTime,
-                            duration: duration,
-                            inputData: 0,
-                            outputData: 0
-                        };
-                        stats.sessions.push(session);
                     }
                 }
             }
@@ -111,10 +348,10 @@ async function analyzeLogFile(filePath) {
                 
                 for (const line of lines) {
                     // 检测连接建立 (CID)
-                    const connMatch = line.match(/连接 "(CID-\d+)" 已建立/);
+                    const connMatch = line.match(REGEX.connEstablished);
                     if (connMatch) {
                         const connId = connMatch[1];
-                        const ipMatch = line.match(/IP 地址[：:]\s*(\d+\.\d+\.\d+\.\d+)/);
+                        const ipMatch = line.match(REGEX.ipAddress);
                         const ip = ipMatch ? ipMatch[1] : '未知IP';
                         const timestamp = line.substring(0, 19);
                         connToSessionMap[connId] = { ip, startTime: timestamp };
@@ -122,14 +359,14 @@ async function analyzeLogFile(filePath) {
                     }
                     
                     // 检测会话创建 (SID)
-                    const sessionCreateMatch = line.match(/连接 "(CID-\d+)": 已创建新会话 "(SID-[^"]+)"/);
+                    const sessionCreateMatch = line.match(REGEX.sessionCreate);
                     if (sessionCreateMatch) {
                         const connId = sessionCreateMatch[1];
                         const sessionId = sessionCreateMatch[2];
                         const connInfo = connToSessionMap[connId];
                         if (connInfo) {
                             // 提取协议信息
-                            const protoMatch = line.match(/物理底层协议："([^"]+)"/);
+                            const protoMatch = line.match(REGEX.protocol);
                             let vpnProtocol = protoMatch ? protoMatch[1] : '未知协议';
                             
                             // 简化VPN协议名称
@@ -137,6 +374,12 @@ async function analyzeLogFile(filePath) {
                                 vpnProtocol = 'OpenVPN';
                             } else if (vpnProtocol.includes('L2TP')) {
                                 vpnProtocol = 'L2TP';
+                            } else if (vpnProtocol.includes('SSTP')) {
+                                vpnProtocol = 'SSTP';
+                            } else if (vpnProtocol.includes('IPsec') || vpnProtocol.includes('IKEv2')) {
+                                vpnProtocol = 'IPsec';
+                            } else if (vpnProtocol.includes('EtherIP')) {
+                                vpnProtocol = 'EtherIP';
                             }
                             
                             // 创建会话记录
@@ -153,17 +396,24 @@ async function analyzeLogFile(filePath) {
                             };
                             
                             // 统计时段
-                            const hour = parseInt(connInfo.startTime.substring(11, 13));
+                            const hour = parseDateTime(connInfo.startTime).getHours();
                             logData.timeStats[hour]++;
                             
                             // 初始化IP统计
                             if (!logData.ipStats[connInfo.ip]) {
-                                logData.ipStats[connInfo.ip] = { connections: 0, totalDuration: 0, totalData: 0, vpnProtocols: {}, sessions: [] };
+                                logData.ipStats[connInfo.ip] = {
+                                    connections: 0,
+                                    totalDuration: 0,
+                                    totalData: 0,
+                                    vpnProtocols: {},
+                                    sessions: []
+                                };
                             }
                             
                             // 统计协议
                             logData.vpnProtocolStats[vpnProtocol] = (logData.vpnProtocolStats[vpnProtocol] || 0) + 1;
-                            logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] = (logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] || 0) + 1;
+                            logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] = 
+                                (logData.ipStats[connInfo.ip].vpnProtocols[vpnProtocol] || 0) + 1;
                             
                             // 清理连接映射
                             delete connToSessionMap[connId];
@@ -172,7 +422,7 @@ async function analyzeLogFile(filePath) {
                     }
                     
                     // 检测会话结束
-                    const endMatch = line.match(/会话 "(SID-[^"]+)": 会话已结束。统计信息如下: 总输出数据大小: (\d+) 字节，总输入数据大小: (\d+) 字节/);
+                    const endMatch = line.match(REGEX.sessionEnd);
                     if (endMatch) {
                         const sessionId = endMatch[1];
                         const output = parseInt(endMatch[2]);
@@ -181,8 +431,8 @@ async function analyzeLogFile(filePath) {
                         const session = activeSessions[sessionId];
                         if (session) {
                             session.endTime = line.substring(0, 19);
-                            const startDate = new Date(session.startTime.replace(' ', 'T') + 'Z');
-                            const endDate = new Date(session.endTime.replace(' ', 'T') + 'Z');
+                            const startDate = parseDateTime(session.startTime);
+                            const endDate = parseDateTime(session.endTime);
                             session.duration = (endDate - startDate) / (1000 * 60);
                             session.inputData = input;
                             session.outputData = output;
@@ -193,8 +443,15 @@ async function analyzeLogFile(filePath) {
                                 stats.connections++;
                                 stats.totalDuration += session.duration;
                                 stats.totalData += input + output;
-                                stats.sessions.push({ ...session });
+                                if (CONFIG.storeSessions) {
+                                    stats.sessions.push({ ...session });
+                                }
                             }
+                            
+                            // 更新顶层统计
+                            logData.connections++;
+                            logData.totalDuration += session.duration;
+                            logData.totalData += input + output;
                             
                             // 每日统计
                             const date = session.startTime.substring(0, 10);
@@ -211,23 +468,39 @@ async function analyzeLogFile(filePath) {
                     }
                 }
             }
+            
+            // 处理残留的未结束会话 - 修复统计准确性问题
+            for (const [sessionId, session] of Object.entries(activeSessions)) {
+                if (session && session.ip) {
+                    const stats = logData.ipStats[session.ip];
+                    if (stats) {
+                        // 记录未完成会话
+                        stats.connections++;
+                        if (CONFIG.storeSessions) {
+                            stats.sessions.push({
+                                ...session,
+                                duration: 0,
+                                isIncomplete: true // 标记为不完整的会话
+                            });
+                        }
+                    }
+                    
+                    // 更新每日统计
+                    const date = session.startTime.substring(0, 10);
+                    if (!logData.dailyStats[date]) {
+                        logData.dailyStats[date] = { connections: 0, totalDuration: 0, totalData: 0 };
+                    }
+                    logData.dailyStats[date].connections++;
+                    
+                    // 更新顶层统计
+                    logData.connections++;
+                    // 时长和数据量为0，不累加
+                }
+            }
         }
         
-        // 计算唯一IP数量和平均连接时长
-        logData.uniqueIps = Object.keys(logData.ipStats).length;
-        let totalConn = 0, totalDur = 0;
-        for (const ipStat of Object.values(logData.ipStats)) {
-            totalConn += ipStat.connections;
-            totalDur += ipStat.totalDuration;
-        }
-        logData.connections = totalConn;
-        logData.totalDuration = totalDur;
-        logData.avgDuration = totalConn ? totalDur / totalConn : 0;
-        
-        // 计算总数据
-        for (const ipStat of Object.values(logData.ipStats)) {
-            logData.totalData += ipStat.totalData;
-        }
+        // 最终化数据
+        finalizeLogData(logData);
         
         return logData;
     } catch (error) {
@@ -236,23 +509,34 @@ async function analyzeLogFile(filePath) {
     }
 }
 
-// 检测存在的月份
+// 检测存在的月份（动态识别年份）
 function detectExistingMonths() {
     const existing = new Set();
-    const possibleYears = ['25', '26']; // 根据现有目录结构
     
-    for (let y of possibleYears) {
-        for (let m = 1; m <= 12; m++) {
-            const mm = m.toString().padStart(2, '0');
-            const folderPath = path.join(__dirname, `${y}${mm}`);
+    try {
+        const entries = fs.readdirSync(__dirname, { withFileTypes: true });
+        
+        for (const entry of entries) {
+            if (!entry.isDirectory()) continue;
             
-            if (fs.existsSync(folderPath)) {
-                existing.add(`${y}${mm}`);
+            const dirName = entry.name;
+            // 匹配格式：YYMM（如2502、2603）
+            const match = dirName.match(/^(\d{2})(\d{2})$/);
+            if (match) {
+                const year = match[1];
+                const month = parseInt(match[2]);
+                
+                // 验证月份合理性
+                if (month >= 1 && month <= 12) {
+                    existing.add(dirName);
+                }
             }
         }
+    } catch (error) {
+        console.error('检测存在的月份失败:', error);
     }
     
-    return Array.from(existing);
+    return Array.from(existing).sort();
 }
 
 // 生成指定月份的所有日期文件
@@ -308,81 +592,16 @@ async function analyzeSingleMonth(month) {
         return null;
     }
     
-    let monthLogData = {
-        connections: 0,
-        uniqueIps: 0,
-        totalData: 0,
-        totalDuration: 0,
-        avgDuration: 0,
-        ipStats: {},
-        vpnProtocolStats: {},
-        timeStats: Array(24).fill(0),
-        dailyStats: {}
-    };
+    const monthLogData = createEmptyLogData();
     
     for (const file of files) {
         const fileLogData = await analyzeLogFile(file);
         if (fileLogData) {
-            // 合并结果
-            monthLogData.connections += fileLogData.connections;
-            monthLogData.totalData += fileLogData.totalData;
-            monthLogData.totalDuration += fileLogData.totalDuration;
-            
-            // 合并IP统计
-            for (const [ip, stats] of Object.entries(fileLogData.ipStats)) {
-                if (!monthLogData.ipStats[ip]) {
-                    monthLogData.ipStats[ip] = { 
-                        connections: stats.connections, 
-                        totalDuration: stats.totalDuration, 
-                        totalData: stats.totalData, 
-                        vpnProtocols: { ...stats.vpnProtocols },
-                        sessions: stats.sessions || []
-                    };
-                } else {
-                    monthLogData.ipStats[ip].connections += stats.connections;
-                    monthLogData.ipStats[ip].totalDuration += stats.totalDuration;
-                    monthLogData.ipStats[ip].totalData += stats.totalData;
-                    
-                    // 合并VPN协议统计
-                    for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                        monthLogData.ipStats[ip].vpnProtocols[proto] = (monthLogData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                    }
-                    
-                    // 合并会话信息
-                    if (stats.sessions && Array.isArray(stats.sessions)) {
-                        monthLogData.ipStats[ip].sessions = monthLogData.ipStats[ip].sessions || [];
-                        monthLogData.ipStats[ip].sessions.push(...stats.sessions);
-                    }
-                }
-            }
-            
-            // 合并VPN协议统计
-            for (const [proto, count] of Object.entries(fileLogData.vpnProtocolStats)) {
-                monthLogData.vpnProtocolStats[proto] = (monthLogData.vpnProtocolStats[proto] || 0) + count;
-            }
-            
-            // 合并时间统计
-            for (let h = 0; h < 24; h++) {
-                monthLogData.timeStats[h] += fileLogData.timeStats[h];
-            }
-            
-            // 合并每日统计
-            for (const [date, daily] of Object.entries(fileLogData.dailyStats)) {
-                if (!monthLogData.dailyStats[date]) {
-                    monthLogData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData };
-                } else {
-                    monthLogData.dailyStats[date].connections += daily.connections;
-                    monthLogData.dailyStats[date].totalDuration += daily.totalDuration;
-                    monthLogData.dailyStats[date].totalData += daily.totalData;
-                }
-            }
+            mergeLogData(monthLogData, fileLogData, CONFIG.storeSessions);
         }
     }
     
-    // 计算唯一IP数量和平均连接时长
-    monthLogData.uniqueIps = Object.keys(monthLogData.ipStats).length;
-    monthLogData.avgDuration = monthLogData.connections ? monthLogData.totalDuration / monthLogData.connections : 0;
-    
+    finalizeLogData(monthLogData);
     return monthLogData;
 }
 
@@ -397,81 +616,16 @@ async function analyzeSingleYear(year) {
         return null;
     }
     
-    let yearLogData = {
-        connections: 0,
-        uniqueIps: 0,
-        totalData: 0,
-        totalDuration: 0,
-        avgDuration: 0,
-        ipStats: {},
-        vpnProtocolStats: {},
-        timeStats: Array(24).fill(0),
-        dailyStats: {}
-    };
+    const yearLogData = createEmptyLogData();
     
     for (const month of yearMonths) {
         const monthLogData = await analyzeSingleMonth(month);
         if (monthLogData) {
-            // 合并结果
-            yearLogData.connections += monthLogData.connections;
-            yearLogData.totalData += monthLogData.totalData;
-            yearLogData.totalDuration += monthLogData.totalDuration;
-            
-            // 合并IP统计
-            for (const [ip, stats] of Object.entries(monthLogData.ipStats)) {
-                if (!yearLogData.ipStats[ip]) {
-                    yearLogData.ipStats[ip] = { 
-                        connections: stats.connections, 
-                        totalDuration: stats.totalDuration, 
-                        totalData: stats.totalData, 
-                        vpnProtocols: { ...stats.vpnProtocols },
-                        sessions: stats.sessions || []
-                    };
-                } else {
-                    yearLogData.ipStats[ip].connections += stats.connections;
-                    yearLogData.ipStats[ip].totalDuration += stats.totalDuration;
-                    yearLogData.ipStats[ip].totalData += stats.totalData;
-                    
-                    // 合并VPN协议统计
-                    for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                        yearLogData.ipStats[ip].vpnProtocols[proto] = (yearLogData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                    }
-                    
-                    // 合并会话信息
-                    if (stats.sessions && Array.isArray(stats.sessions)) {
-                        yearLogData.ipStats[ip].sessions = yearLogData.ipStats[ip].sessions || [];
-                        yearLogData.ipStats[ip].sessions.push(...stats.sessions);
-                    }
-                }
-            }
-            
-            // 合并VPN协议统计
-            for (const [proto, count] of Object.entries(monthLogData.vpnProtocolStats)) {
-                yearLogData.vpnProtocolStats[proto] = (yearLogData.vpnProtocolStats[proto] || 0) + count;
-            }
-            
-            // 合并时间统计
-            for (let h = 0; h < 24; h++) {
-                yearLogData.timeStats[h] += monthLogData.timeStats[h];
-            }
-            
-            // 合并每日统计
-            for (const [date, daily] of Object.entries(monthLogData.dailyStats)) {
-                if (!yearLogData.dailyStats[date]) {
-                    yearLogData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData };
-                } else {
-                    yearLogData.dailyStats[date].connections += daily.connections;
-                    yearLogData.dailyStats[date].totalDuration += daily.totalDuration;
-                    yearLogData.dailyStats[date].totalData += daily.totalData;
-                }
-            }
+            mergeLogData(yearLogData, monthLogData, CONFIG.storeSessions);
         }
     }
     
-    // 计算唯一IP数量和平均连接时长
-    yearLogData.uniqueIps = Object.keys(yearLogData.ipStats).length;
-    yearLogData.avgDuration = yearLogData.connections ? yearLogData.totalDuration / yearLogData.connections : 0;
-    
+    finalizeLogData(yearLogData);
     return yearLogData;
 }
 
@@ -485,81 +639,16 @@ async function analyzeAllLogs() {
         return null;
     }
     
-    let allLogData = {
-        connections: 0,
-        uniqueIps: 0,
-        totalData: 0,
-        totalDuration: 0,
-        avgDuration: 0,
-        ipStats: {},
-        vpnProtocolStats: {},
-        timeStats: Array(24).fill(0),
-        dailyStats: {}
-    };
+    const allLogData = createEmptyLogData();
     
     for (const month of existingMonths) {
         const monthLogData = await analyzeSingleMonth(month);
         if (monthLogData) {
-            // 合并结果
-            allLogData.connections += monthLogData.connections;
-            allLogData.totalData += monthLogData.totalData;
-            allLogData.totalDuration += monthLogData.totalDuration;
-            
-            // 合并IP统计
-            for (const [ip, stats] of Object.entries(monthLogData.ipStats)) {
-                if (!allLogData.ipStats[ip]) {
-                    allLogData.ipStats[ip] = { 
-                        connections: stats.connections, 
-                        totalDuration: stats.totalDuration, 
-                        totalData: stats.totalData, 
-                        vpnProtocols: { ...stats.vpnProtocols },
-                        sessions: stats.sessions || []
-                    };
-                } else {
-                    allLogData.ipStats[ip].connections += stats.connections;
-                    allLogData.ipStats[ip].totalDuration += stats.totalDuration;
-                    allLogData.ipStats[ip].totalData += stats.totalData;
-                    
-                    // 合并VPN协议统计
-                    for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                        allLogData.ipStats[ip].vpnProtocols[proto] = (allLogData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                    }
-                    
-                    // 合并会话信息
-                    if (stats.sessions && Array.isArray(stats.sessions)) {
-                        allLogData.ipStats[ip].sessions = allLogData.ipStats[ip].sessions || [];
-                        allLogData.ipStats[ip].sessions.push(...stats.sessions);
-                    }
-                }
-            }
-            
-            // 合并VPN协议统计
-            for (const [proto, count] of Object.entries(monthLogData.vpnProtocolStats)) {
-                allLogData.vpnProtocolStats[proto] = (allLogData.vpnProtocolStats[proto] || 0) + count;
-            }
-            
-            // 合并时间统计
-            for (let h = 0; h < 24; h++) {
-                allLogData.timeStats[h] += monthLogData.timeStats[h];
-            }
-            
-            // 合并每日统计
-            for (const [date, daily] of Object.entries(monthLogData.dailyStats)) {
-                if (!allLogData.dailyStats[date]) {
-                    allLogData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData };
-                } else {
-                    allLogData.dailyStats[date].connections += daily.connections;
-                    allLogData.dailyStats[date].totalDuration += daily.totalDuration;
-                    allLogData.dailyStats[date].totalData += daily.totalData;
-                }
-            }
+            mergeLogData(allLogData, monthLogData, CONFIG.storeSessions);
         }
     }
     
-    // 计算唯一IP数量和平均连接时长
-    allLogData.uniqueIps = Object.keys(allLogData.ipStats).length;
-    allLogData.avgDuration = allLogData.connections ? allLogData.totalDuration / allLogData.connections : 0;
-    
+    finalizeLogData(allLogData);
     return allLogData;
 }
 
@@ -582,6 +671,7 @@ function saveAnalysisResult(filePath, data) {
 // 主函数
 async function main() {
     console.log('开始生成分析文件...');
+    console.log(`配置: storeSessions=${CONFIG.storeSessions}, timezone=${CONFIG.timezone}`);
     
     // 检测存在的月份
     const existingMonths = detectExistingMonths();
@@ -590,12 +680,17 @@ async function main() {
     // 保存存在的月份到文件
     saveAnalysisResult(path.join(__dirname, 'analysis', 'existing-months.json'), { months: existingMonths });
     
-    // 分析单月日志
-    for (const month of existingMonths) {
-        const monthData = await analyzeSingleMonth(month);
-        if (monthData) {
-            saveAnalysisResult(path.join(__dirname, 'analysis', `${month}.json`), monthData);
-        }
+    // 并行处理月份分析（按配置的并行度）
+    console.log(`使用并行度 ${CONFIG.parallelMonths} 处理月份...`);
+    for (let i = 0; i < existingMonths.length; i += CONFIG.parallelMonths) {
+        const batch = existingMonths.slice(i, i + CONFIG.parallelMonths);
+        const promises = batch.map(async (month) => {
+            const monthData = await analyzeSingleMonth(month);
+            if (monthData) {
+                saveAnalysisResult(path.join(__dirname, 'analysis', `${month}.json`), monthData);
+            }
+        });
+        await Promise.all(promises);
     }
     
     // 分析单年日志
