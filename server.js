@@ -11,6 +11,11 @@ const server = http.createServer((req, res) => {
     '.html': 'text/html',
     '.js': 'text/javascript',
     '.css': 'text/css',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.ttf': 'font/ttf',
+    '.eot': 'application/vnd.ms-fontobject',
+    '.svg': 'image/svg+xml',
   }[extname] || 'text/plain';
 
   fs.readFile(filePath, (err, content) => {
