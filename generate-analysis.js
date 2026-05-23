@@ -10,7 +10,9 @@ const CONFIG = {
     // 并行处理月份数
     parallelMonths: 10,
     // Markdown文件缓冲区大小（字节）
-    markdownBufferSize: 64 * 1024 // 64KB
+    markdownBufferSize: 64 * 1024, // 64KB
+    // 是否启用跳过已分析日志（--force 可强制重新分析）
+    skipAnalyzed: true
 };
 
 // ==================== 预编译的正则表达式 ====================
@@ -539,55 +541,109 @@ function detectExistingMonths() {
     return Array.from(existing).sort();
 }
 
-// 生成指定月份的所有日期文件
+/**
+ * 获取指定月份的所有日志文件及其最新修改时间
+ * @param {string} monthFolder - 月份文件夹名 (如 2502)
+ * @returns {{ files: string[], latestMtime: number }} 文件路径数组和最新mtime（毫秒），无文件时 latestMtime = 0
+ */
 function getFilesInMonth(monthFolder) {
-    const files = [];
     const folderPath = path.join(__dirname, monthFolder);
+    const files = [];
+    let latestMtime = 0;
     
-    if (fs.existsSync(folderPath)) {
-        // 检查是否存在 .md 文件
-        const mdFilePath = path.join(folderPath, `${monthFolder}.md`);
-        if (fs.existsSync(mdFilePath)) {
-            files.push(mdFilePath);
-        } else {
-            // 如果没有 .md 文件，检查 .log 文件
-            const year = monthFolder.slice(0, 2);
-            const month = monthFolder.slice(2);
-            const days = new Date(parseInt(year) + 2000, parseInt(month), 0).getDate();
-            
-            for (let d = 1; d <= days; d++) {
-                const dd = d.toString().padStart(2, '0');
-                const fileName = `vpn_20${year}${month}${dd}.log`;
-                const filePath = path.join(folderPath, fileName);
-                
-                if (fs.existsSync(filePath)) {
-                    files.push(filePath);
-                }
-            }
+    if (!fs.existsSync(folderPath)) {
+        return { files, latestMtime: 0 };
+    }
+    
+    // 优先检查 .md 文件（整个月份汇总）
+    const mdFilePath = path.join(folderPath, `${monthFolder}.md`);
+    if (fs.existsSync(mdFilePath)) {
+        files.push(mdFilePath);
+        try {
+            const stat = fs.statSync(mdFilePath);
+            latestMtime = Math.max(latestMtime, stat.mtimeMs);
+        } catch (err) {}
+        return { files, latestMtime };
+    }
+    
+    // 没有 .md，则收集所有 .log 文件
+    const year = monthFolder.slice(0, 2);
+    const month = monthFolder.slice(2);
+    const days = new Date(parseInt(year) + 2000, parseInt(month), 0).getDate();
+    
+    for (let d = 1; d <= days; d++) {
+        const dd = d.toString().padStart(2, '0');
+        const fileName = `vpn_20${year}${month}${dd}.log`;
+        const filePath = path.join(folderPath, fileName);
+        
+        if (fs.existsSync(filePath)) {
+            files.push(filePath);
+            try {
+                const stat = fs.statSync(filePath);
+                latestMtime = Math.max(latestMtime, stat.mtimeMs);
+            } catch (err) {}
         }
     }
     
-    return files;
+    return { files, latestMtime };
+}
+
+/**
+ * 从缓存的 JSON 文件加载月份分析结果
+ * @param {string} month - 月份文件夹名
+ * @returns {Object|null} 日志数据对象，失败返回 null
+ */
+function loadMonthCache(month) {
+    const jsonPath = path.join(__dirname, 'analysis', `${month}.json`);
+    if (!fs.existsSync(jsonPath)) return null;
+    try {
+        const content = fs.readFileSync(jsonPath, 'utf8');
+        return JSON.parse(content);
+    } catch (err) {
+        console.error(`读取缓存文件 ${jsonPath} 失败:`, err);
+        return null;
+    }
+}
+
+/**
+ * 检查某月份的缓存是否仍然有效（基于源文件修改时间）
+ * @param {string} month - 月份文件夹名
+ * @param {number} latestSourceMtime - 该月份内所有日志文件的最新修改时间（毫秒）
+ * @returns {boolean} true 表示缓存有效可跳过，false 表示需要重新分析
+ */
+function isMonthCacheValid(month, latestSourceMtime) {
+    if (!CONFIG.skipAnalyzed) return false;
+    if (latestSourceMtime === 0) {
+        // 没有源文件，但如果有缓存则也算"有效"，避免重复报错
+        const jsonPath = path.join(__dirname, 'analysis', `${month}.json`);
+        return fs.existsSync(jsonPath);
+    }
+    const jsonPath = path.join(__dirname, 'analysis', `${month}.json`);
+    if (!fs.existsSync(jsonPath)) return false;
+    try {
+        const jsonStat = fs.statSync(jsonPath);
+        return jsonStat.mtimeMs >= latestSourceMtime;
+    } catch (err) {
+        return false;
+    }
 }
 
 // 分析单月日志
-async function analyzeSingleMonth(month) {
+async function analyzeSingleMonth(month, forceRebuild = false) {
     console.log(`分析单月: ${month}`);
-    const files = getFilesInMonth(month);
+    const { files, latestMtime } = getFilesInMonth(month);
+    
+    // 如果启用缓存且未强制重建，检查缓存有效性
+    if (!forceRebuild && CONFIG.skipAnalyzed && isMonthCacheValid(month, latestMtime)) {
+        const cached = loadMonthCache(month);
+        if (cached) {
+            console.log(`  跳过 ${month}，使用已有缓存 (源文件未变化)`);
+            return cached;
+        }
+    }
     
     if (files.length === 0) {
-        // 检查是否存在对应的JSON文件
-        const jsonFilePath = path.join(__dirname, 'analysis', `${month}.json`);
-        if (fs.existsSync(jsonFilePath)) {
-            console.log(`找到 ${month} 月份的JSON分析文件，直接使用`);
-            try {
-                const jsonContent = fs.readFileSync(jsonFilePath, 'utf8');
-                return JSON.parse(jsonContent);
-            } catch (error) {
-                console.error(`读取JSON文件 ${jsonFilePath} 失败:`, error);
-                return null;
-            }
-        }
+        // 没有源文件但可能有旧缓存，如果缓存存在则返回（已被上层检查过）
         console.log(`没有找到 ${month} 月份的日志文件`);
         return null;
     }
@@ -606,7 +662,7 @@ async function analyzeSingleMonth(month) {
 }
 
 // 分析单年日志
-async function analyzeSingleYear(year) {
+async function analyzeSingleYear(year, forceRebuild = false) {
     console.log(`分析单年: 20${year}`);
     const existingMonths = detectExistingMonths();
     const yearMonths = existingMonths.filter(month => month.startsWith(year));
@@ -619,7 +675,7 @@ async function analyzeSingleYear(year) {
     const yearLogData = createEmptyLogData();
     
     for (const month of yearMonths) {
-        const monthLogData = await analyzeSingleMonth(month);
+        const monthLogData = await analyzeSingleMonth(month, forceRebuild);
         if (monthLogData) {
             mergeLogData(yearLogData, monthLogData, CONFIG.storeSessions);
         }
@@ -630,7 +686,7 @@ async function analyzeSingleYear(year) {
 }
 
 // 分析全部日志
-async function analyzeAllLogs() {
+async function analyzeAllLogs(forceRebuild = false) {
     console.log('分析全部日志');
     const existingMonths = detectExistingMonths();
     
@@ -642,7 +698,7 @@ async function analyzeAllLogs() {
     const allLogData = createEmptyLogData();
     
     for (const month of existingMonths) {
-        const monthLogData = await analyzeSingleMonth(month);
+        const monthLogData = await analyzeSingleMonth(month, forceRebuild);
         if (monthLogData) {
             mergeLogData(allLogData, monthLogData, CONFIG.storeSessions);
         }
@@ -670,6 +726,15 @@ function saveAnalysisResult(filePath, data) {
 
 // 主函数
 async function main() {
+    // 解析命令行参数，支持 --force 强制重新分析所有月份
+    const forceRebuild = process.argv.includes('--force');
+    if (forceRebuild) {
+        console.log('⚠️  强制重建模式：将忽略所有缓存，重新分析全部日志');
+        CONFIG.skipAnalyzed = false;
+    } else {
+        console.log(`✅ 启用缓存：未变化的月份将直接使用已有分析结果（使用 --force 可强制重建）`);
+    }
+    
     console.log('开始生成分析文件...');
     console.log(`配置: storeSessions=${CONFIG.storeSessions}, timezone=${CONFIG.timezone}`);
     
@@ -685,7 +750,7 @@ async function main() {
     for (let i = 0; i < existingMonths.length; i += CONFIG.parallelMonths) {
         const batch = existingMonths.slice(i, i + CONFIG.parallelMonths);
         const promises = batch.map(async (month) => {
-            const monthData = await analyzeSingleMonth(month);
+            const monthData = await analyzeSingleMonth(month, forceRebuild);
             if (monthData) {
                 saveAnalysisResult(path.join(__dirname, 'analysis', `${month}.json`), monthData);
             }
@@ -696,14 +761,14 @@ async function main() {
     // 分析单年日志
     const years = [...new Set(existingMonths.map(month => month.slice(0, 2)))];
     for (const year of years) {
-        const yearData = await analyzeSingleYear(year);
+        const yearData = await analyzeSingleYear(year, forceRebuild);
         if (yearData) {
             saveAnalysisResult(path.join(__dirname, 'analysis', `${year}.json`), yearData);
         }
     }
     
     // 分析全部日志
-    const allData = await analyzeAllLogs();
+    const allData = await analyzeAllLogs(forceRebuild);
     if (allData) {
         saveAnalysisResult(path.join(__dirname, 'analysis', 'all.json'), allData);
     }
