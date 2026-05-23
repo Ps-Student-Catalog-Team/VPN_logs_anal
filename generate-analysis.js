@@ -732,7 +732,7 @@ async function main() {
         console.log('⚠️  强制重建模式：将忽略所有缓存，重新分析全部日志');
         CONFIG.skipAnalyzed = false;
     } else {
-        console.log(`✅ 启用缓存：未变化的月份将直接使用已有分析结果（使用 --force 可强制重建）`);
+        console.log(` 启用缓存：未变化的月份将直接使用已有分析结果（使用 --force 可强制重建）`);
     }
     
     console.log('开始生成分析文件...');
