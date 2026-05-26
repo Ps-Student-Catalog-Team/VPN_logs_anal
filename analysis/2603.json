@@ -1,0 +1,341 @@
+{
+  "connections": 524,
+  "uniqueIps": 15,
+  "totalData": 218510146049,
+  "totalDuration": 27301.283333333333,
+  "avgDuration": 52.10168575063613,
+  "ipStats": {
+    "10.88.202.61": {
+      "connections": 67,
+      "totalDuration": 3952.4666666666667,
+      "totalData": 30883641503,
+      "vpnProtocols": {
+        "L2TP": 68
+      },
+      "sessions": []
+    },
+    "10.88.202.33": {
+      "connections": 78,
+      "totalDuration": 2257.0333333333338,
+      "totalData": 12604000412,
+      "vpnProtocols": {
+        "L2TP": 48,
+        "OpenVPN": 30
+      },
+      "sessions": []
+    },
+    "10.88.202.25": {
+      "connections": 86,
+      "totalDuration": 1684.8166666666668,
+      "totalData": 10399786552,
+      "vpnProtocols": {
+        "L2TP": 86
+      },
+      "sessions": []
+    },
+    "10.88.202.54": {
+      "connections": 31,
+      "totalDuration": 3699.8166666666666,
+      "totalData": 20173545156,
+      "vpnProtocols": {
+        "L2TP": 31
+      },
+      "sessions": []
+    },
+    "10.88.202.3": {
+      "connections": 14,
+      "totalDuration": 2236.2,
+      "totalData": 29674816809,
+      "vpnProtocols": {
+        "L2TP": 14
+      },
+      "sessions": []
+    },
+    "10.88.209.2": {
+      "connections": 16,
+      "totalDuration": 1293.866666666667,
+      "totalData": 4675902856,
+      "vpnProtocols": {
+        "L2TP": 16
+      },
+      "sessions": []
+    },
+    "10.88.202.56": {
+      "connections": 31,
+      "totalDuration": 6783.416666666667,
+      "totalData": 47588291879,
+      "vpnProtocols": {
+        "L2TP": 31
+      },
+      "sessions": []
+    },
+    "10.88.202.45": {
+      "connections": 8,
+      "totalDuration": 308.25,
+      "totalData": 2019594504,
+      "vpnProtocols": {
+        "OpenVPN": 8
+      },
+      "sessions": []
+    },
+    "10.88.202.69": {
+      "connections": 10,
+      "totalDuration": 167.48333333333332,
+      "totalData": 2026234173,
+      "vpnProtocols": {
+        "L2TP": 10
+      },
+      "sessions": []
+    },
+    "10.88.214.130": {
+      "connections": 107,
+      "totalDuration": 3115.416666666667,
+      "totalData": 48423017255,
+      "vpnProtocols": {
+        "L2TP": 107
+      },
+      "sessions": []
+    },
+    "10.88.202.51": {
+      "connections": 1,
+      "totalDuration": 103.68333333333334,
+      "totalData": 2517246136,
+      "vpnProtocols": {
+        "L2TP": 1
+      },
+      "sessions": []
+    },
+    "10.88.202.5": {
+      "connections": 64,
+      "totalDuration": 1582.2666666666669,
+      "totalData": 6890162890,
+      "vpnProtocols": {
+        "L2TP": 64
+      },
+      "sessions": []
+    },
+    "10.88.208.28": {
+      "connections": 2,
+      "totalDuration": 34.6,
+      "totalData": 23146065,
+      "vpnProtocols": {
+        "OpenVPN": 2
+      },
+      "sessions": []
+    },
+    "10.88.215.1": {
+      "connections": 8,
+      "totalDuration": 57.21666666666667,
+      "totalData": 184356770,
+      "vpnProtocols": {
+        "L2TP": 8
+      },
+      "sessions": []
+    },
+    "10.88.205.47": {
+      "connections": 1,
+      "totalDuration": 24.75,
+      "totalData": 426403089,
+      "vpnProtocols": {
+        "L2TP": 1
+      },
+      "sessions": []
+    }
+  },
+  "vpnProtocolStats": {
+    "L2TP": 485,
+    "OpenVPN": 40
+  },
+  "timeStats": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    6,
+    14,
+    17,
+    40,
+    26,
+    14,
+    70,
+    40,
+    20,
+    38,
+    40,
+    54,
+    48,
+    18,
+    25,
+    35,
+    19,
+    0
+  ],
+  "dailyStats": {
+    "2026-03-01": {
+      "connections": 2,
+      "totalDuration": 28.266666666666666,
+      "totalData": 250202156
+    },
+    "2026-03-02": {
+      "connections": 6,
+      "totalDuration": 70.4,
+      "totalData": 869167167
+    },
+    "2026-03-03": {
+      "connections": 18,
+      "totalDuration": 147.91666666666669,
+      "totalData": 1189342956
+    },
+    "2026-03-04": {
+      "connections": 29,
+      "totalDuration": 687.2833333333333,
+      "totalData": 10392967783
+    },
+    "2026-03-05": {
+      "connections": 27,
+      "totalDuration": 1755.3499999999997,
+      "totalData": 21439546802
+    },
+    "2026-03-06": {
+      "connections": 31,
+      "totalDuration": 1256.25,
+      "totalData": 10200619927
+    },
+    "2026-03-07": {
+      "connections": 9,
+      "totalDuration": 1544.7666666666667,
+      "totalData": 31188802838
+    },
+    "2026-03-08": {
+      "connections": 2,
+      "totalDuration": 9.883333333333333,
+      "totalData": 37418543
+    },
+    "2026-03-09": {
+      "connections": 17,
+      "totalDuration": 2429.4,
+      "totalData": 12599001833
+    },
+    "2026-03-10": {
+      "connections": 24,
+      "totalDuration": 3060.2,
+      "totalData": 8225498316
+    },
+    "2026-03-11": {
+      "connections": 29,
+      "totalDuration": 1791.8833333333334,
+      "totalData": 8371927598
+    },
+    "2026-03-12": {
+      "connections": 32,
+      "totalDuration": 844.5833333333334,
+      "totalData": 5758993848
+    },
+    "2026-03-13": {
+      "connections": 12,
+      "totalDuration": 337.1000000000001,
+      "totalData": 3231470437
+    },
+    "2026-03-14": {
+      "connections": 2,
+      "totalDuration": 117.75,
+      "totalData": 463967638
+    },
+    "2026-03-15": {
+      "connections": 4,
+      "totalDuration": 2.9,
+      "totalData": 230472408
+    },
+    "2026-03-16": {
+      "connections": 22,
+      "totalDuration": 1090.8833333333332,
+      "totalData": 2238722351
+    },
+    "2026-03-17": {
+      "connections": 16,
+      "totalDuration": 1074.1833333333334,
+      "totalData": 7859759007
+    },
+    "2026-03-18": {
+      "connections": 19,
+      "totalDuration": 1418,
+      "totalData": 20900299291
+    },
+    "2026-03-19": {
+      "connections": 27,
+      "totalDuration": 1655.7333333333333,
+      "totalData": 7072717299
+    },
+    "2026-03-20": {
+      "connections": 35,
+      "totalDuration": 1551.4666666666665,
+      "totalData": 15318752248
+    },
+    "2026-03-21": {
+      "connections": 17,
+      "totalDuration": 1022.5,
+      "totalData": 12646585724
+    },
+    "2026-03-22": {
+      "connections": 7,
+      "totalDuration": 503.75,
+      "totalData": 8563833885
+    },
+    "2026-03-23": {
+      "connections": 41,
+      "totalDuration": 1800.95,
+      "totalData": 14291009800
+    },
+    "2026-03-24": {
+      "connections": 18,
+      "totalDuration": 968.8833333333332,
+      "totalData": 5192332027
+    },
+    "2026-03-25": {
+      "connections": 25,
+      "totalDuration": 803.45,
+      "totalData": 5339587845
+    },
+    "2026-03-26": {
+      "connections": 52,
+      "totalDuration": 1327.55,
+      "totalData": 4637146322
+    },
+    "2026-03-27": {
+      "connections": 1,
+      "totalDuration": 0,
+      "totalData": 0
+    }
+  },
+  "__sourceHashes": {
+    "vpn_20260301.log": "f44b147c9955e831ac6d9c55ebdbc677086cbb1b99c78f694c43d1d3fe90133b",
+    "vpn_20260302.log": "b1e9196a67e081a1c3d2b92b5d587c5ca0f9befad94435c4bc9a847b5567fc72",
+    "vpn_20260303.log": "deba01a747e2dc561364e4166d618e5f028857cdce585d756ce599ffe9198d13",
+    "vpn_20260304.log": "392366588997e88d3d903ac2760d7f5fae8dbfdf35a6e2e9bfbb37825a467162",
+    "vpn_20260305.log": "d41a4d6a95a944dcdf239a7530a150f60c583a3081a40d192b43700136563558",
+    "vpn_20260306.log": "dd03f5ba37a432ff256ddb11b3101165f8f1889df12596c36e4347f516b66ef4",
+    "vpn_20260307.log": "932fd32111846b4bc7654d0944dbd7d573f82e3780a48d8f6d8d825e03020ecf",
+    "vpn_20260308.log": "5cce536ab653bb26cbf762b4ed03bffbdc30af7da7305fd033521d18720ffbd1",
+    "vpn_20260309.log": "2b675a9fb2191fbacf5dc83bba325c1a390ad727ec373cace55ab080a4fb115c",
+    "vpn_20260310.log": "eef2c11629f5c74c71904689f23717485ed2e7e9efd513dc62c619240d2b3a93",
+    "vpn_20260311.log": "6b159356ee4051d4dec1f425197fd889a6c80dc1c9ca548b301f9090e5140e67",
+    "vpn_20260312.log": "8852eec5aa0ff6ff44895d9aa46da04b83190e7440f0d0c60aa1b72536253570",
+    "vpn_20260313.log": "c74d2bc57b258f654983f447252ec3e7e5f08b5e0a54d92366762f3722454c41",
+    "vpn_20260314.log": "826fbf8567a56360062b6cc56be2b162c255f3e7c39b587a6c51ff25429f6cfe",
+    "vpn_20260315.log": "0ba2f6b6a51f03d46536657234bd36725cc98420023d85a67a46b58a5573314d",
+    "vpn_20260316.log": "544075b022c6a44c507c039789341f3441e3e42943e947715e2686802ea4bf55",
+    "vpn_20260317.log": "1d7d21f98b4f37f17a1aad6adc47d178f154b453c9db2bbb38a601d0a6d71436",
+    "vpn_20260318.log": "7cc811350c52e25f4d853b694d0975dece6b4a21625a4ea053ac82eb64515078",
+    "vpn_20260319.log": "46faadf28428f83f8fbe51707c20554873047fb8e4015af34393eb231268f501",
+    "vpn_20260320.log": "3c9f0d999a29d87377a35d1a53ee7625a7b052614e8deb1bed6743676c88a403",
+    "vpn_20260321.log": "6feff26aae03008d34d5877f8bb037db7e5be9017138666e25762f1b5899d9f0",
+    "vpn_20260322.log": "e95a855c3a02f243feab16ea4181d1c0685e6865111d4a7ac9fd1f32978bd904",
+    "vpn_20260323.log": "f3b962aacd0828df120085e35153cded59c65bf0f5161d64af09a8ffe0b1aa9f",
+    "vpn_20260324.log": "b3fce470c96858a123b07f3b389913b574de9cc90bafa57408d47ce8ef9b922b",
+    "vpn_20260325.log": "80a3210de48ca72645e8f7bcc1fb32031c17798e3402f69cc2c3e9e70c745a7d",
+    "vpn_20260326.log": "eb74f1b55563e749e811994e0ac871f860842345318edf3fc7ce6b8abc931a12",
+    "vpn_20260327.log": "f5a5051ab31e77458b4f2f68798cf3cb6b564f48a660e86c3a761f3221458427"
+  }
+}

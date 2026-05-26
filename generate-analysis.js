@@ -1,14 +1,15 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 // ==================== 配置部分 ====================
 const CONFIG = {
     // 是否保存session详细信息（true时会占用大量内存）
-    storeSessions: true,
+    storeSessions: false,
     // 时区（UTC 或 local）
     timezone: 'local',
     // 并行处理月份数
-    parallelMonths: 10,
+    parallelMonths: 20,
     // Markdown文件缓冲区大小（字节）
     markdownBufferSize: 64 * 1024, // 64KB
     // 是否启用跳过已分析日志（--force 可强制重新分析）
@@ -125,6 +126,25 @@ function createEmptyLogData() {
 function finalizeLogData(logData) {
     logData.uniqueIps = Object.keys(logData.ipStats).length;
     logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
+}
+
+async function computeFileHash(filePath) {
+    return new Promise((resolve, reject) => {
+        const hash = crypto.createHash('sha256');
+        const stream = fs.createReadStream(filePath);
+        stream.on('data', (chunk) => hash.update(chunk));
+        stream.on('end', () => resolve(hash.digest('hex')));
+        stream.on('error', reject);
+    });
+}
+
+async function computeFilesHashMap(filePaths) {
+    const hashes = {};
+    for (const filePath of filePaths) {
+        const fileName = path.basename(filePath);
+        hashes[fileName] = await computeFileHash(filePath);
+    }
+    return hashes;
 }
 
 /**
@@ -509,19 +529,34 @@ function loadMonthCache(month) {
  * @param {number} latestSourceMtime - 该月份内所有日志文件的最新修改时间（毫秒）
  * @returns {boolean} true 表示缓存有效可跳过，false 表示需要重新分析
  */
-function isMonthCacheValid(month, latestSourceMtime) {
+async function isMonthCacheValid(month) {
     if (!CONFIG.skipAnalyzed) return false;
-    if (latestSourceMtime === 0) {
-        // 没有源文件，但如果有缓存则也算"有效"，避免重复报错
-        const jsonPath = path.join(__dirname, 'analysis', `${month}.json`);
-        return fs.existsSync(jsonPath);
-    }
     const jsonPath = path.join(__dirname, 'analysis', `${month}.json`);
     if (!fs.existsSync(jsonPath)) return false;
+
+    const cache = loadMonthCache(month);
+    if (!cache || !cache.__sourceHashes || typeof cache.__sourceHashes !== 'object') {
+        return false;
+    }
+
+    const { files } = getFilesInMonth(month);
+    if (files.length === 0) {
+        return false;
+    }
+
     try {
-        const jsonStat = fs.statSync(jsonPath);
-        return jsonStat.mtimeMs >= latestSourceMtime;
+        const actualHashes = await computeFilesHashMap(files);
+        const cachedHashes = cache.__sourceHashes;
+        const actualNames = Object.keys(actualHashes).sort();
+        const cachedNames = Object.keys(cachedHashes).sort();
+        if (actualNames.length !== cachedNames.length) return false;
+        for (let i = 0; i < actualNames.length; i++) {
+            if (actualNames[i] !== cachedNames[i]) return false;
+            if (actualHashes[actualNames[i]] !== cachedHashes[actualNames[i]]) return false;
+        }
+        return true;
     } catch (err) {
+        console.error(`验证 ${month} 缓存哈希失败:`, err);
         return false;
     }
 }
@@ -529,10 +564,10 @@ function isMonthCacheValid(month, latestSourceMtime) {
 // 分析单月日志
 async function analyzeSingleMonth(month, forceRebuild = false) {
     console.log(`分析单月: ${month}`);
-    const { files, latestMtime } = getFilesInMonth(month);
+    const { files } = getFilesInMonth(month);
     
     // 如果启用缓存且未强制重建，检查缓存有效性
-    if (!forceRebuild && CONFIG.skipAnalyzed && isMonthCacheValid(month, latestMtime)) {
+    if (!forceRebuild && CONFIG.skipAnalyzed && await isMonthCacheValid(month)) {
         const cached = loadMonthCache(month);
         if (cached) {
             console.log(`  跳过 ${month}，使用已有缓存 (源文件未变化)`);
@@ -555,6 +590,8 @@ async function analyzeSingleMonth(month, forceRebuild = false) {
         }
     }
     
+    const sourceHashes = await computeFilesHashMap(files);
+    monthLogData.__sourceHashes = sourceHashes;
     finalizeLogData(monthLogData);
     return monthLogData;
 }

@@ -860,6 +860,42 @@
             return logData;
         }
 
+        async function readMonthLogs(yearMonth, onProgress) {
+            const year = parseInt(yearMonth.substring(0, 2), 10) + 2000;
+            const month = parseInt(yearMonth.substring(2), 10);
+            const daysInMonth = getDaysInMonth(year, month);
+            const fileNames = [];
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dd = formatTwoDigits(day);
+                const fileName = `vpn_20${yearMonth}${dd}.log`;
+                try {
+                    const res = await fetch(`${yearMonth}/${fileName}`, { method: 'HEAD' });
+                    if (res.ok) {
+                        fileNames.push(fileName);
+                    }
+                } catch (e) {
+                    // 忽略不存在的文件
+                }
+            }
+            if (fileNames.length === 0) {
+                throw new Error(`未找到 ${yearMonth} 目录下的日志文件`);
+            }
+            return await readAndAnalyzeLogs(yearMonth, fileNames, onProgress);
+        }
+
+        async function loadMonthAnalysisOrRaw(monthStr, onProgress) {
+            const analysisFile = `analysis/${monthStr}.json`;
+            try {
+                const res = await fetch(analysisFile);
+                if (res.ok) {
+                    return await res.json();
+                }
+            } catch (e) {
+                // 尝试原始日志回退
+            }
+            return await readMonthLogs(monthStr, onProgress);
+        }
+
         function updateStats(logData) {
             document.getElementById('total-connections').textContent = logData.connections;
             document.getElementById('unique-ips').textContent = logData.uniqueIps;
@@ -1208,11 +1244,10 @@
                             ipStats: {}, vpnProtocolStats: {}, timeStats: Array(24).fill(0), dailyStats: {} };
 
                         if (rangeType === 'single-month') {
-                            const analysisFile = `analysis/${year}${month}.json`;
-                            currentFileSpan.textContent = `正在加载分析结果...`;
-                            const response = await fetch(analysisFile);
-                            if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
-                            logData = await response.json();
+                            currentFileSpan.textContent = `正在加载 ${year}${month} 的分析结果...`;
+                            logData = await loadMonthAnalysisOrRaw(`${year}${month}`, (fileName, percent) => {
+                                currentFileSpan.textContent = `正在读取 ${fileName} (${Math.round(percent * 100)}%)`;
+                            });
                         } else if (rangeType === 'full-year') {
                             const analysisFile = `analysis/${year}.json`;
                             currentFileSpan.textContent = `正在加载分析结果...`;
@@ -1240,10 +1275,10 @@
                                 `正在加载 ${selectedMonths.length} 个月份的分析结果...`;
                             for (let i = 0; i < selectedMonths.length; i++) {
                                 const monthStr = selectedMonths[i];
-                                const analysisFile = `analysis/${monthStr}.json`;
-                                const response = await fetch(analysisFile);
-                                if (!response.ok) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
-                                const monthData = await response.json();
+                                const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
+                                    currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
+                                });
+                                if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
                                 logData.connections += monthData.connections;
                                 logData.totalData += monthData.totalData;
                                 logData.totalDuration += monthData.totalDuration;
@@ -1311,10 +1346,10 @@
                             `正在加载 ${months.length} 个月份的分析结果...`;
                             for (let i = 0; i < months.length; i++) {
                                 const monthStr = months[i];
-                                const analysisFile = `analysis/${monthStr}.json`;
-                                const response = await fetch(analysisFile);
-                                if (!response.ok) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
-                                const monthData = await response.json();
+                                const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
+                                    currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
+                                });
+                                if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
                                 logData.connections += monthData.connections;
                                 logData.totalData += monthData.totalData;
                                 logData.totalDuration += monthData.totalDuration;
