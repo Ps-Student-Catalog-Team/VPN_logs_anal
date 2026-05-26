@@ -4,7 +4,7 @@ const path = require('path');
 // ==================== 配置部分 ====================
 const CONFIG = {
     // 是否保存session详细信息（true时会占用大量内存）
-    storeSessions: false,
+    storeSessions: true,
     // 时区（UTC 或 local）
     timezone: 'local',
     // 并行处理月份数
