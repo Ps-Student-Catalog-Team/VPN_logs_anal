@@ -707,11 +707,11 @@
         async function getFileMetadata(folder, fileName) {
             try {
                 const res = await fetch(`${folder}/${fileName}`, { method: 'HEAD' });
-                if (res.ok) return { fileName, lastModified: res.headers.get('Last-Modified'), contentLength: res.headers.get('Content-Length'), eTag: res.headers.get('ETag') };
+                if (res.ok) return { folder, fileName, lastModified: res.headers.get('Last-Modified'), contentLength: res.headers.get('Content-Length'), eTag: res.headers.get('ETag') };
             } catch (e) {}
             try {
                 const res = await fetch(`${folder}/${fileName}`, { headers: { Range: 'bytes=0-0' } });
-                if (res.ok) return { fileName, lastModified: null, contentLength: res.headers.get('Content-Length'), eTag: null };
+                if (res.ok) return { folder, fileName, lastModified: null, contentLength: res.headers.get('Content-Length'), eTag: null };
             } catch (e) {}
             return null;
         }
@@ -720,15 +720,14 @@
             if (!cache || !cache.files || cache.files.length === 0) return false;
             const MAX_AGE = 48 * 60 * 60 * 1000;
             if (Date.now() - cache.updatedAt > MAX_AGE) return false;
-            const { folder, files } = cache;
-            const indices = [0, files.length - 1];
-            for (let idx of indices) {
-                const file = files[idx];
-                if (!file || !file.fileName) continue;
-                const current = await getFileMetadata(folder, file.fileName);
+            const { files } = cache;
+            for (const file of files) {
+                if (!file || !file.fileName || !file.folder) return false;
+                const current = await getFileMetadata(file.folder, file.fileName);
                 if (!current) return false;
                 if (file.lastModified && current.lastModified && file.lastModified !== current.lastModified) return false;
                 if (file.contentLength && current.contentLength && file.contentLength !== current.contentLength) return false;
+                if (file.eTag && current.eTag && file.eTag !== current.eTag) return false;
             }
             return true;
         }
@@ -738,7 +737,7 @@
             if (!raw) return null;
             let cache;
             try { cache = JSON.parse(raw); } catch (e) { localStorage.removeItem(getCacheKey(folder, fileNames)); return null; }
-            if (!cache || cache.folder !== folder || !Array.isArray(cache.fileNames) || cache.fileNames.join() !== fileNames.join()) {
+            if (!cache || !Array.isArray(cache.folders) || cache.folders.join() !== folder.join() || !Array.isArray(cache.fileNames) || cache.fileNames.join() !== fileNames.join()) {
                 localStorage.removeItem(getCacheKey(folder, fileNames));
                 return null;
             }
@@ -749,7 +748,7 @@
         }
 
         async function saveCache(folder, fileNames, logData, fileMetas) {
-            const cache = { folder, fileNames, files: fileMetas, logData, updatedAt: Date.now() };
+            const cache = { folders: folder, fileNames, files: fileMetas, logData, updatedAt: Date.now() };
             try { localStorage.setItem(getCacheKey(folder, fileNames), JSON.stringify(cache)); } catch (e) { console.warn('缓存保存失败', e); }
         }
 
@@ -1432,17 +1431,12 @@
                     allFolders.push(monthFolder);
                 }
 
-                const cacheKey = getCacheKey(allFolders, allFileNames);
                 let logData = null;
-                const cachedRaw = localStorage.getItem(cacheKey);
-                if (cachedRaw) {
-                    try {
-                        const cache = JSON.parse(cachedRaw);
-                        const MAX_AGE = 48 * 60 * 60 * 1000;
-                        if (cache && cache.updatedAt && (Date.now() - cache.updatedAt) <= MAX_AGE) {
-                            logData = cache.logData;
-                        }
-                    } catch (e) { /* 缓存解析失败，忽略 */ }
+                try {
+                    logData = await loadCachedLogData(allFolders, allFileNames);
+                } catch (e) {
+                    console.warn('读取本地缓存失败:', e);
+                    logData = null;
                 }
 
                 if (logData) {
@@ -1527,10 +1521,7 @@
                         const meta = await getFileMetadata(monthFolder, fileName);
                         fileMetas.push(meta);
                     }
-                    const cache = { folders: allFolders, fileNames: allFileNames, files: fileMetas, logData, updatedAt: Date
-                            .now() };
-                    try { localStorage.setItem(cacheKey, JSON.stringify(cache)); } catch (e) { console.warn('缓存保存失败',
-                        e); }
+                    await saveCache(allFolders, allFileNames, logData, fileMetas);
 
                     updateStats(logData);
                     allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections,

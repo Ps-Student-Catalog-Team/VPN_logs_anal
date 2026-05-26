@@ -13,7 +13,7 @@ const CONFIG = {
     // Markdown文件缓冲区大小（字节）
     markdownBufferSize: 64 * 1024, // 64KB
     // 是否启用跳过已分析日志（--force 可强制重新分析）
-    skipAnalyzed: false
+    skipAnalyzed: true
 };
 
 // ==================== 预编译的正则表达式 ====================
@@ -276,8 +276,69 @@ async function analyzeLogFile(filePath) {
                 }
             }
             
-            // 处理最后缓冲区（省略，逻辑与上面相同，也需包含会话存储）
-            // ...
+            // 处理最后缓冲区中的残余行
+            if (buffer) {
+                const trimmed = buffer.trim();
+                const dateMatch = trimmed.match(REGEX.dateTitle);
+                if (dateMatch) {
+                    const dateStr = dateMatch[1];
+                    currentDate = `20${dateStr.substring(0, 2)}-${dateStr.substring(2, 4)}-${dateStr.substring(4, 6)}`;
+                } else if (currentDate && REGEX.tableLine.test(trimmed) && !trimmed.includes('| IP地址 |') && !trimmed.includes('|---------|')) {
+                    const parts = trimmed.split('|').map(p => p.trim()).filter(p => p);
+                    if (parts.length >= 4) {
+                        const ip = parts[0];
+                        const startTime = parts[1];
+                        const endTime = parts[2];
+                        const durationStr = parts[3];
+                        const vpnProtocol = parts[4] || '未知';
+                        let duration = 0;
+                        const durationMatch = durationStr.match(REGEX.number);
+                        if (durationMatch) {
+                            duration = parseFloat(durationMatch[1]) / 60;
+                        }
+                        if (!logData.ipStats[ip]) {
+                            logData.ipStats[ip] = {
+                                connections: 0,
+                                totalDuration: 0,
+                                totalData: 0,
+                                vpnProtocols: {},
+                                sessions: []
+                            };
+                        }
+                        const stats = logData.ipStats[ip];
+                        stats.connections++;
+                        stats.totalDuration += duration;
+                        stats.vpnProtocols[vpnProtocol] = (stats.vpnProtocols[vpnProtocol] || 0) + 1;
+                        logData.connections++;
+                        logData.totalDuration += duration;
+                        logData.vpnProtocolStats[vpnProtocol] = (logData.vpnProtocolStats[vpnProtocol] || 0) + 1;
+                        if (!logData.dailyStats[currentDate]) {
+                            logData.dailyStats[currentDate] = { connections: 0, totalDuration: 0, totalData: 0 };
+                        }
+                        logData.dailyStats[currentDate].connections++;
+                        logData.dailyStats[currentDate].totalDuration += duration;
+                        if (startTime && startTime.includes(' ')) {
+                            const hour = parseDateTime(startTime).getHours();
+                            if (!isNaN(hour)) {
+                                logData.timeStats[hour]++;
+                            }
+                        }
+                        if (CONFIG.storeSessions) {
+                            const session = {
+                                sessionId: `SID-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                                ip: ip,
+                                vpnProtocol: vpnProtocol,
+                                startTime: startTime,
+                                endTime: endTime,
+                                duration: duration,
+                                inputData: 0,
+                                outputData: 0
+                            };
+                            stats.sessions.push(session);
+                        }
+                    }
+                }
+            }
         } else {
             // 解析普通日志文件（.log）
             const activeSessions = {};
