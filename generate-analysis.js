@@ -5,7 +5,7 @@ const crypto = require('crypto');
 // ==================== 配置部分 ====================
 const CONFIG = {
     // 是否保存session详细信息（true时会占用大量内存）
-    storeSessions: false,
+    storeSessions: true,
     // 时区（UTC 或 local）
     timezone: 'local',
     // 并行处理月份数
@@ -13,7 +13,7 @@ const CONFIG = {
     // Markdown文件缓冲区大小（字节）
     markdownBufferSize: 64 * 1024, // 64KB
     // 是否启用跳过已分析日志（--force 可强制重新分析）
-    skipAnalyzed: true
+    skipAnalyzed: false
 };
 
 // ==================== 预编译的正则表达式 ====================

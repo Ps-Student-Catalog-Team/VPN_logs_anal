@@ -12,7 +12,547 @@
       "vpnProtocols": {
         "L2TP": 48
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-51",
+          "connectionId": "CID-148",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 08:41:54",
+          "endTime": "2026-04-01 12:18:59",
+          "duration": 217.08333333333334,
+          "inputData": 14675173,
+          "outputData": 388546091
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-54",
+          "connectionId": "CID-157",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 12:19:05",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-20",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 21:53:16",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-46",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 10:40:52",
+          "endTime": "2026-04-02 10:41:28",
+          "duration": 0.6,
+          "inputData": 90297,
+          "outputData": 203017
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-147",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 16:45:13",
+          "endTime": "2026-04-02 17:29:59",
+          "duration": 44.766666666666666,
+          "inputData": 26154773,
+          "outputData": 259397348
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-164",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 17:58:31",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 09:34:18",
+          "endTime": "2026-04-03 15:18:47",
+          "duration": 344.48333333333335,
+          "inputData": 58150545,
+          "outputData": 115218270
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-68",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 15:51:55",
+          "endTime": "2026-04-03 15:53:28",
+          "duration": 1.55,
+          "inputData": 31353,
+          "outputData": 14034
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-69",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 15:53:30",
+          "endTime": "2026-04-03 15:54:46",
+          "duration": 1.2666666666666666,
+          "inputData": 43370,
+          "outputData": 38362
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-73",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 15:55:11",
+          "endTime": "2026-04-03 15:57:57",
+          "duration": 2.7666666666666666,
+          "inputData": 52377,
+          "outputData": 49496
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-79",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 15:57:47",
+          "endTime": "2026-04-03 15:58:07",
+          "duration": 0.3333333333333333,
+          "inputData": 9270,
+          "outputData": 6453
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-16",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:40:49",
+          "endTime": "2026-04-07 09:41:00",
+          "duration": 0.18333333333333332,
+          "inputData": 11201,
+          "outputData": 12619
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-23",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:43:57",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-75",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 08:42:57",
+          "endTime": "2026-04-08 13:01:11",
+          "duration": 258.23333333333335,
+          "inputData": 40682410,
+          "outputData": 751457942
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-96",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 15:04:31",
+          "endTime": "2026-04-08 22:40:39",
+          "duration": 456.1333333333333,
+          "inputData": 17457111,
+          "outputData": 245416344
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-32",
+          "connectionId": "CID-132",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 09:33:23",
+          "endTime": "2026-04-09 15:10:33",
+          "duration": 337.1666666666667,
+          "inputData": 9644246,
+          "outputData": 75570887
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 16:46:24",
+          "endTime": "2026-04-09 18:57:50",
+          "duration": 131.43333333333334,
+          "inputData": 7370700,
+          "outputData": 165663517
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-41",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 20:33:00",
+          "endTime": "2026-04-09 20:35:12",
+          "duration": 2.2,
+          "inputData": 3147655,
+          "outputData": 16582093
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-7",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 09:35:46",
+          "endTime": "2026-04-10 09:36:14",
+          "duration": 0.4666666666666667,
+          "inputData": 734100,
+          "outputData": 2387130
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-8",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 09:37:37",
+          "endTime": "2026-04-10 13:45:12",
+          "duration": 247.58333333333334,
+          "inputData": 38573422,
+          "outputData": 543516281
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-7",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 15:08:12",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-12 22:08:27",
+          "endTime": "2026-04-12 22:08:32",
+          "duration": 0.08333333333333333,
+          "inputData": 5358,
+          "outputData": 2140
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-15",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 07:50:00",
+          "endTime": "2026-04-13 17:43:17",
+          "duration": 593.2833333333333,
+          "inputData": 77804589,
+          "outputData": 1739922311
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 19:46:10",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-45",
+          "connectionId": "CID-147",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 21:52:17",
+          "endTime": "2026-04-14 22:04:47",
+          "duration": 12.5,
+          "inputData": 19228650,
+          "outputData": 2661520
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-54",
+          "connectionId": "CID-161",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 07:48:25",
+          "endTime": "2026-04-15 08:42:34",
+          "duration": 54.15,
+          "inputData": 36935280,
+          "outputData": 6857129
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-59",
+          "connectionId": "CID-166",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 08:43:15",
+          "endTime": "2026-04-15 09:52:19",
+          "duration": 69.06666666666666,
+          "inputData": 13700232,
+          "outputData": 261621476
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 12:19:47",
+          "endTime": "2026-04-15 12:28:25",
+          "duration": 8.633333333333333,
+          "inputData": 9175496,
+          "outputData": 255298952
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-81",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 15:02:55",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-133",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 07:58:08",
+          "endTime": "2026-04-16 09:49:52",
+          "duration": 111.73333333333333,
+          "inputData": 22613965,
+          "outputData": 375824903
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-37",
+          "connectionId": "CID-148",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 10:41:29",
+          "endTime": "2026-04-16 17:10:19",
+          "duration": 388.8333333333333,
+          "inputData": 63311550,
+          "outputData": 336518613
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-46",
+          "connectionId": "CID-183",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 18:49:54",
+          "endTime": "2026-04-16 21:58:25",
+          "duration": 188.51666666666668,
+          "inputData": 9921934,
+          "outputData": 6997786
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 08:42:08",
+          "endTime": "2026-04-17 14:06:16",
+          "duration": 324.1333333333333,
+          "inputData": 13739194,
+          "outputData": 380943383
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-28",
+          "connectionId": "CID-58",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 07:09:08",
+          "endTime": "2026-04-18 09:01:27",
+          "duration": 112.31666666666666,
+          "inputData": 17915438,
+          "outputData": 67304887
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 09:14:19",
+          "endTime": "2026-04-18 11:41:42",
+          "duration": 147.38333333333333,
+          "inputData": 13854244,
+          "outputData": 7808721
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 19:47:04",
+          "endTime": "2026-04-19 23:17:57",
+          "duration": 210.88333333333333,
+          "inputData": 4774683,
+          "outputData": 5923718
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 09:36:43",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 18:26:07",
+          "endTime": "2026-04-21 18:27:21",
+          "duration": 1.2333333333333334,
+          "inputData": 523533,
+          "outputData": 1143530
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 09:38:52",
+          "endTime": "2026-04-22 13:08:21",
+          "duration": 209.48333333333332,
+          "inputData": 29936602,
+          "outputData": 300344156
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-205",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 19:47:45",
+          "endTime": "2026-04-22 20:46:20",
+          "duration": 58.583333333333336,
+          "inputData": 9896423,
+          "outputData": 61057341
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-32",
+          "connectionId": "CID-213",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 10:37:38",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-38",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 18:52:44",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 15:05:43",
+          "endTime": "2026-04-24 16:57:17",
+          "duration": 111.56666666666666,
+          "inputData": 1674069,
+          "outputData": 4797577
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-63",
+          "connectionId": "CID-107",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 17:22:17",
+          "endTime": "2026-04-28 17:27:23",
+          "duration": 5.1,
+          "inputData": 2323444,
+          "outputData": 17086034
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-64",
+          "connectionId": "CID-109",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 17:27:26",
+          "endTime": "2026-04-28 17:36:26",
+          "duration": 9,
+          "inputData": 2860782,
+          "outputData": 23860376
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 08:32:44",
+          "endTime": "2026-04-29 20:32:36",
+          "duration": 719.8666666666667,
+          "inputData": 16229793,
+          "outputData": 445433128
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-45",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 20:33:45",
+          "endTime": "2026-04-29 22:22:36",
+          "duration": 108.85,
+          "inputData": 5006807,
+          "outputData": 38499301
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-36",
+          "connectionId": "CID-53",
+          "ip": "10.88.202.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 09:39:20",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        }
+      ]
     },
     "10.88.214.130": {
       "connections": 101,
@@ -21,7 +561,1122 @@
       "vpnProtocols": {
         "L2TP": 101
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-52",
+          "connectionId": "CID-149",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 09:49:35",
+          "endTime": "2026-04-01 09:54:13",
+          "duration": 4.633333333333334,
+          "inputData": 22767778,
+          "outputData": 1005978890
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-55",
+          "connectionId": "CID-158",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 12:25:54",
+          "endTime": "2026-04-01 12:31:57",
+          "duration": 6.05,
+          "inputData": 4677805,
+          "outputData": 159900153
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-57",
+          "connectionId": "CID-167",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 12:54:07",
+          "endTime": "2026-04-01 12:55:38",
+          "duration": 1.5166666666666666,
+          "inputData": 1196545,
+          "outputData": 7417938
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-58",
+          "connectionId": "CID-170",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 12:56:09",
+          "endTime": "2026-04-01 13:00:47",
+          "duration": 4.633333333333334,
+          "inputData": 991041,
+          "outputData": 6959218
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-59",
+          "connectionId": "CID-172",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:02:21",
+          "endTime": "2026-04-01 13:03:45",
+          "duration": 1.4,
+          "inputData": 392205,
+          "outputData": 1587255
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-60",
+          "connectionId": "CID-173",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:09:59",
+          "endTime": "2026-04-01 13:10:58",
+          "duration": 0.9833333333333333,
+          "inputData": 180097,
+          "outputData": 295061
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-61",
+          "connectionId": "CID-186",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:15:30",
+          "endTime": "2026-04-01 13:17:46",
+          "duration": 2.2666666666666666,
+          "inputData": 461868,
+          "outputData": 856664
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-62",
+          "connectionId": "CID-190",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:17:50",
+          "endTime": "2026-04-01 13:17:53",
+          "duration": 0.05,
+          "inputData": 22336,
+          "outputData": 3883
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-63",
+          "connectionId": "CID-223",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:23:13",
+          "endTime": "2026-04-01 13:37:57",
+          "duration": 14.733333333333333,
+          "inputData": 1371656,
+          "outputData": 13332706
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-64",
+          "connectionId": "CID-225",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:48:14",
+          "endTime": "2026-04-01 13:52:24",
+          "duration": 4.166666666666667,
+          "inputData": 1289289,
+          "outputData": 5645739
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-65",
+          "connectionId": "CID-226",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 13:54:59",
+          "endTime": "2026-04-01 13:58:46",
+          "duration": 3.783333333333333,
+          "inputData": 1068799,
+          "outputData": 2759664
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-66",
+          "connectionId": "CID-292",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 18:03:04",
+          "endTime": "2026-04-01 18:42:56",
+          "duration": 39.86666666666667,
+          "inputData": 43535241,
+          "outputData": 1624349245
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-45",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 09:33:59",
+          "endTime": "2026-04-02 09:45:05",
+          "duration": 11.1,
+          "inputData": 3582212,
+          "outputData": 26266674
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-60",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 12:41:53",
+          "endTime": "2026-04-02 12:46:30",
+          "duration": 4.616666666666666,
+          "inputData": 2353474,
+          "outputData": 11359810
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-61",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 12:46:57",
+          "endTime": "2026-04-02 12:50:51",
+          "duration": 3.9,
+          "inputData": 560178,
+          "outputData": 1255747
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-62",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 12:50:59",
+          "endTime": "2026-04-02 12:55:28",
+          "duration": 4.483333333333333,
+          "inputData": 291754,
+          "outputData": 378786
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-63",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 12:55:35",
+          "endTime": "2026-04-02 12:55:40",
+          "duration": 0.08333333333333333,
+          "inputData": 24959,
+          "outputData": 21005
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-64",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 12:55:46",
+          "endTime": "2026-04-02 12:56:00",
+          "duration": 0.23333333333333334,
+          "inputData": 57156,
+          "outputData": 133802
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-65",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 12:56:14",
+          "endTime": "2026-04-02 13:05:30",
+          "duration": 9.266666666666667,
+          "inputData": 4709288,
+          "outputData": 128607462
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-81",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 13:14:38",
+          "endTime": "2026-04-02 13:16:20",
+          "duration": 1.7,
+          "inputData": 197366,
+          "outputData": 367032
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-82",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 13:17:03",
+          "endTime": "2026-04-02 13:18:22",
+          "duration": 1.3166666666666667,
+          "inputData": 421485,
+          "outputData": 2201280
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-93",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 13:49:26",
+          "endTime": "2026-04-02 13:53:24",
+          "duration": 3.966666666666667,
+          "inputData": 925497,
+          "outputData": 863495
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-104",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 13:53:36",
+          "endTime": "2026-04-02 13:56:55",
+          "duration": 3.316666666666667,
+          "inputData": 639654,
+          "outputData": 3559863
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-17",
+          "connectionId": "CID-117",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 13:59:34",
+          "endTime": "2026-04-02 13:59:40",
+          "duration": 0.1,
+          "inputData": 45812,
+          "outputData": 39146
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-18",
+          "connectionId": "CID-119",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 14:05:50",
+          "endTime": "2026-04-02 14:09:20",
+          "duration": 3.5,
+          "inputData": 1839088,
+          "outputData": 21017821
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-152",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 17:23:08",
+          "endTime": "2026-04-02 17:27:55",
+          "duration": 4.783333333333333,
+          "inputData": 131904360,
+          "outputData": 12999639
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-154",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 17:42:17",
+          "endTime": "2026-04-02 17:43:10",
+          "duration": 0.8833333333333333,
+          "inputData": 1333478,
+          "outputData": 29888018
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-159",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 17:47:48",
+          "endTime": "2026-04-02 18:26:46",
+          "duration": 38.96666666666667,
+          "inputData": 78159048,
+          "outputData": 756186464
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-27",
+          "connectionId": "CID-166",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 18:34:34",
+          "endTime": "2026-04-02 18:48:05",
+          "duration": 13.516666666666667,
+          "inputData": 7580329,
+          "outputData": 140516639
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-27",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 12:45:45",
+          "endTime": "2026-04-03 13:20:59",
+          "duration": 35.233333333333334,
+          "inputData": 15713374,
+          "outputData": 126358265
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-47",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 13:23:20",
+          "endTime": "2026-04-03 13:26:41",
+          "duration": 3.35,
+          "inputData": 1039313,
+          "outputData": 2698553
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-80",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 17:31:31",
+          "endTime": "2026-04-03 17:32:24",
+          "duration": 0.8833333333333333,
+          "inputData": 57543,
+          "outputData": 4094
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-81",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 17:32:48",
+          "endTime": "2026-04-03 17:34:12",
+          "duration": 1.4,
+          "inputData": 109423,
+          "outputData": 17372
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-82",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 17:34:15",
+          "endTime": "2026-04-03 17:34:32",
+          "duration": 0.2833333333333333,
+          "inputData": 36075,
+          "outputData": 3538
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-8",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:35:35",
+          "endTime": "2026-04-07 10:37:03",
+          "duration": 61.46666666666667,
+          "inputData": 143801898,
+          "outputData": 6472456079
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-28",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 10:41:11",
+          "endTime": "2026-04-07 10:41:28",
+          "duration": 0.2833333333333333,
+          "inputData": 153319,
+          "outputData": 497191
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-32",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 11:30:32",
+          "endTime": "2026-04-07 11:32:24",
+          "duration": 1.8666666666666667,
+          "inputData": 2444606,
+          "outputData": 59156416
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-34",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 12:51:33",
+          "endTime": "2026-04-07 13:34:23",
+          "duration": 42.833333333333336,
+          "inputData": 4829226874,
+          "outputData": 446930963
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-42",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 17:36:01",
+          "endTime": "2026-04-07 18:41:05",
+          "duration": 65.06666666666666,
+          "inputData": 17917413,
+          "outputData": 285526872
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-81",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 12:37:18",
+          "endTime": "2026-04-08 14:02:44",
+          "duration": 85.43333333333334,
+          "inputData": 22343126,
+          "outputData": 498229705
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-28",
+          "connectionId": "CID-119",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 17:42:42",
+          "endTime": "2026-04-08 17:44:30",
+          "duration": 1.8,
+          "inputData": 695666,
+          "outputData": 797015
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-120",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 17:49:32",
+          "endTime": "2026-04-08 18:05:47",
+          "duration": 16.25,
+          "inputData": 154421785,
+          "outputData": 18488254
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-40",
+          "connectionId": "CID-156",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:52:07",
+          "endTime": "2026-04-09 13:56:43",
+          "duration": 64.6,
+          "inputData": 30433868,
+          "outputData": 587312227
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-32",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 17:39:22",
+          "endTime": "2026-04-09 17:51:55",
+          "duration": 12.55,
+          "inputData": 1911199,
+          "outputData": 39837745
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-33",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 17:55:27",
+          "endTime": "2026-04-09 17:55:58",
+          "duration": 0.5166666666666667,
+          "inputData": 338638,
+          "outputData": 1418430
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-36",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 17:56:34",
+          "endTime": "2026-04-09 18:23:14",
+          "duration": 26.666666666666668,
+          "inputData": 52239330,
+          "outputData": 919287458
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-39",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 13:18:19",
+          "endTime": "2026-04-10 13:29:18",
+          "duration": 10.983333333333333,
+          "inputData": 3529644,
+          "outputData": 17998587
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-17",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 17:41:22",
+          "endTime": "2026-04-10 18:48:41",
+          "duration": 67.31666666666666,
+          "inputData": 507223592,
+          "outputData": 4538871864
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-18",
+          "connectionId": "CID-47",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-11 09:03:44",
+          "endTime": "2026-04-11 09:21:42",
+          "duration": 17.966666666666665,
+          "inputData": 98218765,
+          "outputData": 761983190
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-69",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 12:46:54",
+          "endTime": "2026-04-14 13:12:04",
+          "duration": 25.166666666666668,
+          "inputData": 83794896,
+          "outputData": 353899057
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-81",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 13:18:21",
+          "endTime": "2026-04-14 13:20:49",
+          "duration": 2.466666666666667,
+          "inputData": 4891544,
+          "outputData": 4239281
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-28",
+          "connectionId": "CID-117",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 17:47:01",
+          "endTime": "2026-04-14 17:58:29",
+          "duration": 11.466666666666667,
+          "inputData": 3399298,
+          "outputData": 17343892
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-30",
+          "connectionId": "CID-119",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 17:59:06",
+          "endTime": "2026-04-14 18:09:54",
+          "duration": 10.8,
+          "inputData": 50857471,
+          "outputData": 230466293
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-31",
+          "connectionId": "CID-120",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:11:15",
+          "endTime": "2026-04-14 18:30:54",
+          "duration": 19.65,
+          "inputData": 37857173,
+          "outputData": 83151936
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-32",
+          "connectionId": "CID-121",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:31:11",
+          "endTime": "2026-04-14 18:31:30",
+          "duration": 0.31666666666666665,
+          "inputData": 224228,
+          "outputData": 4431651
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-33",
+          "connectionId": "CID-122",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:31:53",
+          "endTime": "2026-04-14 18:37:30",
+          "duration": 5.616666666666666,
+          "inputData": 6028036,
+          "outputData": 18784247
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-34",
+          "connectionId": "CID-123",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:37:45",
+          "endTime": "2026-04-14 18:38:00",
+          "duration": 0.25,
+          "inputData": 94655,
+          "outputData": 125797
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-35",
+          "connectionId": "CID-124",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:44:03",
+          "endTime": "2026-04-14 18:44:24",
+          "duration": 0.35,
+          "inputData": 81997,
+          "outputData": 54695
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-36",
+          "connectionId": "CID-125",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:45:09",
+          "endTime": "2026-04-14 18:45:35",
+          "duration": 0.43333333333333335,
+          "inputData": 96535,
+          "outputData": 62156
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-37",
+          "connectionId": "CID-126",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 18:45:55",
+          "endTime": "2026-04-14 18:46:15",
+          "duration": 0.3333333333333333,
+          "inputData": 88970,
+          "outputData": 44667
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-61",
+          "connectionId": "CID-169",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 09:36:12",
+          "endTime": "2026-04-15 09:37:16",
+          "duration": 1.0666666666666667,
+          "inputData": 302063,
+          "outputData": 503233
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-62",
+          "connectionId": "CID-170",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 09:39:44",
+          "endTime": "2026-04-15 09:52:19",
+          "duration": 12.583333333333334,
+          "inputData": 25861209,
+          "outputData": 166039019
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 12:43:14",
+          "endTime": "2026-04-15 13:24:45",
+          "duration": 41.516666666666666,
+          "inputData": 63032247,
+          "outputData": 438805017
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-49",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 13:26:42",
+          "endTime": "2026-04-15 13:29:11",
+          "duration": 2.4833333333333334,
+          "inputData": 641776,
+          "outputData": 1074707
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-54",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 13:29:30",
+          "endTime": "2026-04-15 13:32:46",
+          "duration": 3.2666666666666666,
+          "inputData": 792409,
+          "outputData": 811136
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-62",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 13:36:01",
+          "endTime": "2026-04-15 13:42:20",
+          "duration": 6.316666666666666,
+          "inputData": 4626638,
+          "outputData": 1750235
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-73",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 13:44:10",
+          "endTime": "2026-04-15 13:52:24",
+          "duration": 8.233333333333333,
+          "inputData": 7541746,
+          "outputData": 7977164
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-120",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 18:23:42",
+          "endTime": "2026-04-15 19:43:47",
+          "duration": 80.08333333333333,
+          "inputData": 11183940,
+          "outputData": 117910282
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-45",
+          "connectionId": "CID-182",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 17:24:49",
+          "endTime": "2026-04-16 18:55:35",
+          "duration": 90.76666666666667,
+          "inputData": 39950295,
+          "outputData": 482769606
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-15",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 12:46:10",
+          "endTime": "2026-04-17 13:42:36",
+          "duration": 56.43333333333333,
+          "inputData": 13495031,
+          "outputData": 136603732
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-33",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 17:32:26",
+          "endTime": "2026-04-17 18:51:13",
+          "duration": 78.78333333333333,
+          "inputData": 63092027,
+          "outputData": 910047685
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-35",
+          "connectionId": "CID-73",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 08:55:15",
+          "endTime": "2026-04-18 09:01:27",
+          "duration": 6.2,
+          "inputData": 26148139,
+          "outputData": 238133332
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-2",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:13:02",
+          "endTime": "2026-04-19 18:19:36",
+          "duration": 6.566666666666666,
+          "inputData": 19715241,
+          "outputData": 267494917
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-6",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:21:53",
+          "endTime": "2026-04-19 18:25:41",
+          "duration": 3.8,
+          "inputData": 2561634,
+          "outputData": 89249438
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-7",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:25:44",
+          "endTime": "2026-04-19 18:30:13",
+          "duration": 4.483333333333333,
+          "inputData": 7997763,
+          "outputData": 345302304
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-8",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:30:28",
+          "endTime": "2026-04-19 18:30:58",
+          "duration": 0.5,
+          "inputData": 402634,
+          "outputData": 20416399
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-9",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:34:09",
+          "endTime": "2026-04-19 18:34:55",
+          "duration": 0.7666666666666667,
+          "inputData": 176312,
+          "outputData": 491313
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-10",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:35:40",
+          "endTime": "2026-04-19 21:54:59",
+          "duration": 199.31666666666666,
+          "inputData": 29716250,
+          "outputData": 1255196052
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 09:33:08",
+          "endTime": "2026-04-20 09:47:14",
+          "duration": 14.1,
+          "inputData": 7605504,
+          "outputData": 106797118
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-6",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 12:33:04",
+          "endTime": "2026-04-20 14:01:12",
+          "duration": 88.13333333333334,
+          "inputData": 34439696,
+          "outputData": 267431326
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-11",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 17:40:37",
+          "endTime": "2026-04-20 21:50:50",
+          "duration": 250.21666666666667,
+          "inputData": 47342870,
+          "outputData": 571590661
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-44",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 12:48:53",
+          "endTime": "2026-04-21 17:35:43",
+          "duration": 286.8333333333333,
+          "inputData": 29513722,
+          "outputData": 99061730
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-59",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 17:36:22",
+          "endTime": "2026-04-21 17:50:07",
+          "duration": 13.75,
+          "inputData": 10768056,
+          "outputData": 129977639
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 18:22:25",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-24",
+          "connectionId": "CID-203",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 19:46:22",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 14:03:56",
+          "endTime": "2026-04-23 21:51:27",
+          "duration": 467.51666666666665,
+          "inputData": 237939538,
+          "outputData": 242502962
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-30",
+          "connectionId": "CID-211",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 09:41:26",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-47",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 07:52:34",
+          "endTime": "2026-04-24 13:59:41",
+          "duration": 367.1166666666667,
+          "inputData": 128262708,
+          "outputData": 2822490736
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-5",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 15:55:36",
+          "endTime": "2026-04-24 16:47:42",
+          "duration": 52.1,
+          "inputData": 383762720,
+          "outputData": 6998023
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-16",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 20:43:39",
+          "endTime": "2026-04-26 20:55:03",
+          "duration": 11.4,
+          "inputData": 827866,
+          "outputData": 1664916
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-17",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 20:55:05",
+          "endTime": "2026-04-26 21:50:54",
+          "duration": 55.81666666666667,
+          "inputData": 683787,
+          "outputData": 1528132
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-28",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 12:44:51",
+          "endTime": "2026-04-27 21:51:58",
+          "duration": 547.1166666666667,
+          "inputData": 199436797,
+          "outputData": 1922833921
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-42",
+          "connectionId": "CID-57",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 10:02:01",
+          "endTime": "2026-04-28 18:54:42",
+          "duration": 532.6833333333333,
+          "inputData": 158112981,
+          "outputData": 2836429570
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 19:31:11",
+          "endTime": "2026-04-28 21:51:49",
+          "duration": 140.63333333333333,
+          "inputData": 200199888,
+          "outputData": 2890044359
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-12",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 09:54:36",
+          "endTime": "2026-04-29 10:31:54",
+          "duration": 37.3,
+          "inputData": 20192052,
+          "outputData": 823316590
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-16",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 12:30:48",
+          "endTime": "2026-04-29 21:50:32",
+          "duration": 559.7333333333333,
+          "inputData": 157957152,
+          "outputData": 3154549597
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-38",
+          "connectionId": "CID-59",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 09:47:44",
+          "endTime": "2026-04-30 12:47:15",
+          "duration": 179.51666666666668,
+          "inputData": 15842067,
+          "outputData": 216620655
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-43",
+          "connectionId": "CID-64",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 12:47:19",
+          "endTime": "2026-04-30 12:53:29",
+          "duration": 6.166666666666667,
+          "inputData": 7858382,
+          "outputData": 31952689
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-44",
+          "connectionId": "CID-68",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 13:07:46",
+          "endTime": "2026-04-30 13:11:53",
+          "duration": 4.116666666666666,
+          "inputData": 3458321,
+          "outputData": 5712244
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-45",
+          "connectionId": "CID-69",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 13:20:37",
+          "endTime": "2026-04-30 13:54:08",
+          "duration": 33.516666666666666,
+          "inputData": 30676249,
+          "outputData": 1020495454
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-48",
+          "connectionId": "CID-72",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 13:55:11",
+          "endTime": "2026-04-30 15:53:21",
+          "duration": 118.16666666666667,
+          "inputData": 1293265,
+          "outputData": 4444046
+        }
+      ]
     },
     "10.88.202.33": {
       "connections": 43,
@@ -31,7 +1686,483 @@
         "L2TP": 19,
         "OpenVPN": 24
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-53",
+          "connectionId": "CID-155",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 10:29:16",
+          "endTime": "2026-04-01 10:30:20",
+          "duration": 1.0666666666666667,
+          "inputData": 95269,
+          "outputData": 161129
+        },
+        {
+          "sessionId": "SID-ADMIN-[L2TP]-2",
+          "connectionId": "CID-12",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 20:51:54",
+          "endTime": "2026-04-01 20:53:37",
+          "duration": 1.7166666666666666,
+          "inputData": 351355,
+          "outputData": 3213573
+        },
+        {
+          "sessionId": "SID-ADMIN-[L2TP]-3",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 20:56:28",
+          "endTime": "2026-04-01 21:56:21",
+          "duration": 59.88333333333333,
+          "inputData": 4765144,
+          "outputData": 30519723
+        },
+        {
+          "sessionId": "SID-ADMIN-[L2TP]-67",
+          "connectionId": "CID-307",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 20:06:00",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-ADMIN-[L2TP]-28",
+          "connectionId": "CID-173",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 19:19:22",
+          "endTime": "2026-04-02 19:22:02",
+          "duration": 2.6666666666666665,
+          "inputData": 357246,
+          "outputData": 2433374
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-30",
+          "connectionId": "CID-195",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 20:54:35",
+          "endTime": "2026-04-02 21:00:15",
+          "duration": 5.666666666666667,
+          "inputData": 389700,
+          "outputData": 1776854
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-84",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 12:52:44",
+          "endTime": "2026-04-08 12:53:15",
+          "duration": 0.5166666666666667,
+          "inputData": 228027,
+          "outputData": 374076
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-85",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 12:53:20",
+          "endTime": "2026-04-08 12:53:26",
+          "duration": 0.1,
+          "inputData": 10122,
+          "outputData": 15188
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-24",
+          "connectionId": "CID-86",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 12:53:39",
+          "endTime": "2026-04-08 12:54:21",
+          "duration": 0.7,
+          "inputData": 1003855,
+          "outputData": 19747118
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-35",
+          "connectionId": "CID-147",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:23:29",
+          "endTime": "2026-04-09 12:24:22",
+          "duration": 0.8833333333333333,
+          "inputData": 990602,
+          "outputData": 15007450
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 22:03:01",
+          "endTime": "2026-04-09 22:26:43",
+          "duration": 23.7,
+          "inputData": 26805708,
+          "outputData": 363167934
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-29",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 21:55:36",
+          "endTime": "2026-04-10 22:26:06",
+          "duration": 30.5,
+          "inputData": 38895103,
+          "outputData": 590738541
+        },
+        {
+          "sessionId": "SID-ADMIN-[OPENVPN_L3]-6",
+          "connectionId": "CID-18",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-13 21:20:09",
+          "endTime": "2026-04-13 21:27:17",
+          "duration": 7.133333333333334,
+          "inputData": 2772263,
+          "outputData": 38166363
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-7",
+          "connectionId": "CID-30",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-13 21:27:35",
+          "endTime": "2026-04-13 21:39:05",
+          "duration": 11.5,
+          "inputData": 1786759,
+          "outputData": 7969958
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-32",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 22:05:14",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-46",
+          "connectionId": "CID-148",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 22:04:22",
+          "endTime": "2026-04-14 22:27:23",
+          "duration": 23.016666666666666,
+          "inputData": 22002507,
+          "outputData": 349494622
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-126",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 21:57:16",
+          "endTime": "2026-04-15 22:15:44",
+          "duration": 18.466666666666665,
+          "inputData": 19333702,
+          "outputData": 284008521
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 12:08:20",
+          "endTime": "2026-04-20 12:54:36",
+          "duration": 46.266666666666666,
+          "inputData": 17873192,
+          "outputData": 286257103
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-36",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 12:03:27",
+          "endTime": "2026-04-21 12:59:11",
+          "duration": 55.733333333333334,
+          "inputData": 17929056,
+          "outputData": 406002545
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-13",
+          "connectionId": "CID-34",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 12:06:05",
+          "endTime": "2026-04-22 12:06:07",
+          "duration": 0.03333333333333333,
+          "inputData": 69556,
+          "outputData": 109406
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-14",
+          "connectionId": "CID-44",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 12:06:44",
+          "endTime": "2026-04-22 12:07:28",
+          "duration": 0.7333333333333333,
+          "inputData": 916193,
+          "outputData": 10437936
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-47",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 12:12:11",
+          "endTime": "2026-04-22 12:22:04",
+          "duration": 9.883333333333333,
+          "inputData": 1943868,
+          "outputData": 16188707
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-2",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-24 20:53:20",
+          "endTime": "2026-04-24 20:58:16",
+          "duration": 4.933333333333334,
+          "inputData": 1193311,
+          "outputData": 32192705
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-3",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-24 20:58:28",
+          "endTime": "2026-04-24 21:00:31",
+          "duration": 2.05,
+          "inputData": 203446,
+          "outputData": 530492
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-4",
+          "connectionId": "CID-9",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-24 21:02:28",
+          "endTime": "2026-04-24 21:06:15",
+          "duration": 3.783333333333333,
+          "inputData": 773285,
+          "outputData": 8168973
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-5",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-24 21:09:52",
+          "endTime": "2026-04-24 21:10:34",
+          "duration": 0.7,
+          "inputData": 26219,
+          "outputData": 86297
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-6",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-24 21:11:02",
+          "endTime": "2026-04-24 22:07:51",
+          "duration": 56.81666666666667,
+          "inputData": 4309102,
+          "outputData": 41373620
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-7",
+          "connectionId": "CID-15",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-25 07:09:48",
+          "endTime": "2026-04-25 07:32:02",
+          "duration": 22.233333333333334,
+          "inputData": 189574,
+          "outputData": 542413
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-8",
+          "connectionId": "CID-17",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-25 11:34:06",
+          "endTime": "2026-04-25 12:01:42",
+          "duration": 27.6,
+          "inputData": 2390089,
+          "outputData": 17501692
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-26",
+          "connectionId": "CID-33",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 14:19:38",
+          "endTime": "2026-04-27 15:27:41",
+          "duration": 68.05,
+          "inputData": 36770839,
+          "outputData": 366822541
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-27",
+          "connectionId": "CID-35",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 15:27:54",
+          "endTime": "2026-04-27 16:40:01",
+          "duration": 72.11666666666666,
+          "inputData": 7350030,
+          "outputData": 89588185
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-28",
+          "connectionId": "CID-37",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 16:40:08",
+          "endTime": "2026-04-27 16:45:26",
+          "duration": 5.3,
+          "inputData": 919328,
+          "outputData": 4947605
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-35",
+          "connectionId": "CID-47",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 21:33:36",
+          "endTime": "2026-04-27 21:35:26",
+          "duration": 1.8333333333333333,
+          "inputData": 520127,
+          "outputData": 4099994
+        },
+        {
+          "sessionId": "SID-ADMIN-[OPENVPN_L3]-47",
+          "connectionId": "CID-63",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 12:08:13",
+          "endTime": "2026-04-28 12:09:03",
+          "duration": 0.8333333333333334,
+          "inputData": 1196872,
+          "outputData": 7818048
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-48",
+          "connectionId": "CID-69",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 12:09:16",
+          "endTime": "2026-04-28 12:09:37",
+          "duration": 0.35,
+          "inputData": 111509,
+          "outputData": 165684
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-49",
+          "connectionId": "CID-71",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 12:09:56",
+          "endTime": "2026-04-28 12:16:18",
+          "duration": 6.366666666666666,
+          "inputData": 3108584,
+          "outputData": 18394956
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-55",
+          "connectionId": "CID-96",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 14:13:36",
+          "endTime": "2026-04-28 14:13:36",
+          "duration": 0,
+          "inputData": 756,
+          "outputData": 684
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-56",
+          "connectionId": "CID-98",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 14:13:38",
+          "endTime": "2026-04-28 14:29:44",
+          "duration": 16.1,
+          "inputData": 2803234,
+          "outputData": 5561006
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-57",
+          "connectionId": "CID-100",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 15:37:57",
+          "endTime": "2026-04-28 16:03:00",
+          "duration": 25.05,
+          "inputData": 10941033,
+          "outputData": 87853238
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-10",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 07:55:37",
+          "endTime": "2026-04-29 12:04:50",
+          "duration": 249.21666666666667,
+          "inputData": 52340946,
+          "outputData": 807810802
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-19",
+          "connectionId": "CID-33",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 14:18:33",
+          "endTime": "2026-04-29 14:34:12",
+          "duration": 15.65,
+          "inputData": 6059110,
+          "outputData": 52060962
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-20",
+          "connectionId": "CID-36",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 14:34:28",
+          "endTime": "2026-04-29 14:35:58",
+          "duration": 1.5,
+          "inputData": 803596,
+          "outputData": 2978057
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-40",
+          "connectionId": "CID-61",
+          "ip": "10.88.202.33",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 12:11:25",
+          "endTime": "2026-04-30 13:00:32",
+          "duration": 49.11666666666667,
+          "inputData": 21472654,
+          "outputData": 298277193
+        }
+      ]
     },
     "10.88.202.61": {
       "connections": 71,
@@ -40,7 +2171,796 @@
       "vpnProtocols": {
         "L2TP": 71
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-56",
+          "connectionId": "CID-159",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-01 12:35:26",
+          "endTime": "2026-04-01 12:56:41",
+          "duration": 21.25,
+          "inputData": 29498923,
+          "outputData": 1021877849
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-163",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 17:51:11",
+          "endTime": "2026-04-02 20:43:42",
+          "duration": 172.51666666666668,
+          "inputData": 57549508,
+          "outputData": 2213548510
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-194",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 20:47:30",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 11:32:55",
+          "endTime": "2026-04-03 15:18:47",
+          "duration": 225.86666666666667,
+          "inputData": 34241827,
+          "outputData": 1077139395
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-06 22:05:47",
+          "endTime": "2026-04-06 22:25:41",
+          "duration": 19.9,
+          "inputData": 11441336,
+          "outputData": 314775713
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-9",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:36:07",
+          "endTime": "2026-04-07 09:40:19",
+          "duration": 4.2,
+          "inputData": 4042171,
+          "outputData": 69290782
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-15",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:40:23",
+          "endTime": "2026-04-07 09:43:46",
+          "duration": 3.3833333333333333,
+          "inputData": 304569,
+          "outputData": 1190638
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-24",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:44:06",
+          "endTime": "2026-04-07 09:44:28",
+          "duration": 0.36666666666666664,
+          "inputData": 50497,
+          "outputData": 34448
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-25",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 09:46:12",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-30",
+          "connectionId": "CID-121",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 18:58:52",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-31",
+          "connectionId": "CID-131",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 07:11:28",
+          "endTime": "2026-04-09 10:44:03",
+          "duration": 212.58333333333334,
+          "inputData": 30425932,
+          "outputData": 886815633
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-33",
+          "connectionId": "CID-134",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 10:44:26",
+          "endTime": "2026-04-09 12:49:14",
+          "duration": 124.8,
+          "inputData": 47300725,
+          "outputData": 766056021
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-42",
+          "connectionId": "CID-162",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 15:07:51",
+          "endTime": "2026-04-09 15:52:56",
+          "duration": 45.083333333333336,
+          "inputData": 1089392,
+          "outputData": 16704511
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-44",
+          "connectionId": "CID-164",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 15:52:59",
+          "endTime": "2026-04-09 16:06:52",
+          "duration": 13.883333333333333,
+          "inputData": 12741273,
+          "outputData": 494977475
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 16:51:46",
+          "endTime": "2026-04-09 20:37:13",
+          "duration": 225.45,
+          "inputData": 78697762,
+          "outputData": 1971203296
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-46",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 20:38:54",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 09:34:40",
+          "endTime": "2026-04-10 13:45:12",
+          "duration": 250.53333333333333,
+          "inputData": 115176869,
+          "outputData": 2231029789
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 14:13:55",
+          "endTime": "2026-04-10 14:58:28",
+          "duration": 44.55,
+          "inputData": 1222001,
+          "outputData": 18217656
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-5",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 14:58:30",
+          "endTime": "2026-04-10 15:02:00",
+          "duration": 3.5,
+          "inputData": 3393301,
+          "outputData": 36843194
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 15:02:07",
+          "endTime": "2026-04-10 18:53:03",
+          "duration": 230.93333333333334,
+          "inputData": 77072942,
+          "outputData": 2058080302
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-18",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 18:53:05",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-8",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-12 21:56:49",
+          "endTime": "2026-04-12 22:08:39",
+          "duration": 11.833333333333334,
+          "inputData": 3721176,
+          "outputData": 40937945
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-16",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 07:52:34",
+          "endTime": "2026-04-13 17:43:17",
+          "duration": 590.7166666666667,
+          "inputData": 317473508,
+          "outputData": 7732834929
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 18:49:41",
+          "endTime": "2026-04-13 19:01:43",
+          "duration": 12.033333333333333,
+          "inputData": 9601634,
+          "outputData": 439093866
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-12",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 19:01:45",
+          "endTime": "2026-04-13 19:45:37",
+          "duration": 43.86666666666667,
+          "inputData": 18391836,
+          "outputData": 461322183
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 20:30:26",
+          "endTime": "2026-04-13 22:26:59",
+          "duration": 116.55,
+          "inputData": 137852644,
+          "outputData": 2799645961
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-41",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 07:55:45",
+          "endTime": "2026-04-14 22:12:39",
+          "duration": 856.9,
+          "inputData": 335135962,
+          "outputData": 5811721672
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-53",
+          "connectionId": "CID-160",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 07:48:21",
+          "endTime": "2026-04-15 07:51:28",
+          "duration": 3.1166666666666667,
+          "inputData": 104695,
+          "outputData": 166225
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-55",
+          "connectionId": "CID-162",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 07:51:31",
+          "endTime": "2026-04-15 09:52:19",
+          "duration": 120.8,
+          "inputData": 68200534,
+          "outputData": 1001368605
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-78",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 14:09:03",
+          "endTime": "2026-04-15 22:21:04",
+          "duration": 492.01666666666665,
+          "inputData": 1255950448,
+          "outputData": 10069357694
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-32",
+          "connectionId": "CID-136",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 08:48:09",
+          "endTime": "2026-04-16 09:31:10",
+          "duration": 43.016666666666666,
+          "inputData": 862353,
+          "outputData": 1582385
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-34",
+          "connectionId": "CID-138",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 09:31:13",
+          "endTime": "2026-04-16 09:49:52",
+          "duration": 18.65,
+          "inputData": 31275479,
+          "outputData": 570590761
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-38",
+          "connectionId": "CID-149",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 10:42:40",
+          "endTime": "2026-04-16 14:01:55",
+          "duration": 199.25,
+          "inputData": 73010734,
+          "outputData": 1143147923
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-40",
+          "connectionId": "CID-168",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 14:10:05",
+          "endTime": "2026-04-16 15:03:09",
+          "duration": 53.06666666666667,
+          "inputData": 70433569,
+          "outputData": 2423024893
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-42",
+          "connectionId": "CID-170",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 15:03:13",
+          "endTime": "2026-04-16 22:11:15",
+          "duration": 428.03333333333336,
+          "inputData": 269727227,
+          "outputData": 5461975060
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 07:59:11",
+          "endTime": "2026-04-17 08:01:03",
+          "duration": 1.8666666666666667,
+          "inputData": 1280384,
+          "outputData": 22150688
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 08:41:30",
+          "endTime": "2026-04-17 14:07:04",
+          "duration": 325.56666666666666,
+          "inputData": 879163979,
+          "outputData": 1319623033
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-27",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 14:12:36",
+          "endTime": "2026-04-17 22:10:52",
+          "duration": 478.26666666666665,
+          "inputData": 198221970,
+          "outputData": 2531449039
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-59",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 07:14:47",
+          "endTime": "2026-04-18 09:01:27",
+          "duration": 106.66666666666667,
+          "inputData": 30918014,
+          "outputData": 374289035
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 09:08:32",
+          "endTime": "2026-04-18 11:48:18",
+          "duration": 159.76666666666668,
+          "inputData": 136096319,
+          "outputData": 3985777300
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 19:45:06",
+          "endTime": "2026-04-19 22:11:28",
+          "duration": 146.36666666666667,
+          "inputData": 68060289,
+          "outputData": 629300670
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 09:42:48",
+          "endTime": "2026-04-20 22:20:57",
+          "duration": 758.15,
+          "inputData": 270531375,
+          "outputData": 4549119531
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-29",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 07:14:14",
+          "endTime": "2026-04-21 17:34:43",
+          "duration": 620.4833333333333,
+          "inputData": 185267406,
+          "outputData": 4032586826
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-5",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 18:54:11",
+          "endTime": "2026-04-21 22:26:00",
+          "duration": 211.81666666666666,
+          "inputData": 57303485,
+          "outputData": 851152448
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-8",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 07:10:34",
+          "endTime": "2026-04-22 19:35:18",
+          "duration": 744.7333333333333,
+          "inputData": 279020728,
+          "outputData": 4725574353
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-204",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 19:47:05",
+          "endTime": "2026-04-22 22:27:26",
+          "duration": 160.35,
+          "inputData": 89352124,
+          "outputData": 1429405081
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-210",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 09:31:08",
+          "endTime": "2026-04-23 13:08:34",
+          "duration": 217.43333333333334,
+          "inputData": 112068759,
+          "outputData": 1582059208
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 15:52:36",
+          "endTime": "2026-04-23 17:11:49",
+          "duration": 79.21666666666667,
+          "inputData": 38127961,
+          "outputData": 718893049
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-16",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 17:14:11",
+          "endTime": "2026-04-23 17:18:33",
+          "duration": 4.366666666666666,
+          "inputData": 2182199,
+          "outputData": 9728088
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-17",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 17:18:37",
+          "endTime": "2026-04-23 22:24:42",
+          "duration": 306.0833333333333,
+          "inputData": 146457134,
+          "outputData": 3204478296
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-46",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 07:12:19",
+          "endTime": "2026-04-24 13:59:41",
+          "duration": 407.3666666666667,
+          "inputData": 152446326,
+          "outputData": 3007405980
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 15:02:29",
+          "endTime": "2026-04-24 15:04:40",
+          "duration": 2.183333333333333,
+          "inputData": 264163,
+          "outputData": 84881
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 15:04:43",
+          "endTime": "2026-04-24 17:02:15",
+          "duration": 117.53333333333333,
+          "inputData": 83305627,
+          "outputData": 1863121351
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-15",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 20:40:02",
+          "endTime": "2026-04-26 21:51:58",
+          "duration": 71.93333333333334,
+          "inputData": 1013635,
+          "outputData": 9482188
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-19",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 21:52:02",
+          "endTime": "2026-04-26 21:53:59",
+          "duration": 1.95,
+          "inputData": 29822,
+          "outputData": 613209
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-17",
+          "connectionId": "CID-20",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 21:55:33",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-18",
+          "connectionId": "CID-24",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 11:38:21",
+          "endTime": "2026-04-27 11:43:14",
+          "duration": 4.883333333333334,
+          "inputData": 6521068,
+          "outputData": 245443603
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-26",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 12:16:39",
+          "endTime": "2026-04-27 13:40:48",
+          "duration": 84.15,
+          "inputData": 74341378,
+          "outputData": 1951113343
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-32",
+          "connectionId": "CID-41",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 19:50:15",
+          "endTime": "2026-04-27 20:36:27",
+          "duration": 46.2,
+          "inputData": 38817208,
+          "outputData": 798482791
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-33",
+          "connectionId": "CID-42",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 20:39:53",
+          "endTime": "2026-04-27 21:50:53",
+          "duration": 71,
+          "inputData": 17923262,
+          "outputData": 332462275
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-38",
+          "connectionId": "CID-53",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 21:57:12",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-46",
+          "connectionId": "CID-61",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 12:05:26",
+          "endTime": "2026-04-28 14:39:39",
+          "duration": 154.21666666666667,
+          "inputData": 713330902,
+          "outputData": 2966737487
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-61",
+          "connectionId": "CID-105",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 17:08:45",
+          "endTime": "2026-04-28 18:54:42",
+          "duration": 105.95,
+          "inputData": 91616868,
+          "outputData": 1819106584
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 19:46:06",
+          "endTime": "2026-04-28 20:31:48",
+          "duration": 45.7,
+          "inputData": 26432047,
+          "outputData": 651478258
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 20:31:51",
+          "endTime": "2026-04-28 20:32:54",
+          "duration": 1.05,
+          "inputData": 44991,
+          "outputData": 69133
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-5",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 20:32:56",
+          "endTime": "2026-04-28 22:25:26",
+          "duration": 112.5,
+          "inputData": 64340778,
+          "outputData": 1064014079
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-15",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 12:13:35",
+          "endTime": "2026-04-29 14:04:30",
+          "duration": 110.91666666666667,
+          "inputData": 44814155,
+          "outputData": 1243509238
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-39",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 17:40:14",
+          "endTime": "2026-04-29 21:23:08",
+          "duration": 222.9,
+          "inputData": 107235512,
+          "outputData": 1690755048
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-32",
+          "connectionId": "CID-48",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 21:23:10",
+          "endTime": "2026-04-29 22:10:44",
+          "duration": 47.56666666666667,
+          "inputData": 33512742,
+          "outputData": 309144563
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-34",
+          "connectionId": "CID-51",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 07:09:29",
+          "endTime": "2026-04-30 10:37:02",
+          "duration": 207.55,
+          "inputData": 145928825,
+          "outputData": 3045755968
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-39",
+          "connectionId": "CID-60",
+          "ip": "10.88.202.61",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 10:39:37",
+          "endTime": "2026-04-30 16:54:22",
+          "duration": 374.75,
+          "inputData": 100573797,
+          "outputData": 1478835378
+        }
+      ]
     },
     "10.88.205.2": {
       "connections": 1,
@@ -49,7 +2969,19 @@
       "vpnProtocols": {
         "L2TP": 1
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-138",
+          "ip": "10.88.205.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 15:13:25",
+          "endTime": "2026-04-02 16:46:41",
+          "duration": 93.26666666666667,
+          "inputData": 13847753,
+          "outputData": 211916417
+        }
+      ]
     },
     "10.88.209.2": {
       "connections": 9,
@@ -58,7 +2990,107 @@
       "vpnProtocols": {
         "L2TP": 9
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-24",
+          "connectionId": "CID-160",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 17:47:58",
+          "endTime": "2026-04-02 17:48:04",
+          "duration": 0.1,
+          "inputData": 77843,
+          "outputData": 206111
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-23",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 13:15:53",
+          "endTime": "2026-04-17 14:05:42",
+          "duration": 49.81666666666667,
+          "inputData": 5187567,
+          "outputData": 41825054
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-26",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 14:05:46",
+          "endTime": "2026-04-17 14:06:01",
+          "duration": 0.25,
+          "inputData": 36557,
+          "outputData": 83334
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-35",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 18:19:21",
+          "endTime": "2026-04-17 18:29:55",
+          "duration": 10.566666666666666,
+          "inputData": 282890,
+          "outputData": 1149771
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-121",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 12:44:57",
+          "endTime": "2026-04-24 13:59:18",
+          "duration": 74.35,
+          "inputData": 111500012,
+          "outputData": 892204604
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-53",
+          "connectionId": "CID-93",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 13:34:07",
+          "endTime": "2026-04-28 14:02:14",
+          "duration": 28.116666666666667,
+          "inputData": 19778742,
+          "outputData": 2569598675
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-17",
+          "connectionId": "CID-17",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 12:53:41",
+          "endTime": "2026-04-29 13:54:25",
+          "duration": 60.733333333333334,
+          "inputData": 23915442,
+          "outputData": 1073657816
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-31",
+          "connectionId": "CID-47",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 21:01:40",
+          "endTime": "2026-04-29 21:49:17",
+          "duration": 47.61666666666667,
+          "inputData": 1617327,
+          "outputData": 6389466
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-47",
+          "connectionId": "CID-71",
+          "ip": "10.88.209.2",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 13:36:47",
+          "endTime": "2026-04-30 14:04:20",
+          "duration": 27.55,
+          "inputData": 10576148,
+          "outputData": 1223534198
+        }
+      ]
     },
     "10.88.202.51": {
       "connections": 37,
@@ -67,7 +3099,416 @@
       "vpnProtocols": {
         "L2TP": 38
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-31",
+          "connectionId": "CID-206",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-02 21:57:49",
+          "endTime": "2026-04-02 22:10:08",
+          "duration": 12.316666666666666,
+          "inputData": 8937093,
+          "outputData": 155096619
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-03 09:53:19",
+          "endTime": "2026-04-03 15:05:45",
+          "duration": 312.43333333333334,
+          "inputData": 45566980,
+          "outputData": 1946970228
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-33",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 12:25:57",
+          "endTime": "2026-04-07 13:52:13",
+          "duration": 86.26666666666667,
+          "inputData": 28017925,
+          "outputData": 563701623
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-38",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 15:03:04",
+          "endTime": "2026-04-07 15:03:09",
+          "duration": 0.08333333333333333,
+          "inputData": 28209,
+          "outputData": 3776
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-43",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 18:45:52",
+          "endTime": "2026-04-07 18:53:21",
+          "duration": 7.483333333333333,
+          "inputData": 2339672,
+          "outputData": 18306932
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-17",
+          "connectionId": "CID-50",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 21:56:36",
+          "endTime": "2026-04-07 22:14:44",
+          "duration": 18.133333333333333,
+          "inputData": 3217514,
+          "outputData": 21264108
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-80",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 12:27:46",
+          "endTime": "2026-04-08 13:51:37",
+          "duration": 83.85,
+          "inputData": 34705748,
+          "outputData": 1109005288
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-27",
+          "connectionId": "CID-97",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 15:53:31",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-36",
+          "connectionId": "CID-148",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:30:54",
+          "endTime": "2026-04-09 13:49:52",
+          "duration": 78.96666666666667,
+          "inputData": 107553129,
+          "outputData": 4548207908
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 16:34:09",
+          "endTime": "2026-04-09 19:58:49",
+          "duration": 204.66666666666666,
+          "inputData": 131474910,
+          "outputData": 5992748413
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-40",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 20:30:35",
+          "endTime": "2026-04-09 20:37:13",
+          "duration": 6.633333333333334,
+          "inputData": 776306,
+          "outputData": 3571951
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-16",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 12:17:32",
+          "endTime": "2026-04-10 13:45:12",
+          "duration": 87.66666666666667,
+          "inputData": 42491857,
+          "outputData": 1465122824
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-8",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 15:54:10",
+          "endTime": "2026-04-10 16:00:56",
+          "duration": 6.766666666666667,
+          "inputData": 275679,
+          "outputData": 375456
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 16:43:06",
+          "endTime": "2026-04-10 16:53:26",
+          "duration": 10.333333333333334,
+          "inputData": 58689529,
+          "outputData": 2617609045
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-23",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 19:47:57",
+          "endTime": "2026-04-10 22:03:33",
+          "duration": 135.6,
+          "inputData": 760221493,
+          "outputData": 34951669703
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-17",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 12:20:15",
+          "endTime": "2026-04-13 13:47:13",
+          "duration": 86.96666666666667,
+          "inputData": 36410381,
+          "outputData": 1305831555
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-66",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 12:22:18",
+          "endTime": "2026-04-14 13:51:59",
+          "duration": 89.68333333333334,
+          "inputData": 57370842,
+          "outputData": 2191644287
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 12:23:11",
+          "endTime": "2026-04-15 13:46:51",
+          "duration": 83.66666666666667,
+          "inputData": 46048321,
+          "outputData": 1654300216
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-39",
+          "connectionId": "CID-150",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 12:23:39",
+          "endTime": "2026-04-16 13:22:00",
+          "duration": 58.35,
+          "inputData": 38740072,
+          "outputData": 1015121131
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-12",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 12:18:57",
+          "endTime": "2026-04-17 13:53:02",
+          "duration": 94.08333333333333,
+          "inputData": 40487884,
+          "outputData": 949580759
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-5",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 12:19:58",
+          "endTime": "2026-04-20 13:58:29",
+          "duration": 98.51666666666667,
+          "inputData": 17768152,
+          "outputData": 376845627
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-37",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 12:19:24",
+          "endTime": "2026-04-21 13:53:32",
+          "duration": 94.13333333333334,
+          "inputData": 41154431,
+          "outputData": 1533527509
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-61",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 17:47:14",
+          "endTime": "2026-04-21 17:50:07",
+          "duration": 2.8833333333333333,
+          "inputData": 1239812,
+          "outputData": 43011457
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 18:28:08",
+          "endTime": "2026-04-21 18:50:12",
+          "duration": 22.066666666666666,
+          "inputData": 9352323,
+          "outputData": 270697306
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 20:32:53",
+          "endTime": "2026-04-21 21:57:50",
+          "duration": 84.95,
+          "inputData": 3346901,
+          "outputData": 100557251
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-48",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 12:20:36",
+          "endTime": "2026-04-22 13:52:30",
+          "duration": 91.9,
+          "inputData": 31053522,
+          "outputData": 1011271662
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-201",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 17:53:19",
+          "endTime": "2026-04-22 17:55:05",
+          "duration": 1.7666666666666666,
+          "inputData": 784190,
+          "outputData": 3596990
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-202",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 18:08:20",
+          "endTime": "2026-04-22 18:45:45",
+          "duration": 37.416666666666664,
+          "inputData": 9204237,
+          "outputData": 160840956
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-33",
+          "connectionId": "CID-215",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 12:15:53",
+          "endTime": "2026-04-23 13:53:23",
+          "duration": 97.5,
+          "inputData": 31150687,
+          "outputData": 927706266
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-35",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 17:52:59",
+          "endTime": "2026-04-23 18:42:47",
+          "duration": 49.8,
+          "inputData": 21883621,
+          "outputData": 675609286
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-73",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 09:55:43",
+          "endTime": "2026-04-24 13:48:09",
+          "duration": 232.43333333333334,
+          "inputData": 48774910,
+          "outputData": 1141606768
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-27",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 12:19:19",
+          "endTime": "2026-04-27 13:45:32",
+          "duration": 86.21666666666667,
+          "inputData": 26754047,
+          "outputData": 771719137
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-45",
+          "connectionId": "CID-60",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 12:04:39",
+          "endTime": "2026-04-28 13:35:55",
+          "duration": 91.26666666666667,
+          "inputData": 35242349,
+          "outputData": 1053967970
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-60",
+          "connectionId": "CID-104",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 17:07:50",
+          "endTime": "2026-04-28 18:50:00",
+          "duration": 102.16666666666667,
+          "inputData": 8694646,
+          "outputData": 202536046
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 12:06:10",
+          "endTime": "2026-04-29 13:50:58",
+          "duration": 104.8,
+          "inputData": 38417875,
+          "outputData": 996539961
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-41",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 17:58:31",
+          "endTime": "2026-04-29 18:38:37",
+          "duration": 40.1,
+          "inputData": 14731226,
+          "outputData": 411221064
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-41",
+          "connectionId": "CID-62",
+          "ip": "10.88.202.51",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 12:27:47",
+          "endTime": "2026-04-30 13:45:56",
+          "duration": 78.15,
+          "inputData": 41033557,
+          "outputData": 1530902657
+        }
+      ]
     },
     "10.88.202.45": {
       "connections": 2,
@@ -76,7 +3517,30 @@
       "vpnProtocols": {
         "L2TP": 2
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-102",
+          "ip": "10.88.202.45",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-06 12:15:45",
+          "endTime": "2026-04-06 12:15:56",
+          "duration": 0.18333333333333332,
+          "inputData": 99383,
+          "outputData": 260402
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-103",
+          "ip": "10.88.202.45",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-06 12:17:41",
+          "endTime": "2026-04-06 12:20:44",
+          "duration": 3.05,
+          "inputData": 1493284,
+          "outputData": 8216988
+        }
+      ]
     },
     "10.88.202.25": {
       "connections": 15,
@@ -85,7 +3549,174 @@
       "vpnProtocols": {
         "L2TP": 15
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-18",
+          "connectionId": "CID-72",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-07 22:13:00",
+          "endTime": "2026-04-07 22:15:11",
+          "duration": 2.183333333333333,
+          "inputData": 2252694,
+          "outputData": 1685848
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-93",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-08 12:59:15",
+          "endTime": "2026-04-08 14:09:48",
+          "duration": 70.55,
+          "inputData": 23521258,
+          "outputData": 966162177
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-39",
+          "connectionId": "CID-155",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:51:57",
+          "endTime": "2026-04-09 12:54:14",
+          "duration": 2.283333333333333,
+          "inputData": 2966097,
+          "outputData": 21912744
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-28",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 12:55:46",
+          "endTime": "2026-04-10 12:56:12",
+          "duration": 0.43333333333333335,
+          "inputData": 371179,
+          "outputData": 3609827
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-22",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 19:47:41",
+          "endTime": "2026-04-10 19:49:25",
+          "duration": 1.7333333333333334,
+          "inputData": 1264559,
+          "outputData": 8313231
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-27",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 20:39:51",
+          "endTime": "2026-04-10 20:42:51",
+          "duration": 3,
+          "inputData": 498474,
+          "outputData": 5509748
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-16",
+          "connectionId": "CID-44",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-11 08:45:44",
+          "endTime": "2026-04-11 09:16:53",
+          "duration": 31.15,
+          "inputData": 12720387,
+          "outputData": 188892056
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-33",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 22:06:35",
+          "endTime": "2026-04-13 22:09:03",
+          "duration": 2.466666666666667,
+          "inputData": 2415984,
+          "outputData": 8895096
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:45:23",
+          "endTime": "2026-04-19 18:45:41",
+          "duration": 0.3,
+          "inputData": 294425,
+          "outputData": 855146
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-12",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 18:45:44",
+          "endTime": "2026-04-19 21:37:25",
+          "duration": 171.68333333333334,
+          "inputData": 4072921,
+          "outputData": 59446811
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-43",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 22:02:14",
+          "endTime": "2026-04-23 22:02:39",
+          "duration": 0.4166666666666667,
+          "inputData": 336533,
+          "outputData": 1288505
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-44",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 22:02:43",
+          "endTime": "2026-04-23 22:25:04",
+          "duration": 22.35,
+          "inputData": 21053298,
+          "outputData": 321277503
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-40",
+          "connectionId": "CID-55",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 22:05:41",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-7",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 21:51:46",
+          "endTime": "2026-04-28 22:06:05",
+          "duration": 14.316666666666666,
+          "inputData": 7926772,
+          "outputData": 93418019
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-33",
+          "connectionId": "CID-49",
+          "ip": "10.88.202.25",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 21:55:43",
+          "endTime": "2026-04-29 22:24:30",
+          "duration": 28.783333333333335,
+          "inputData": 11854777,
+          "outputData": 109013302
+        }
+      ]
     },
     "10.88.209.3": {
       "connections": 8,
@@ -94,7 +3725,96 @@
       "vpnProtocols": {
         "L2TP": 8
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-34",
+          "connectionId": "CID-145",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:17:44",
+          "endTime": "2026-04-09 12:34:05",
+          "duration": 16.35,
+          "inputData": 93177653,
+          "outputData": 4567427255
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-37",
+          "connectionId": "CID-153",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:49:52",
+          "endTime": "2026-04-09 12:51:32",
+          "duration": 1.6666666666666667,
+          "inputData": 7506340,
+          "outputData": 604143037
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-38",
+          "connectionId": "CID-154",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 12:51:40",
+          "endTime": "2026-04-09 12:52:49",
+          "duration": 1.15,
+          "inputData": 7374967,
+          "outputData": 307514445
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-41",
+          "connectionId": "CID-157",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 13:05:34",
+          "endTime": "2026-04-09 14:03:44",
+          "duration": 58.166666666666664,
+          "inputData": 44926742,
+          "outputData": 2466376550
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-43",
+          "connectionId": "CID-163",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 15:17:37",
+          "endTime": "2026-04-09 16:06:52",
+          "duration": 49.25,
+          "inputData": 12006091,
+          "outputData": 122742898
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 16:16:34",
+          "endTime": "2026-04-09 16:38:32",
+          "duration": 21.966666666666665,
+          "inputData": 545357,
+          "outputData": 689174
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-39",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 19:57:12",
+          "endTime": "2026-04-09 20:37:14",
+          "duration": 40.03333333333333,
+          "inputData": 20198792,
+          "outputData": 193039159
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.209.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 15:06:23",
+          "endTime": "2026-04-24 16:54:53",
+          "duration": 108.5,
+          "inputData": 42414699,
+          "outputData": 858791110
+        }
+      ]
     },
     "10.88.202.54": {
       "connections": 47,
@@ -103,7 +3823,526 @@
       "vpnProtocols": {
         "L2TP": 48
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-37",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 17:56:50",
+          "endTime": "2026-04-09 18:53:04",
+          "duration": 56.233333333333334,
+          "inputData": 12647502,
+          "outputData": 224090758
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-38",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-09 19:50:53",
+          "endTime": "2026-04-09 20:37:14",
+          "duration": 46.35,
+          "inputData": 2115589,
+          "outputData": 38533254
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 11:30:35",
+          "endTime": "2026-04-10 12:24:21",
+          "duration": 53.766666666666666,
+          "inputData": 4970086,
+          "outputData": 112640003
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-26",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 12:30:53",
+          "endTime": "2026-04-10 13:45:12",
+          "duration": 74.31666666666666,
+          "inputData": 2494938,
+          "outputData": 35884899
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 16:47:12",
+          "endTime": "2026-04-10 16:48:46",
+          "duration": 1.5666666666666667,
+          "inputData": 328163,
+          "outputData": 4127298
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-28",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 21:50:34",
+          "endTime": "2026-04-10 21:51:50",
+          "duration": 1.2666666666666666,
+          "inputData": 327257,
+          "outputData": 504707
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-17",
+          "connectionId": "CID-45",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-11 08:49:53",
+          "endTime": "2026-04-11 09:10:05",
+          "duration": 20.2,
+          "inputData": 11285621,
+          "outputData": 247569570
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-48",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-11 09:12:26",
+          "endTime": "2026-04-11 09:20:30",
+          "duration": 8.066666666666666,
+          "inputData": 3246187,
+          "outputData": 23081193
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-19",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 12:40:55",
+          "endTime": "2026-04-13 17:43:17",
+          "duration": 302.3666666666667,
+          "inputData": 6022249,
+          "outputData": 73180690
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-31",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-13 21:57:03",
+          "endTime": "2026-04-13 22:16:03",
+          "duration": 19,
+          "inputData": 4101253,
+          "outputData": 103554380
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-67",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 12:40:59",
+          "endTime": "2026-04-14 17:48:30",
+          "duration": 307.51666666666665,
+          "inputData": 10573214,
+          "outputData": 189155972
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-118",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 17:49:14",
+          "endTime": "2026-04-14 21:51:14",
+          "duration": 242,
+          "inputData": 4941680,
+          "outputData": 72506455
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-15",
+          "connectionId": "CID-90",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 16:45:06",
+          "endTime": "2026-04-15 21:50:44",
+          "duration": 305.6333333333333,
+          "inputData": 14207710,
+          "outputData": 169332535
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-44",
+          "connectionId": "CID-174",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 16:49:16",
+          "endTime": "2026-04-16 22:11:15",
+          "duration": 321.98333333333335,
+          "inputData": 22556837,
+          "outputData": 289773965
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-13",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 12:25:50",
+          "endTime": "2026-04-17 20:02:00",
+          "duration": 456.1666666666667,
+          "inputData": 20623719,
+          "outputData": 1015746368
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-24",
+          "connectionId": "CID-36",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 20:34:35",
+          "endTime": "2026-04-17 22:14:13",
+          "duration": 99.63333333333334,
+          "inputData": 7536856,
+          "outputData": 233436354
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-27",
+          "connectionId": "CID-44",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 22:14:17",
+          "endTime": "2026-04-17 22:27:24",
+          "duration": 13.116666666666667,
+          "inputData": 9134870,
+          "outputData": 1274126493
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-34",
+          "connectionId": "CID-66",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 08:53:12",
+          "endTime": "2026-04-18 09:01:27",
+          "duration": 8.25,
+          "inputData": 8909109,
+          "outputData": 244534407
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 09:07:59",
+          "endTime": "2026-04-18 09:15:09",
+          "duration": 7.166666666666667,
+          "inputData": 4599759,
+          "outputData": 669331865
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-8",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-18 09:15:52",
+          "endTime": "2026-04-18 09:15:55",
+          "duration": 0.05,
+          "inputData": 10941,
+          "outputData": 10477
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-13",
+          "connectionId": "CID-22",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 21:57:07",
+          "endTime": "2026-04-19 22:01:01",
+          "duration": 3.9,
+          "inputData": 2243199,
+          "outputData": 20608929
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-23",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-19 22:11:30",
+          "endTime": "2026-04-19 22:16:19",
+          "duration": 4.816666666666666,
+          "inputData": 3918517,
+          "outputData": 284281017
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-28",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-20 21:59:17",
+          "endTime": "2026-04-20 22:04:56",
+          "duration": 5.65,
+          "inputData": 2382518,
+          "outputData": 14296067
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-60",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-21 17:37:40",
+          "endTime": "2026-04-21 17:50:07",
+          "duration": 12.45,
+          "inputData": 4529696,
+          "outputData": 39549244
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-18",
+          "connectionId": "CID-173",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 16:44:14",
+          "endTime": "2026-04-22 19:35:15",
+          "duration": 171.01666666666668,
+          "inputData": 10173248,
+          "outputData": 470140308
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-28",
+          "connectionId": "CID-207",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 22:01:06",
+          "endTime": "2026-04-22 22:26:24",
+          "duration": 25.3,
+          "inputData": 23835587,
+          "outputData": 1660144900
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-15",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 16:50:40",
+          "endTime": "2026-04-23 17:37:51",
+          "duration": 47.18333333333333,
+          "inputData": 26823966,
+          "outputData": 242199336
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-10",
+          "connectionId": "CID-19",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 17:37:55",
+          "endTime": "2026-04-23 17:38:33",
+          "duration": 0.6333333333333333,
+          "inputData": 105971,
+          "outputData": 287320
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-20",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 17:40:59",
+          "endTime": "2026-04-23 22:23:59",
+          "duration": 283,
+          "inputData": 47795030,
+          "outputData": 1954065759
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-34",
+          "connectionId": "CID-216",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 12:27:39",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 20:35:11",
+          "endTime": "2026-04-26 22:25:13",
+          "duration": 110.03333333333333,
+          "inputData": 18890695,
+          "outputData": 2450079354
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-29",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 13:13:33",
+          "endTime": "2026-04-27 13:14:47",
+          "duration": 1.2333333333333334,
+          "inputData": 933191,
+          "outputData": 3977699
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-24",
+          "connectionId": "CID-30",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 13:18:32",
+          "endTime": "2026-04-27 13:21:29",
+          "duration": 2.95,
+          "inputData": 2170016,
+          "outputData": 31368266
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-29",
+          "connectionId": "CID-38",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 17:11:41",
+          "endTime": "2026-04-27 17:24:05",
+          "duration": 12.4,
+          "inputData": 5069384,
+          "outputData": 80058619
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-30",
+          "connectionId": "CID-39",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 17:51:33",
+          "endTime": "2026-04-27 18:47:53",
+          "duration": 56.333333333333336,
+          "inputData": 8541719,
+          "outputData": 100868122
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-39",
+          "connectionId": "CID-54",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-27 21:59:11",
+          "endTime": "2026-04-27 22:25:34",
+          "duration": 26.383333333333333,
+          "inputData": 13389293,
+          "outputData": 1973451316
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-41",
+          "connectionId": "CID-56",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 09:54:18",
+          "endTime": "2026-04-28 09:57:19",
+          "duration": 3.0166666666666666,
+          "inputData": 1758714,
+          "outputData": 16988746
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-51",
+          "connectionId": "CID-73",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 12:21:51",
+          "endTime": "2026-04-28 13:40:10",
+          "duration": 78.31666666666666,
+          "inputData": 44024022,
+          "outputData": 717603220
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-59",
+          "connectionId": "CID-103",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 17:05:23",
+          "endTime": "2026-04-28 18:03:26",
+          "duration": 58.05,
+          "inputData": 28006756,
+          "outputData": 610039825
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-66",
+          "connectionId": "CID-111",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 18:08:14",
+          "endTime": "2026-04-28 18:54:42",
+          "duration": 46.46666666666667,
+          "inputData": 16966278,
+          "outputData": 211169978
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-9",
+          "connectionId": "CID-8",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 21:59:10",
+          "endTime": "2026-04-28 22:10:56",
+          "duration": 11.766666666666667,
+          "inputData": 12500742,
+          "outputData": 184522544
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-14",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 12:09:06",
+          "endTime": "2026-04-29 13:17:48",
+          "duration": 68.7,
+          "inputData": 21312194,
+          "outputData": 474045982
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-21",
+          "connectionId": "CID-37",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 15:51:11",
+          "endTime": "2026-04-29 15:55:18",
+          "duration": 4.116666666666666,
+          "inputData": 2473169,
+          "outputData": 34687650
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-22",
+          "connectionId": "CID-38",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 17:35:16",
+          "endTime": "2026-04-29 17:50:51",
+          "duration": 15.583333333333334,
+          "inputData": 4363174,
+          "outputData": 47652742
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-42",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-29 18:05:12",
+          "endTime": "2026-04-29 21:54:21",
+          "duration": 229.15,
+          "inputData": 22980628,
+          "outputData": 2132583185
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-37",
+          "connectionId": "CID-58",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 09:41:12",
+          "endTime": "2026-04-30 11:33:26",
+          "duration": 112.23333333333333,
+          "inputData": 15101122,
+          "outputData": 226289919
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-42",
+          "connectionId": "CID-63",
+          "ip": "10.88.202.54",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 12:39:22",
+          "endTime": "2026-04-30 13:59:25",
+          "duration": 80.05,
+          "inputData": 51676410,
+          "outputData": 754008477
+        }
+      ]
     },
     "10.88.204.143": {
       "connections": 6,
@@ -112,7 +4351,74 @@
       "vpnProtocols": {
         "L2TP": 6
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-5",
+          "ip": "10.88.204.143",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-10 09:05:46",
+          "endTime": "2026-04-10 09:17:42",
+          "duration": 11.933333333333334,
+          "inputData": 21399523,
+          "outputData": 802114672
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.204.143",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 09:13:14",
+          "endTime": "2026-04-17 09:17:41",
+          "duration": 4.45,
+          "inputData": 9089459,
+          "outputData": 196439104
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-6",
+          "connectionId": "CID-7",
+          "ip": "10.88.204.143",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 09:22:18",
+          "endTime": "2026-04-17 09:25:13",
+          "duration": 2.9166666666666665,
+          "inputData": 6248994,
+          "outputData": 126910881
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-8",
+          "ip": "10.88.204.143",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 09:25:31",
+          "endTime": "2026-04-17 09:35:40",
+          "duration": 10.15,
+          "inputData": 26331593,
+          "outputData": 840626524
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-52",
+          "ip": "10.88.204.143",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 08:55:43",
+          "endTime": "2026-04-24 09:08:36",
+          "duration": 12.883333333333333,
+          "inputData": 14206825,
+          "outputData": 360474717
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-24",
+          "connectionId": "CID-53",
+          "ip": "10.88.204.143",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 09:09:26",
+          "endTime": "2026-04-24 09:18:10",
+          "duration": 8.733333333333333,
+          "inputData": 6480203,
+          "outputData": 84793394
+        }
+      ]
     },
     "10.88.210.131": {
       "connections": 1,
@@ -121,7 +4427,19 @@
       "vpnProtocols": {
         "L2TP": 1
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-11",
+          "connectionId": "CID-37",
+          "ip": "10.88.210.131",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 07:43:39",
+          "endTime": "2026-04-14 07:46:58",
+          "duration": 3.316666666666667,
+          "inputData": 2707863,
+          "outputData": 3014216
+        }
+      ]
     },
     "10.88.209.4": {
       "connections": 9,
@@ -130,7 +4448,107 @@
       "vpnProtocols": {
         "L2TP": 9
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-40",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 07:47:01",
+          "endTime": "2026-04-14 12:17:48",
+          "duration": 270.78333333333336,
+          "inputData": 62577039,
+          "outputData": 549846664
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-27",
+          "connectionId": "CID-116",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 16:41:49",
+          "endTime": "2026-04-14 17:36:42",
+          "duration": 54.88333333333333,
+          "inputData": 10516982,
+          "outputData": 39886419
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-51",
+          "connectionId": "CID-158",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 07:42:02",
+          "endTime": "2026-04-15 09:52:19",
+          "duration": 130.28333333333333,
+          "inputData": 16022011,
+          "outputData": 67170108
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-12",
+          "connectionId": "CID-79",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 14:22:10",
+          "endTime": "2026-04-15 17:35:43",
+          "duration": 193.55,
+          "inputData": 47545331,
+          "outputData": 681219243
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-23",
+          "connectionId": "CID-124",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-15 19:54:13",
+          "endTime": "2026-04-15 21:51:57",
+          "duration": 117.73333333333333,
+          "inputData": 27901282,
+          "outputData": 219859001
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-127",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 07:23:18",
+          "endTime": "2026-04-16 07:56:26",
+          "duration": 33.13333333333333,
+          "inputData": 141432234,
+          "outputData": 5089637478
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-30",
+          "connectionId": "CID-134",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 08:03:00",
+          "endTime": "2026-04-16 08:20:08",
+          "duration": 17.133333333333333,
+          "inputData": 4274542,
+          "outputData": 16667939
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-31",
+          "connectionId": "CID-135",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 08:32:31",
+          "endTime": "2026-04-16 09:37:27",
+          "duration": 64.93333333333334,
+          "inputData": 15604384,
+          "outputData": 158262612
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-39",
+          "ip": "10.88.209.4",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-17 21:38:52",
+          "endTime": "2026-04-17 21:41:30",
+          "duration": 2.6333333333333333,
+          "inputData": 9147561,
+          "outputData": 203498711
+        }
+      ]
     },
     "10.88.202.66": {
       "connections": 107,
@@ -139,7 +4557,1185 @@
       "vpnProtocols": {
         "OpenVPN": 108
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-14",
+          "connectionId": "CID-51",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 09:59:31",
+          "endTime": "2026-04-14 10:00:11",
+          "duration": 0.6666666666666666,
+          "inputData": 282340,
+          "outputData": 2914570
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-16",
+          "connectionId": "CID-59",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 11:54:38",
+          "endTime": "2026-04-14 11:55:45",
+          "duration": 1.1166666666666667,
+          "inputData": 1371661,
+          "outputData": 30271851
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-17",
+          "connectionId": "CID-60",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 11:56:10",
+          "endTime": "2026-04-14 11:57:01",
+          "duration": 0.85,
+          "inputData": 605305,
+          "outputData": 11529982
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-18",
+          "connectionId": "CID-65",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 12:13:47",
+          "endTime": "2026-04-14 12:14:55",
+          "duration": 1.1333333333333333,
+          "inputData": 1602084,
+          "outputData": 39209941
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-15",
+          "connectionId": "CID-58",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 11:35:50",
+          "endTime": "2026-04-14 12:16:40",
+          "duration": 40.833333333333336,
+          "inputData": 48915865,
+          "outputData": 1201437599
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-23",
+          "connectionId": "CID-82",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 13:24:11",
+          "endTime": "2026-04-14 13:48:28",
+          "duration": 24.283333333333335,
+          "inputData": 63702013,
+          "outputData": 168387421
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-24",
+          "connectionId": "CID-111",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 13:49:57",
+          "endTime": "2026-04-14 13:50:59",
+          "duration": 1.0333333333333334,
+          "inputData": 267589,
+          "outputData": 863352
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-38",
+          "connectionId": "CID-129",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 19:03:13",
+          "endTime": "2026-04-14 19:14:33",
+          "duration": 11.333333333333334,
+          "inputData": 6040350,
+          "outputData": 122638589
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-39",
+          "connectionId": "CID-130",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 19:12:15",
+          "endTime": "2026-04-14 19:19:28",
+          "duration": 7.216666666666667,
+          "inputData": 3615431,
+          "outputData": 29891790
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-40",
+          "connectionId": "CID-131",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 19:16:02",
+          "endTime": "2026-04-14 21:06:01",
+          "duration": 109.98333333333333,
+          "inputData": 38431396,
+          "outputData": 654722689
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-42",
+          "connectionId": "CID-142",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 21:19:55",
+          "endTime": "2026-04-14 21:23:12",
+          "duration": 3.283333333333333,
+          "inputData": 2413686,
+          "outputData": 32036054
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-43",
+          "connectionId": "CID-145",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 21:24:54",
+          "endTime": "2026-04-14 21:27:30",
+          "duration": 2.6,
+          "inputData": 708940,
+          "outputData": 3923439
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-44",
+          "connectionId": "CID-146",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 21:27:56",
+          "endTime": "2026-04-14 21:48:57",
+          "duration": 21.016666666666666,
+          "inputData": 4348186,
+          "outputData": 18186792
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-41",
+          "connectionId": "CID-141",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-14 21:08:29",
+          "endTime": "2026-04-14 21:53:07",
+          "duration": 44.63333333333333,
+          "inputData": 33674169,
+          "outputData": 759737544
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-48",
+          "connectionId": "CID-155",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:14:50",
+          "endTime": "2026-04-15 07:39:43",
+          "duration": 24.883333333333333,
+          "inputData": 12349857,
+          "outputData": 153160274
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-50",
+          "connectionId": "CID-157",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:40:21",
+          "endTime": "2026-04-15 07:55:51",
+          "duration": 15.5,
+          "inputData": 11980848,
+          "outputData": 368461818
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-57",
+          "connectionId": "CID-164",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:56:10",
+          "endTime": "2026-04-15 09:36:03",
+          "duration": 99.88333333333334,
+          "inputData": 71760982,
+          "outputData": 1945983523
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 11:34:49",
+          "endTime": "2026-04-15 12:16:59",
+          "duration": 42.166666666666664,
+          "inputData": 27103722,
+          "outputData": 779919624
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-9",
+          "connectionId": "CID-71",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 13:43:40",
+          "endTime": "2026-04-15 14:37:48",
+          "duration": 54.13333333333333,
+          "inputData": 108073484,
+          "outputData": 2428519590
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-13",
+          "connectionId": "CID-80",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 14:41:49",
+          "endTime": "2026-04-15 15:06:57",
+          "duration": 25.133333333333333,
+          "inputData": 4108503,
+          "outputData": 17534386
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-16",
+          "connectionId": "CID-98",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 16:49:54",
+          "endTime": "2026-04-15 18:00:38",
+          "duration": 70.73333333333333,
+          "inputData": 42501730,
+          "outputData": 765894576
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-17",
+          "connectionId": "CID-118",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 18:20:40",
+          "endTime": "2026-04-15 18:22:33",
+          "duration": 1.8833333333333333,
+          "inputData": 35014365,
+          "outputData": 34660525
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-18",
+          "connectionId": "CID-119",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 18:22:06",
+          "endTime": "2026-04-15 18:32:20",
+          "duration": 10.233333333333333,
+          "inputData": 4153463,
+          "outputData": 88056133
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-20",
+          "connectionId": "CID-121",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 18:33:43",
+          "endTime": "2026-04-15 18:39:28",
+          "duration": 5.75,
+          "inputData": 928404,
+          "outputData": 7682885
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-21",
+          "connectionId": "CID-122",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 18:45:41",
+          "endTime": "2026-04-15 18:46:36",
+          "duration": 0.9166666666666666,
+          "inputData": 171049,
+          "outputData": 924033
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-24",
+          "connectionId": "CID-125",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 20:14:21",
+          "endTime": "2026-04-15 21:51:17",
+          "duration": 96.93333333333334,
+          "inputData": 18380422,
+          "outputData": 105525002
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-22",
+          "connectionId": "CID-123",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 19:32:50",
+          "endTime": "2026-04-15 21:57:07",
+          "duration": 144.28333333333333,
+          "inputData": 66066089,
+          "outputData": 1276169652
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-28",
+          "connectionId": "CID-132",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-16 07:57:18",
+          "endTime": "2026-04-16 08:42:05",
+          "duration": 44.78333333333333,
+          "inputData": 32320367,
+          "outputData": 930116076
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-33",
+          "connectionId": "CID-137",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-16 09:22:51",
+          "endTime": "2026-04-16 09:49:52",
+          "duration": 27.016666666666666,
+          "inputData": 3130162,
+          "outputData": 74359282
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-43",
+          "connectionId": "CID-171",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-16 15:13:16",
+          "endTime": "2026-04-16 18:41:07",
+          "duration": 207.85,
+          "inputData": 144984367,
+          "outputData": 5289187635
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-47",
+          "connectionId": "CID-184",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-16 19:46:11",
+          "endTime": "2026-04-16 19:46:59",
+          "duration": 0.8,
+          "inputData": 529750,
+          "outputData": 2534970
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-49",
+          "connectionId": "CID-186",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-16 21:17:07",
+          "endTime": "2026-04-16 21:50:38",
+          "duration": 33.516666666666666,
+          "inputData": 3620318,
+          "outputData": 35946034
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-48",
+          "connectionId": "CID-185",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-16 19:46:31",
+          "endTime": "2026-04-16 21:57:50",
+          "duration": 131.31666666666666,
+          "inputData": 34411199,
+          "outputData": 469939052
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 08:50:02",
+          "endTime": "2026-04-17 08:55:36",
+          "duration": 5.566666666666666,
+          "inputData": 674544,
+          "outputData": 10337279
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-9",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 10:16:04",
+          "endTime": "2026-04-17 10:18:48",
+          "duration": 2.7333333333333334,
+          "inputData": 676786,
+          "outputData": 7958146
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-10",
+          "connectionId": "CID-11",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 11:52:23",
+          "endTime": "2026-04-17 12:02:03",
+          "duration": 9.666666666666666,
+          "inputData": 1572437,
+          "outputData": 12293477
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-8",
+          "connectionId": "CID-9",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 10:04:00",
+          "endTime": "2026-04-17 12:05:39",
+          "duration": 121.65,
+          "inputData": 30759640,
+          "outputData": 392314659
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-13",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 12:38:58",
+          "endTime": "2026-04-17 12:40:15",
+          "duration": 1.2833333333333334,
+          "inputData": 197792,
+          "outputData": 986425
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-15",
+          "connectionId": "CID-21",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 13:12:44",
+          "endTime": "2026-04-17 13:25:12",
+          "duration": 12.466666666666667,
+          "inputData": 8579435,
+          "outputData": 60319656
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-17",
+          "connectionId": "CID-24",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 13:24:45",
+          "endTime": "2026-04-17 13:25:26",
+          "duration": 0.6833333333333333,
+          "inputData": 180450,
+          "outputData": 150885
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-18",
+          "connectionId": "CID-25",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 13:24:58",
+          "endTime": "2026-04-17 13:29:36",
+          "duration": 4.633333333333334,
+          "inputData": 2760600,
+          "outputData": 9671142
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-21",
+          "connectionId": "CID-32",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 17:23:18",
+          "endTime": "2026-04-17 18:37:29",
+          "duration": 74.18333333333334,
+          "inputData": 87510552,
+          "outputData": 203505944
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-25",
+          "connectionId": "CID-38",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-17 20:41:55",
+          "endTime": "2026-04-17 21:49:39",
+          "duration": 67.73333333333333,
+          "inputData": 12558690,
+          "outputData": 170075657
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-30",
+          "connectionId": "CID-60",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-18 08:06:17",
+          "endTime": "2026-04-18 08:06:49",
+          "duration": 0.5333333333333333,
+          "inputData": 54870,
+          "outputData": 214297
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-31",
+          "connectionId": "CID-61",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-18 08:06:30",
+          "endTime": "2026-04-18 08:23:35",
+          "duration": 17.083333333333332,
+          "inputData": 6792775,
+          "outputData": 65837740
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-32",
+          "connectionId": "CID-62",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-18 08:24:33",
+          "endTime": "2026-04-18 08:25:42",
+          "duration": 1.15,
+          "inputData": 61997,
+          "outputData": 87766
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-33",
+          "connectionId": "CID-63",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-18 08:26:41",
+          "endTime": "2026-04-18 08:40:21",
+          "duration": 13.666666666666666,
+          "inputData": 8150684,
+          "outputData": 106148173
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-6",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-18 09:16:07",
+          "endTime": "2026-04-18 09:47:56",
+          "duration": 31.816666666666666,
+          "inputData": 4212138,
+          "outputData": 24511247
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-12",
+          "connectionId": "CID-21",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-19 20:57:41",
+          "endTime": "2026-04-19 21:51:09",
+          "duration": 53.46666666666667,
+          "inputData": 9082397,
+          "outputData": 34707100
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-8",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-20 15:14:44",
+          "endTime": "2026-04-20 21:51:27",
+          "duration": 396.71666666666664,
+          "inputData": 71138321,
+          "outputData": 1562575857
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-14",
+          "connectionId": "CID-43",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 12:35:07",
+          "endTime": "2026-04-21 12:52:15",
+          "duration": 17.133333333333333,
+          "inputData": 5835868,
+          "outputData": 90158675
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-16",
+          "connectionId": "CID-47",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 12:55:56",
+          "endTime": "2026-04-21 13:00:46",
+          "duration": 4.833333333333333,
+          "inputData": 1157227,
+          "outputData": 18354636
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-17",
+          "connectionId": "CID-48",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 13:00:31",
+          "endTime": "2026-04-21 13:04:21",
+          "duration": 3.8333333333333335,
+          "inputData": 684103,
+          "outputData": 2430961
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-18",
+          "connectionId": "CID-50",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 13:07:55",
+          "endTime": "2026-04-21 13:08:53",
+          "duration": 0.9666666666666667,
+          "inputData": 303230,
+          "outputData": 1634048
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-19",
+          "connectionId": "CID-52",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 13:17:05",
+          "endTime": "2026-04-21 13:59:26",
+          "duration": 42.35,
+          "inputData": 3443228,
+          "outputData": 48324626
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-20",
+          "connectionId": "CID-58",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 17:22:39",
+          "endTime": "2026-04-21 17:29:18",
+          "duration": 6.65,
+          "inputData": 2781192,
+          "outputData": 21237370
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 18:12:38",
+          "endTime": "2026-04-21 18:13:37",
+          "duration": 0.9833333333333333,
+          "inputData": 112947,
+          "outputData": 219003
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 18:25:42",
+          "endTime": "2026-04-21 21:37:57",
+          "duration": 192.25,
+          "inputData": 19133567,
+          "outputData": 131148605
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-8",
+          "connectionId": "CID-7",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-21 21:39:48",
+          "endTime": "2026-04-21 21:51:44",
+          "duration": 11.933333333333334,
+          "inputData": 1890694,
+          "outputData": 12922085
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-10",
+          "connectionId": "CID-9",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 08:10:18",
+          "endTime": "2026-04-22 08:19:36",
+          "duration": 9.3,
+          "inputData": 4232639,
+          "outputData": 113730326
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-11",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 08:51:36",
+          "endTime": "2026-04-22 08:59:37",
+          "duration": 8.016666666666667,
+          "inputData": 1216026,
+          "outputData": 6910282
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-17",
+          "connectionId": "CID-50",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 13:17:20",
+          "endTime": "2026-04-22 13:55:33",
+          "duration": 38.21666666666667,
+          "inputData": 20613586,
+          "outputData": 572616565
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-21",
+          "connectionId": "CID-200",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 17:49:11",
+          "endTime": "2026-04-22 18:58:05",
+          "duration": 68.9,
+          "inputData": 6134973,
+          "outputData": 77708400
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-27",
+          "connectionId": "CID-206",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-22 20:06:56",
+          "endTime": "2026-04-22 21:50:24",
+          "duration": 103.46666666666667,
+          "inputData": 31491676,
+          "outputData": 395864827
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-31",
+          "connectionId": "CID-212",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 10:01:11",
+          "endTime": "2026-04-23 12:48:08",
+          "duration": 166.95,
+          "inputData": 806754288,
+          "outputData": 23813088993
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-5",
+          "connectionId": "CID-14",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 16:04:18",
+          "endTime": "2026-04-23 16:19:22",
+          "duration": 15.066666666666666,
+          "inputData": 10461751,
+          "outputData": 295072376
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-9",
+          "connectionId": "CID-18",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 17:22:16",
+          "endTime": "2026-04-23 18:12:25",
+          "duration": 50.15,
+          "inputData": 23459015,
+          "outputData": 497484850
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-13",
+          "connectionId": "CID-36",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 18:13:23",
+          "endTime": "2026-04-23 18:15:15",
+          "duration": 1.8666666666666667,
+          "inputData": 1179593,
+          "outputData": 17285876
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-14",
+          "connectionId": "CID-37",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 18:25:46",
+          "endTime": "2026-04-23 20:25:15",
+          "duration": 119.48333333333333,
+          "inputData": 9043889,
+          "outputData": 57764992
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-16",
+          "connectionId": "CID-40",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 20:52:28",
+          "endTime": "2026-04-23 20:56:19",
+          "duration": 3.85,
+          "inputData": 2509012,
+          "outputData": 24841733
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-17",
+          "connectionId": "CID-41",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 20:55:51",
+          "endTime": "2026-04-23 21:22:42",
+          "duration": 26.85,
+          "inputData": 14864112,
+          "outputData": 139709766
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-18",
+          "connectionId": "CID-42",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-23 21:26:37",
+          "endTime": "2026-04-23 21:50:25",
+          "duration": 23.8,
+          "inputData": 13894274,
+          "outputData": 93002844
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 18:27:00",
+          "endTime": "2026-04-26 18:41:22",
+          "duration": 14.366666666666667,
+          "inputData": 4456964,
+          "outputData": 37171617
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 18:40:56",
+          "endTime": "2026-04-26 18:47:51",
+          "duration": 6.916666666666667,
+          "inputData": 5193521,
+          "outputData": 147658986
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-6",
+          "connectionId": "CID-5",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 19:20:31",
+          "endTime": "2026-04-26 19:24:12",
+          "duration": 3.683333333333333,
+          "inputData": 559457,
+          "outputData": 1893943
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-7",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 19:31:35",
+          "endTime": "2026-04-26 19:39:29",
+          "duration": 7.9,
+          "inputData": 350478,
+          "outputData": 2379371
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-8",
+          "connectionId": "CID-7",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 19:40:43",
+          "endTime": "2026-04-26 19:46:10",
+          "duration": 5.45,
+          "inputData": 589053,
+          "outputData": 6386335
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-9",
+          "connectionId": "CID-10",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 19:47:38",
+          "endTime": "2026-04-26 19:49:52",
+          "duration": 2.2333333333333334,
+          "inputData": 801563,
+          "outputData": 22144351
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-10",
+          "connectionId": "CID-12",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 19:53:50",
+          "endTime": "2026-04-26 20:33:46",
+          "duration": 39.93333333333333,
+          "inputData": 6074087,
+          "outputData": 102815930
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-15",
+          "connectionId": "CID-18",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-26 20:57:38",
+          "endTime": "2026-04-26 20:58:27",
+          "duration": 0.8166666666666667,
+          "inputData": 269035,
+          "outputData": 698400
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-19",
+          "connectionId": "CID-25",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 12:01:37",
+          "endTime": "2026-04-27 12:05:51",
+          "duration": 4.233333333333333,
+          "inputData": 1646909,
+          "outputData": 30766482
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-25",
+          "connectionId": "CID-31",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 13:36:54",
+          "endTime": "2026-04-27 14:00:02",
+          "duration": 23.133333333333333,
+          "inputData": 3466508,
+          "outputData": 23504403
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-31",
+          "connectionId": "CID-40",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 18:36:54",
+          "endTime": "2026-04-27 21:24:30",
+          "duration": 167.6,
+          "inputData": 17101919,
+          "outputData": 156739384
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-34",
+          "connectionId": "CID-44",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 21:24:52",
+          "endTime": "2026-04-27 21:46:55",
+          "duration": 22.05,
+          "inputData": 8911105,
+          "outputData": 257416096
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-36",
+          "connectionId": "CID-51",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 21:46:27",
+          "endTime": "2026-04-27 21:47:07",
+          "duration": 0.6666666666666666,
+          "inputData": 29642,
+          "outputData": 80588
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-37",
+          "connectionId": "CID-52",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-27 21:46:44",
+          "endTime": "2026-04-27 21:50:05",
+          "duration": 3.35,
+          "inputData": 15181740,
+          "outputData": 430464111
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-43",
+          "connectionId": "CID-58",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 10:06:56",
+          "endTime": "2026-04-28 10:08:15",
+          "duration": 1.3166666666666667,
+          "inputData": 1741311,
+          "outputData": 9329685
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-44",
+          "connectionId": "CID-59",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 10:11:15",
+          "endTime": "2026-04-28 10:12:41",
+          "duration": 1.4333333333333333,
+          "inputData": 2083124,
+          "outputData": 7491338
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-50",
+          "connectionId": "CID-72",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 12:13:54",
+          "endTime": "2026-04-28 12:20:42",
+          "duration": 6.8,
+          "inputData": 3343306,
+          "outputData": 51147140
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-52",
+          "connectionId": "CID-79",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 12:43:30",
+          "endTime": "2026-04-28 14:01:09",
+          "duration": 77.65,
+          "inputData": 31879451,
+          "outputData": 612014054
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-54",
+          "connectionId": "CID-94",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 14:01:47",
+          "endTime": "2026-04-28 14:08:44",
+          "duration": 6.95,
+          "inputData": 938769,
+          "outputData": 1202360
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-62",
+          "connectionId": "CID-106",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 17:22:13",
+          "endTime": "2026-04-28 18:00:54",
+          "duration": 38.68333333333333,
+          "inputData": 25726716,
+          "outputData": 806144484
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-65",
+          "connectionId": "CID-110",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 18:02:09",
+          "endTime": "2026-04-28 18:18:22",
+          "duration": 16.216666666666665,
+          "inputData": 7403177,
+          "outputData": 30479364
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 19:40:20",
+          "endTime": "2026-04-28 19:52:22",
+          "duration": 12.033333333333333,
+          "inputData": 23542037,
+          "outputData": 587110913
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-7",
+          "connectionId": "CID-6",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-28 21:14:05",
+          "endTime": "2026-04-28 21:52:38",
+          "duration": 38.55,
+          "inputData": 2905279,
+          "outputData": 47342180
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-18",
+          "connectionId": "CID-27",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 13:17:23",
+          "endTime": "2026-04-29 13:59:45",
+          "duration": 42.36666666666667,
+          "inputData": 16789592,
+          "outputData": 355965916
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-24",
+          "connectionId": "CID-40",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 17:48:39",
+          "endTime": "2026-04-29 19:11:07",
+          "duration": 82.46666666666667,
+          "inputData": 9937583,
+          "outputData": 46037126
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-27",
+          "connectionId": "CID-43",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 19:11:19",
+          "endTime": "2026-04-29 19:20:12",
+          "duration": 8.883333333333333,
+          "inputData": 35890,
+          "outputData": 225143
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-28",
+          "connectionId": "CID-44",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 19:58:00",
+          "endTime": "2026-04-29 20:43:17",
+          "duration": 45.28333333333333,
+          "inputData": 5030291,
+          "outputData": 49314333
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-30",
+          "connectionId": "CID-46",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-29 20:42:50",
+          "endTime": "2026-04-29 21:49:29",
+          "duration": 66.65,
+          "inputData": 31426869,
+          "outputData": 690204396
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-35",
+          "connectionId": "CID-52",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 08:52:49",
+          "endTime": "2026-04-30 09:07:07",
+          "duration": 14.3,
+          "inputData": 32397424,
+          "outputData": 41384274
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-46",
+          "connectionId": "CID-70",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 13:33:23",
+          "endTime": "2026-04-30 13:41:12",
+          "duration": 7.816666666666666,
+          "inputData": 4963150,
+          "outputData": 73534047
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-51",
+          "connectionId": "CID-99",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 15:35:41",
+          "endTime": "2026-04-30 15:38:59",
+          "duration": 3.3,
+          "inputData": 1333062,
+          "outputData": 6254559
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-52",
+          "connectionId": "CID-100",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 15:38:31",
+          "endTime": "2026-04-30 15:39:10",
+          "duration": 0.65,
+          "inputData": 184725,
+          "outputData": 519379
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-54",
+          "connectionId": "CID-102",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 16:03:35",
+          "endTime": "2026-04-30 16:10:06",
+          "duration": 6.516666666666667,
+          "inputData": 336021,
+          "outputData": 374639
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-55",
+          "connectionId": "CID-103",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 16:09:38",
+          "endTime": "2026-04-30 16:10:17",
+          "duration": 0.65,
+          "inputData": 27315,
+          "outputData": 38706
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-56",
+          "connectionId": "CID-104",
+          "ip": "10.88.202.66",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-30 16:12:23",
+          "endTime": "2026-04-30 16:41:09",
+          "duration": 28.766666666666666,
+          "inputData": 119992765,
+          "outputData": 3766893566
+        }
+      ]
     },
     "10.88.217.19": {
       "connections": 2,
@@ -148,7 +5744,30 @@
       "vpnProtocols": {
         "L2TP": 2
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-25",
+          "connectionId": "CID-114",
+          "ip": "10.88.217.19",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 16:33:07",
+          "endTime": "2026-04-14 16:34:43",
+          "duration": 1.6,
+          "inputData": 44459,
+          "outputData": 323331
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-26",
+          "connectionId": "CID-115",
+          "ip": "10.88.217.19",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-14 16:35:50",
+          "endTime": "2026-04-14 16:36:57",
+          "duration": 1.1166666666666667,
+          "inputData": 486777,
+          "outputData": 540345
+        }
+      ]
     },
     "10.88.209.5": {
       "connections": 7,
@@ -158,7 +5777,85 @@
         "OpenVPN": 6,
         "L2TP": 1
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-47",
+          "connectionId": "CID-154",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:10:55",
+          "endTime": "2026-04-15 07:14:00",
+          "duration": 3.0833333333333335,
+          "inputData": 6402271,
+          "outputData": 195539002
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-49",
+          "connectionId": "CID-156",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:16:52",
+          "endTime": "2026-04-15 07:28:05",
+          "duration": 11.216666666666667,
+          "inputData": 8711403,
+          "outputData": 277905192
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-52",
+          "connectionId": "CID-159",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:45:19",
+          "endTime": "2026-04-15 07:51:20",
+          "duration": 6.016666666666667,
+          "inputData": 14935843,
+          "outputData": 618601584
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-56",
+          "connectionId": "CID-163",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 07:52:23",
+          "endTime": "2026-04-15 08:27:48",
+          "duration": 35.416666666666664,
+          "inputData": 82675769,
+          "outputData": 3000671841
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-58",
+          "connectionId": "CID-165",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 08:34:56",
+          "endTime": "2026-04-15 08:39:53",
+          "duration": 4.95,
+          "inputData": 4377575,
+          "outputData": 125796373
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-60",
+          "connectionId": "CID-167",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-04-15 08:59:19",
+          "endTime": "2026-04-15 09:35:29",
+          "duration": 36.166666666666664,
+          "inputData": 3569848,
+          "outputData": 3137274
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-7",
+          "connectionId": "CID-8",
+          "ip": "10.88.209.5",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-24 16:51:54",
+          "endTime": "2026-04-24 16:56:52",
+          "duration": 4.966666666666667,
+          "inputData": 3760922,
+          "outputData": 42746711
+        }
+      ]
     },
     "10.88.209.6": {
       "connections": 1,
@@ -167,7 +5864,19 @@
       "vpnProtocols": {
         "L2TP": 1
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-27",
+          "connectionId": "CID-131",
+          "ip": "10.88.209.6",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 07:48:38",
+          "endTime": "2026-04-16 09:49:52",
+          "duration": 121.23333333333333,
+          "inputData": 173610019,
+          "outputData": 6980206709
+        }
+      ]
     },
     "10.88.205.47": {
       "connections": 3,
@@ -176,7 +5885,41 @@
       "vpnProtocols": {
         "L2TP": 3
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-41",
+          "connectionId": "CID-169",
+          "ip": "10.88.205.47",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-16 14:38:21",
+          "endTime": "2026-04-16 14:58:01",
+          "duration": 19.666666666666668,
+          "inputData": 55710883,
+          "outputData": 461151527
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-4",
+          "ip": "10.88.205.47",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-23 14:11:53",
+          "endTime": "2026-04-23 14:55:40",
+          "duration": 43.78333333333333,
+          "inputData": 73985176,
+          "outputData": 1448981303
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-49",
+          "connectionId": "CID-76",
+          "ip": "10.88.205.47",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 14:18:55",
+          "endTime": "2026-04-30 14:31:22",
+          "duration": 12.45,
+          "inputData": 11889305,
+          "outputData": 235353977
+        }
+      ]
     },
     "10.88.198.3": {
       "connections": 2,
@@ -185,7 +5928,30 @@
       "vpnProtocols": {
         "L2TP": 2
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-19",
+          "connectionId": "CID-187",
+          "ip": "10.88.198.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 16:55:59",
+          "endTime": "2026-04-22 16:56:14",
+          "duration": 0.25,
+          "inputData": 1047,
+          "outputData": 1824
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-20",
+          "connectionId": "CID-192",
+          "ip": "10.88.198.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-22 17:05:22",
+          "endTime": "2026-04-22 17:05:44",
+          "duration": 0.36666666666666664,
+          "inputData": 1047,
+          "outputData": 3203
+        }
+      ]
     },
     "10.88.207.3": {
       "connections": 2,
@@ -194,7 +5960,30 @@
       "vpnProtocols": {
         "L2TP": 2
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.207.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 18:32:39",
+          "endTime": "2026-04-26 18:51:44",
+          "duration": 19.083333333333332,
+          "inputData": 15933383,
+          "outputData": 225028657
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.207.3",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-26 19:01:42",
+          "endTime": "2026-04-26 19:02:40",
+          "duration": 0.9666666666666667,
+          "inputData": 330234,
+          "outputData": 2201953
+        }
+      ]
     },
     "10.88.202.80": {
       "connections": 1,
@@ -203,7 +5992,19 @@
       "vpnProtocols": {
         "L2TP": 1
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-58",
+          "connectionId": "CID-102",
+          "ip": "10.88.202.80",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-28 16:45:29",
+          "endTime": "2026-04-28 16:45:50",
+          "duration": 0.35,
+          "inputData": 1047,
+          "outputData": 1695
+        }
+      ]
     },
     "10.88.205.43": {
       "connections": 2,
@@ -212,7 +6013,30 @@
       "vpnProtocols": {
         "L2TP": 2
       },
-      "sessions": []
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-50",
+          "connectionId": "CID-97",
+          "ip": "10.88.205.43",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 15:34:16",
+          "endTime": "2026-04-30 15:45:57",
+          "duration": 11.683333333333334,
+          "inputData": 1639014,
+          "outputData": 12199576
+        },
+        {
+          "sessionId": "SID-PS-[L2TP]-53",
+          "connectionId": "CID-101",
+          "ip": "10.88.205.43",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-04-30 15:47:07",
+          "endTime": "2026-04-30 15:51:11",
+          "duration": 4.066666666666666,
+          "inputData": 3973451,
+          "outputData": 60325952
+        }
+      ]
     }
   },
   "vpnProtocolStats": {

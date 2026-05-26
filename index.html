@@ -883,15 +883,24 @@
             return await readAndAnalyzeLogs(yearMonth, fileNames, onProgress);
         }
 
+        function hasSessionDetails(logData) {
+            if (!logData || !logData.ipStats) return false;
+            return Object.values(logData.ipStats).some(ipStat => Array.isArray(ipStat.sessions) && ipStat.sessions.length > 0);
+        }
+
         async function loadMonthAnalysisOrRaw(monthStr, onProgress) {
             const analysisFile = `analysis/${monthStr}.json`;
             try {
                 const res = await fetch(analysisFile);
                 if (res.ok) {
-                    return await res.json();
+                    const data = await res.json();
+                    if (hasSessionDetails(data)) {
+                        return data;
+                    }
+                    console.warn(`分析文件 ${analysisFile} 不包含会话详情，回退原始日志分析`);
                 }
             } catch (e) {
-                // 尝试原始日志回退
+                console.warn(`加载分析文件 ${analysisFile} 失败，尝试使用原始日志:`, e);
             }
             return await readMonthLogs(monthStr, onProgress);
         }
