@@ -109,6 +109,18 @@
         body.dark-mode #ip-deep-analysis-modal .bg-white { background-color: #1e293b !important; }
         body.dark-mode #deep-analysis-loading { background-color: rgba(30, 41, 59, 0.8) !important; }
         body.dark-mode #deep-analysis-loading-text { color: #cbd5e1 !important; }
+        body.dark-mode .bg-green-50 { background-color: #064e3b !important; }
+        body.dark-mode .text-green-800 { color: #6ee7b7 !important; }
+        body.dark-mode .border-green-400 { border-color: #059669 !important; }
+        body.dark-mode .bg-red-50 { background-color: #7f1d1d !important; }
+        body.dark-mode .text-red-800 { color: #fca5a5 !important; }
+        body.dark-mode .border-red-400 { border-color: #dc2626 !important; }
+        body.dark-mode .bg-blue-50 { background-color: #1e3a8a !important; }
+        body.dark-mode .border-blue-400 { border-color: #2563eb !important; }
+        body.dark-mode .bg-green-100 { background-color: #065f46 !important; }
+        body.dark-mode .text-gray-800 { color: #e2e8f0 !important; }
+        body.dark-mode .hover\:bg-gray-300:hover { background-color: #475569 !important; }
+        body.dark-mode .shadow-soft { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important; }
     </style>
 </head>
 <body class="bg-gray-50 font-inter text-dark min-h-screen flex flex-col">
@@ -141,13 +153,6 @@
                 日志选择
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div class="space-y-2 hidden">
-                    <label class="block text-sm font-medium text-gray-700">分析模式</label>
-                    <select id="analysis-mode" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
-                        <option value="server" selected>服务器分析</option>
-                        <option value="local">本地分析</option>
-                    </select>
-                </div>
                 <div class="space-y-2">
                     <label class="block text-sm font-medium text-gray-700">范围类型</label>
                     <select id="range-type" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300">
@@ -363,7 +368,7 @@
                     </div>
                 </div>
 
-                <div id="ip-details-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+                <div id="ip-details-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
                     <div class="bg-white rounded-2xl shadow-strong w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
                         <div class="p-6 border-b border-gray-200 flex justify-between items-center">
                             <h3 class="text-xl font-bold text-dark" id="modal-title">IP详情</h3>
@@ -412,15 +417,15 @@
                     </div>
                 </div>
 
-                <div id="daily-chart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+                <div id="daily-chart-modal" role="dialog" aria-modal="true" aria-labelledby="daily-modal-title" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
                     <div class="bg-white rounded-2xl shadow-strong w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
                         <div class="p-6 border-b border-gray-200 flex flex-wrap justify-between items-center gap-4">
-                            <h3 class="text-xl font-bold text-dark">每日连接数、使用时长与数据使用量</h3>
+                            <h3 class="text-xl font-bold text-dark" id="daily-modal-title">每日连接数、使用时长与数据使用量</h3>
                             <div class="flex items-center space-x-2">
                                 <label class="text-sm font-medium text-gray-700">图表类型：</label>
                                 <select id="chart-type-select" class="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all duration-300 text-sm">
-                                    <option value="bar">柱状图</option>
                                     <option value="line">折线图</option>
+                                    <option value="bar">柱状图</option>
                                 </select>
                             </div>
                             <button id="close-daily-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
@@ -436,10 +441,10 @@
                     </div>
                 </div>
 
-                <div id="protocol-chart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+                <div id="protocol-chart-modal" role="dialog" aria-modal="true" aria-labelledby="protocol-modal-title" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
                     <div class="bg-white rounded-2xl shadow-strong w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
                         <div class="p-6 border-b border-gray-200 flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-dark">VPN协议分布</h3>
+                            <h3 class="text-xl font-bold text-dark" id="protocol-modal-title">VPN协议分布</h3>
                             <button id="close-protocol-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
                                 <i class="fa fa-times text-gray-600 text-xl"></i>
                             </button>
@@ -453,10 +458,10 @@
                     </div>
                 </div>
 
-                <div id="time-chart-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+                <div id="time-chart-modal" role="dialog" aria-modal="true" aria-labelledby="time-modal-title" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
                     <div class="bg-white rounded-2xl shadow-strong w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
                         <div class="p-6 border-b border-gray-200 flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-dark">连接时段分布</h3>
+                            <h3 class="text-xl font-bold text-dark" id="time-modal-title">连接时段分布</h3>
                             <button id="close-time-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
                                 <i class="fa fa-times text-gray-600 text-xl"></i>
                             </button>
@@ -471,10 +476,10 @@
                 </div>
 
                 <!-- IP 深度分析模态框 -->
-                <div id="ip-deep-analysis-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden overflow-y-auto py-8">
+                <div id="ip-deep-analysis-modal" role="dialog" aria-modal="true" aria-labelledby="deep-modal-title" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden overflow-y-auto py-8">
                     <div class="bg-white rounded-2xl shadow-strong w-full max-w-6xl mx-4 max-h-[90vh] overflow-hidden flex flex-col animate-scale-in">
                         <div class="p-6 border-b border-gray-200 flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-dark flex items-center gap-2">
+                            <h3 class="text-xl font-bold text-dark flex items-center gap-2" id="deep-modal-title">
                                 <i class="fa fa-chart-line text-primary"></i>
                                 IP 深度分析 - <span id="deep-analysis-ip"></span>
                             </h3>
@@ -573,8 +578,8 @@
                                         每日使用趋势
                                     </h4>
                                     <select id="deep-chart-type-select" class="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none text-sm">
-                                        <option value="bar">柱状图</option>
                                         <option value="line">折线图</option>
+                                        <option value="bar">柱状图</option>
                                     </select>
                                 </div>
                                 <div class="h-80"><canvas id="deep-daily-chart"></canvas></div>
@@ -635,29 +640,127 @@
 
     <script src="./chart.umd.min.js" defer></script>
     <script>
+        const CHART_TOOLTIP = {
+            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+            titleColor: '#FFFFFF',
+            bodyColor: '#FFFFFF',
+            borderColor: '#2563EB',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 8
+        };
+
+        const CHART_TOOLTIP_INDEX = { ...CHART_TOOLTIP, mode: 'index', intersect: false };
+
+        const CHART_TOOLTIP_LEGEND = { ...CHART_TOOLTIP, displayColors: true };
+
+        const CHART_TOOLTIP_NOCOLOR = { ...CHART_TOOLTIP_INDEX, displayColors: false };
+
+        const CHART_LEGEND_BOTTOM = {
+            position: 'bottom',
+            labels: {
+                padding: 20,
+                usePointStyle: true,
+                pointStyle: 'circle',
+                font: { size: 13, family: 'Inter, system-ui, sans-serif' },
+                color: '#4B5563'
+            }
+        };
+
+        const CHART_LEGEND_TOP = {
+            position: 'top',
+            labels: {
+                padding: 20,
+                usePointStyle: true,
+                pointStyle: 'circle',
+                font: { size: 12, family: 'Inter, system-ui, sans-serif' },
+                color: '#4B5563'
+            }
+        };
+
+        const CHART_SCALES_Y = {
+            beginAtZero: true,
+            grid: { color: 'rgba(229, 231, 235, 0.5)', drawBorder: false },
+            ticks: { color: '#6B7280', font: { family: 'Inter, system-ui, sans-serif' } }
+        };
+
+        const CHART_SCALES_X = {
+            grid: { display: false, drawBorder: false },
+            ticks: { color: '#6B7280', font: { family: 'Inter, system-ui, sans-serif' } }
+        };
+
+        const CHART_ANIMATION = {
+            duration: 800,
+            easing: 'easeOutQuart'
+        };
+
+        const CHART_FONT = { family: 'Inter, system-ui, sans-serif' };
+
         const formatTwoDigits = (num) => num.toString().padStart(2, '0');
+
+        function formatDuration(minutes) {
+            if (isNaN(minutes)) return '0分钟';
+            return minutes < 60 ? minutes.toFixed(1) + '分钟' : Math.floor(minutes / 60) + '小时' + (minutes % 60).toFixed(1) + '分钟';
+        }
+
+        function mergeLogData(target, source) {
+            target.connections += source.connections;
+            target.totalData += source.totalData;
+            target.totalDuration += source.totalDuration;
+
+            for (const [ip, stats] of Object.entries(source.ipStats)) {
+                if (!target.ipStats[ip]) {
+                    target.ipStats[ip] = {
+                        connections: stats.connections,
+                        totalDuration: stats.totalDuration,
+                        totalData: stats.totalData,
+                        vpnProtocols: { ...stats.vpnProtocols },
+                        sessions: stats.sessions || []
+                    };
+                } else {
+                    target.ipStats[ip].connections += stats.connections;
+                    target.ipStats[ip].totalDuration += stats.totalDuration;
+                    target.ipStats[ip].totalData += stats.totalData;
+
+                    for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
+                        target.ipStats[ip].vpnProtocols[proto] =
+                            (target.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                    }
+
+                    if (stats.sessions && Array.isArray(stats.sessions)) {
+                        target.ipStats[ip].sessions = target.ipStats[ip].sessions || [];
+                        target.ipStats[ip].sessions.push(...stats.sessions);
+                    }
+                }
+            }
+
+            for (const [proto, count] of Object.entries(source.vpnProtocolStats)) {
+                target.vpnProtocolStats[proto] = (target.vpnProtocolStats[proto] || 0) + count;
+            }
+
+            for (let h = 0; h < 24; h++) {
+                target.timeStats[h] += source.timeStats[h];
+            }
+
+            for (const [date, daily] of Object.entries(source.dailyStats)) {
+                if (!target.dailyStats[date]) {
+                    target.dailyStats[date] = {
+                        connections: daily.connections,
+                        totalDuration: daily.totalDuration,
+                        totalData: daily.totalData
+                    };
+                } else {
+                    target.dailyStats[date].connections += daily.connections;
+                    target.dailyStats[date].totalDuration += daily.totalDuration;
+                    target.dailyStats[date].totalData += daily.totalData;
+                }
+            }
+        }
 
         function getDaysInMonth(year, month) {
             return new Date(year, month, 0).getDate();
         }
 
-        function updateDateSelectOptions() {
-            const dateSelect = document.getElementById('date-select');
-            if (!dateSelect) return;
-            const year = parseInt(document.getElementById('year-select').value) + 2000;
-            const month = parseInt(document.getElementById('month-select').value);
-            const days = getDaysInMonth(year, month);
-            const currentVal = dateSelect.value;
-            dateSelect.innerHTML = '';
-            for (let i = 1; i <= days; i++) {
-                const option = document.createElement('option');
-                option.value = formatTwoDigits(i);
-                option.textContent = `${i}日`;
-                dateSelect.appendChild(option);
-            }
-            if (currentVal && parseInt(currentVal) <= days) dateSelect.value = currentVal;
-            else dateSelect.value = '01';
-        }
 
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
@@ -679,6 +782,19 @@
                 }
             }, 5000);
         }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modals = ['ip-details-modal', 'daily-chart-modal', 'protocol-chart-modal', 'time-chart-modal', 'ip-deep-analysis-modal'];
+                for (const id of modals) {
+                    const modal = document.getElementById(id);
+                    if (modal && !modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                        break;
+                    }
+                }
+            }
+        });
 
         let currentSortColumn = null;
         let currentSortOrder = 'asc';
@@ -819,43 +935,6 @@
                 return selectedDates;
             }
             return [];
-        }
-
-        function getFilesFromDateRange(startDate, endDate, existingMonths) {
-            const files = [];
-            if (!startDate || !endDate) return files;
-            const startYear = startDate.substring(2, 4);
-            const startMonth = startDate.substring(5, 7);
-            const startDay = startDate.substring(8, 10);
-            const endYear = endDate.substring(2, 4);
-            const endMonth = endDate.substring(5, 7);
-            const endDay = endDate.substring(8, 10);
-            let currentYear = parseInt(startYear);
-            let currentMonth = parseInt(startMonth);
-            let currentDay = parseInt(startDay);
-            const endYearInt = parseInt(endYear);
-            const endMonthInt = parseInt(endMonth);
-            const endDayInt = parseInt(endDay);
-            while (currentYear < endYearInt ||
-                (currentYear === endYearInt && currentMonth < endMonthInt) ||
-                (currentYear === endYearInt && currentMonth === endMonthInt && currentDay <= endDayInt)) {
-                const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
-                if (existingMonths.includes(monthStr)) {
-                    const fileName = `vpn_20${monthStr}${formatTwoDigits(currentDay)}.log`;
-                    files.push({ folder: monthStr, fileName });
-                }
-                currentDay++;
-                const daysInMonth = getDaysInMonth(currentYear + 2000, currentMonth);
-                if (currentDay > daysInMonth) {
-                    currentDay = 1;
-                    currentMonth++;
-                    if (currentMonth > 12) {
-                        currentMonth = 1;
-                        currentYear++;
-                    }
-                }
-            }
-            return files;
         }
 
         function getCacheKey(folders, fileNames) {
@@ -1092,7 +1171,7 @@
         let protocolChart, protocolChartLarge, timeChart, timeChartLarge, dailyChart, dailyChartLarge, allIPStats = [],
             filteredIPStats = [],
             currentPage = 1,
-            currentChartType = 'bar',
+            currentChartType = 'line',
             currentLogData = null;
 
         // 保存最近一次分析的参数
@@ -1145,13 +1224,12 @@
             tbody.innerHTML = '';
             if (filteredIPStats.length === 0) { tbody.innerHTML =
                     `<tr><td colspan="6" class="px-4 md:px-6 py-12 text-center text-gray-500">无数据</td></tr>`; return; }
-            const formatDur = (min) => min < 60 ? min.toFixed(1) + '分钟' : Math.floor(min / 60) + '小时' + (min % 60).toFixed(1) + '分钟';
             for (let i = start; i < end; i++) {
                 const d = filteredIPStats[i];
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
                 row.innerHTML =
-                    `<td class="px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze" data-ip="${d.ip}"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDur(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><div class="flex gap-2"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button></div></td>`;
+                    `<td class="px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze" data-ip="${d.ip}"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDuration(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><div class="flex gap-2"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button></div></td>`;
             }
             document.querySelectorAll('.view-details').forEach(btn => btn.onclick = () => showIPDetails(btn.dataset.ip));
             document.querySelectorAll('.deep-analyze').forEach(td => td.onclick = () => showIPDeepAnalysis(td.dataset.ip));
@@ -1169,17 +1247,13 @@
             const tbody = document.getElementById('connection-details');
             if (!tbody) return;
             tbody.innerHTML = '';
-            const formatDur = (min) => {
-                if (isNaN(min)) return '0分钟';
-                return min < 60 ? min.toFixed(1) + '分钟' : Math.floor(min / 60) + '小时' + (min % 60).toFixed(1) + '分钟';
-            };
             sessions.forEach(s => {
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
                 row.innerHTML = `
                     <td class="px-4 md:px-6 py-4">${s.startTime || '-'}</td>
                     <td class="px-4 md:px-6 py-4">${s.endTime || '-'}</td>
-                    <td class="px-4 md:px-6 py-4">${formatDur(s.duration)}</td>
+                    <td class="px-4 md:px-6 py-4">${formatDuration(s.duration)}</td>
                     <td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${s.vpnProtocol || '未知'}</span></td>
                     <td class="px-4 md:px-6 py-4">${formatSize((s.inputData || 0) + (s.outputData || 0))}</td>
                 `;
@@ -1236,8 +1310,7 @@
             if (!data) return;
             document.getElementById('detail-ip').textContent = data.ip;
             document.getElementById('detail-connections').textContent = data.connections;
-            const formatDur = (min) => min < 60 ? min.toFixed(1) + '分钟' : Math.floor(min / 60) + '小时' + (min % 60).toFixed(1) + '分钟';
-            document.getElementById('detail-duration').textContent = formatDur(data.totalDuration);
+            document.getElementById('detail-duration').textContent = formatDuration(data.totalDuration);
             document.getElementById('detail-data').textContent = formatSize(data.totalData);
             
             // 初始化会话数据（按开始时间排序）
@@ -1303,19 +1376,18 @@
         }
 
         function updateDeepAnalysisStats(data) {
-            const formatDur = (min) => min < 60 ? min.toFixed(1) + '分钟' : Math.floor(min / 60) + '小时' + (min % 60).toFixed(1) + '分钟';
             
             document.getElementById('deep-total-connections').textContent = data.connections;
-            document.getElementById('deep-total-duration').textContent = formatDur(data.totalDuration);
+            document.getElementById('deep-total-duration').textContent = formatDuration(data.totalDuration);
             document.getElementById('deep-total-data').textContent = formatSize(data.totalData);
-            document.getElementById('deep-avg-duration').textContent = formatDur(data.totalDuration / data.connections);
+            document.getElementById('deep-avg-duration').textContent = formatDuration(data.totalDuration / data.connections);
         }
 
         function initDeepCharts(data) {
             // 销毁现有图表（如果存在）
             if (deepDataChart) deepDataChart.destroy();
             if (deepTimeChart) deepTimeChart.destroy();
-            if (deepDailyChart) deepDailyChart.destroy();
+            if (deepDailyChart) { deepDailyChart.destroy(); deepDailyChart = null; }
 
             // 数据使用量分布柱状图 - Cloudflare 风格
             // 定义数据量区间（字节）
@@ -1339,18 +1411,22 @@
             });
             
             deepDataChart = new Chart(document.getElementById('deep-data-chart'), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: dataRanges.map(r => r.label),
                     datasets: [{
                         label: '会话次数',
                         data: dataStats,
-                        backgroundColor: ['#2563EB', '#0EA5E9', '#8B5CF6', '#F59E0B', '#10B981'],
-                        borderWidth: 1.5,
-                        borderColor: '#FFFFFF',
-                        borderRadius: 4,
-                        hoverBackgroundColor: ['#1D4ED8', '#0284C7', '#7C3AED', '#D97706', '#059669'],
-                        hoverBorderColor: '#FFFFFF'
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        borderColor: '#2563EB',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
@@ -1360,50 +1436,13 @@
                         legend: {
                             display: false
                         },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false
-                        }
+                        tooltip: CHART_TOOLTIP_NOCOLOR
                     },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(229, 231, 235, 0.5)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        }
+                        y: { ...CHART_SCALES_Y },
+                        x: CHART_SCALES_X
                     },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
+                    animation: CHART_ANIMATION
                 }
             });
 
@@ -1418,18 +1457,22 @@
                 }
             });
             deepTimeChart = new Chart(document.getElementById('deep-time-chart'), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: Array.from({ length: 24 }, (_, i) => i + ':00'),
                     datasets: [{
                         label: '连接次数',
                         data: timeStats,
-                        backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
                         borderColor: '#2563EB',
-                        borderWidth: 1.5,
-                        borderRadius: 4,
-                        hoverBackgroundColor: 'rgba(37, 99, 235, 1)',
-                        hoverBorderColor: '#1D4ED8'
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
@@ -1439,50 +1482,13 @@
                         legend: {
                             display: false
                         },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false
-                        }
+                        tooltip: CHART_TOOLTIP_NOCOLOR
                     },
                     scales: {
-                        y: { 
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(229, 231, 235, 0.5)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        }
+                        y: { ...CHART_SCALES_Y },
+                        x: CHART_SCALES_X
                     },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
+                    animation: CHART_ANIMATION
                 }
             });
 
@@ -1491,7 +1497,6 @@
         }
 
         function updateDeepDailyChart() {
-            // 按日期统计数据
             const dailyStats = {};
             filteredDeepSessions.forEach(session => {
                 if (session.startTime) {
@@ -1506,190 +1511,22 @@
             });
 
             const sortedDates = Object.keys(dailyStats).sort();
-            
-            // 销毁并重建图表以支持图表类型切换
-            if (deepDailyChart) deepDailyChart.destroy();
-            
             const chartType = document.getElementById('deep-chart-type-select').value;
-            
-            deepDailyChart = new Chart(document.getElementById('deep-daily-chart'), {
-                type: chartType,
-                data: {
-                    labels: sortedDates,
-                    datasets: [
-                        {
-                            label: '连接次数',
-                            data: sortedDates.map(date => dailyStats[date].connections),
-                            backgroundColor: chartType === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
-                            borderColor: '#2563EB',
-                            borderWidth: 2,
-                            pointRadius: chartType === 'line' ? 0 : 4,
-                            pointBackgroundColor: '#2563EB',
-                            pointBorderColor: '#FFFFFF',
-                            pointBorderWidth: 2,
-                            pointHoverRadius: chartType === 'line' ? 0 : 6,
-                            fill: chartType === 'line',
-                            tension: 0.4,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: '使用时长（分钟）',
-                            data: sortedDates.map(date => dailyStats[date].duration),
-                            backgroundColor: chartType === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
-                            borderColor: '#10B981',
-                            borderWidth: 2,
-                            pointRadius: chartType === 'line' ? 0 : 4,
-                            pointBackgroundColor: '#10B981',
-                            pointBorderColor: '#FFFFFF',
-                            pointBorderWidth: 2,
-                            pointHoverRadius: chartType === 'line' ? 0 : 6,
-                            fill: chartType === 'line',
-                            tension: 0.4,
-                            yAxisID: 'y1'
-                        },
-                        {
-                            label: '数据使用量（GB）',
-                            data: sortedDates.map(date => dailyStats[date].data / 1073741824),
-                            backgroundColor: chartType === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
-                            borderColor: '#8B5CF6',
-                            borderWidth: 2,
-                            pointRadius: chartType === 'line' ? 0 : 4,
-                            pointBackgroundColor: '#8B5CF6',
-                            pointBorderColor: '#FFFFFF',
-                            pointBorderWidth: 2,
-                            pointHoverRadius: chartType === 'line' ? 0 : 6,
-                            fill: chartType === 'line',
-                            tension: 0.4,
-                            yAxisID: 'y2'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                pointStyle: 'circle',
-                                font: {
-                                    size: 12,
-                                    family: 'Inter, system-ui, sans-serif'
-                                },
-                                color: '#4B5563'
-                            }
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            usePointStyle: true,
-                            titleFont: {
-                                family: 'Inter, system-ui, sans-serif',
-                                size: 13,
-                                weight: 'bold'
-                            },
-                            bodyFont: {
-                                family: 'Inter, system-ui, sans-serif',
-                                size: 12
-                            }
-                        }
-                    },
-                    scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            position: 'left', 
-                            title: { 
-                                display: true, 
-                                text: '连接次数',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12,
-                                    weight: '600'
-                                },
-                                color: '#4B5563'
-                            },
-                            grid: {
-                                color: 'rgba(229, 231, 235, 0.5)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        y1: { 
-                            beginAtZero: true, 
-                            position: 'right', 
-                            title: { 
-                                display: true, 
-                                text: '使用时长（分钟）',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12,
-                                    weight: '600'
-                                },
-                                color: '#4B5563'
-                            }, 
-                            grid: { drawOnChartArea: false },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        y2: { 
-                            beginAtZero: true, 
-                            position: 'right', 
-                            title: { 
-                                display: true, 
-                                text: '数据使用量（GB）',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12,
-                                    weight: '600'
-                                },
-                                color: '#4B5563'
-                            }, 
-                            grid: { drawOnChartArea: false },
-                            offset: false,
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        }
-                    },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
-                }
-            });
+
+            if (deepDailyChart && deepDailyChart.config.type !== chartType) {
+                deepDailyChart.destroy();
+                deepDailyChart = null;
+            }
+
+            if (!deepDailyChart) {
+                deepDailyChart = createDailyChart('deep-daily-chart', chartType);
+            }
+
+            deepDailyChart.data.labels = sortedDates;
+            deepDailyChart.data.datasets[0].data = sortedDates.map(date => dailyStats[date].connections);
+            deepDailyChart.data.datasets[1].data = sortedDates.map(date => dailyStats[date].duration);
+            deepDailyChart.data.datasets[2].data = sortedDates.map(date => dailyStats[date].data / 1073741824);
+            deepDailyChart.update();
         }
 
         function updateProtocolFilter(data) {
@@ -1720,10 +1557,6 @@
             const pageData = filteredDeepSessions.slice(start, end);
 
             tbody.innerHTML = '';
-            const formatDur = (min) => {
-                if (isNaN(min)) return '0分钟';
-                return min < 60 ? min.toFixed(1) + '分钟' : Math.floor(min / 60) + '小时' + (min % 60).toFixed(1) + '分钟';
-            };
 
             pageData.forEach(s => {
                 const row = tbody.insertRow();
@@ -1731,7 +1564,7 @@
                 row.innerHTML = `
                     <td class="px-4 py-3">${s.startTime || '-'}</td>
                     <td class="px-4 py-3">${s.endTime || '-'}</td>
-                    <td class="px-4 py-3">${formatDur(s.duration)}</td>
+                    <td class="px-4 py-3">${formatDuration(s.duration)}</td>
                     <td class="px-4 py-3"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${s.vpnProtocol || '未知'}</span></td>
                     <td class="px-4 py-3">${formatSize((s.inputData || 0) + (s.outputData || 0))}</td>
                 `;
@@ -1867,57 +1700,7 @@
                         if (!monthData) continue;
                         
                         // 合并数据
-                        logData.connections += monthData.connections;
-                        logData.totalData += monthData.totalData;
-                        logData.totalDuration += monthData.totalDuration;
-                        
-                        for (const [ip, stats] of Object.entries(monthData.ipStats)) {
-                            if (!logData.ipStats[ip]) {
-                                logData.ipStats[ip] = {
-                                    connections: stats.connections,
-                                    totalDuration: stats.totalDuration,
-                                    totalData: stats.totalData,
-                                    vpnProtocols: { ...stats.vpnProtocols },
-                                    sessions: stats.sessions || []
-                                };
-                            } else {
-                                logData.ipStats[ip].connections += stats.connections;
-                                logData.ipStats[ip].totalDuration += stats.totalDuration;
-                                logData.ipStats[ip].totalData += stats.totalData;
-                                
-                                for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                                    logData.ipStats[ip].vpnProtocols[proto] = 
-                                        (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                                }
-                                
-                                if (stats.sessions && Array.isArray(stats.sessions)) {
-                                    logData.ipStats[ip].sessions = logData.ipStats[ip].sessions || [];
-                                    logData.ipStats[ip].sessions.push(...stats.sessions);
-                                }
-                            }
-                        }
-                        
-                        for (const [proto, count] of Object.entries(monthData.vpnProtocolStats)) {
-                            logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
-                        }
-                        
-                        for (let h = 0; h < 24; h++) {
-                            logData.timeStats[h] += monthData.timeStats[h];
-                        }
-                        
-                        for (const [date, daily] of Object.entries(monthData.dailyStats)) {
-                            if (!logData.dailyStats[date]) {
-                                logData.dailyStats[date] = {
-                                    connections: daily.connections,
-                                    totalDuration: daily.totalDuration,
-                                    totalData: daily.totalData
-                                };
-                            } else {
-                                logData.dailyStats[date].connections += daily.connections;
-                                logData.dailyStats[date].totalDuration += daily.totalDuration;
-                                logData.dailyStats[date].totalData += daily.totalData;
-                            }
-                        }
+                        mergeLogData(logData, monthData);
                     }
                     
                     logData.uniqueIps = Object.keys(logData.ipStats).length;
@@ -2106,9 +1889,117 @@
             showNotification('导出成功', 'success');
         }
 
-        function formatDuration(minutes) {
-            if (isNaN(minutes)) return '0分钟';
-            return minutes < 60 ? minutes.toFixed(1) + '分钟' : Math.floor(minutes / 60) + '小时' + (minutes % 60).toFixed(1) + '分钟';
+        function createDailyChart(canvasId, type) {
+            return new Chart(document.getElementById(canvasId), {
+                type: type,
+                data: {
+                    labels: [],
+                    datasets: [
+                        { 
+                            label: '连接次数', 
+                            data: [], 
+                            backgroundColor: type === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
+                            borderColor: '#2563EB',
+                            borderWidth: 2,
+                            pointRadius: type === 'line' ? 0 : 4,
+                            pointBackgroundColor: '#2563EB',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: type === 'line' ? 0 : 6,
+                            fill: type === 'line',
+                            tension: 0.4,
+                            yAxisID: 'y' 
+                        },
+                        { 
+                            label: '使用时长（分钟）', 
+                            data: [], 
+                            backgroundColor: type === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
+                            borderColor: '#10B981',
+                            borderWidth: 2,
+                            pointRadius: type === 'line' ? 0 : 4,
+                            pointBackgroundColor: '#10B981',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: type === 'line' ? 0 : 6,
+                            fill: type === 'line',
+                            tension: 0.4,
+                            yAxisID: 'y1' 
+                        },
+                        { 
+                            label: '数据使用量（GB）', 
+                            data: [], 
+                            backgroundColor: type === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
+                            borderColor: '#8B5CF6',
+                            borderWidth: 2,
+                            pointRadius: type === 'line' ? 0 : 4,
+                            pointBackgroundColor: '#8B5CF6',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: type === 'line' ? 0 : 6,
+                            fill: type === 'line',
+                            tension: 0.4,
+                            yAxisID: 'y2' 
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: CHART_LEGEND_TOP,
+                        tooltip: { ...CHART_TOOLTIP_INDEX, usePointStyle: true, titleFont: { family: 'Inter, system-ui, sans-serif', size: 13, weight: 'bold' }, bodyFont: { family: 'Inter, system-ui, sans-serif', size: 12 } }
+                    },
+                    scales: {
+                        y: { 
+                            ...CHART_SCALES_Y, 
+                            position: 'left', 
+                            title: { 
+                                display: true, 
+                                text: '连接次数',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12,
+                                    weight: '600'
+                                },
+                                color: '#4B5563'
+                            }
+                        },
+                        y1: { 
+                            ...CHART_SCALES_Y, 
+                            position: 'right', 
+                            title: { 
+                                display: true, 
+                                text: '使用时长（分钟）',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12,
+                                    weight: '600'
+                                },
+                                color: '#4B5563'
+                            }, 
+                            grid: { drawOnChartArea: false }
+                        },
+                        y2: { 
+                            ...CHART_SCALES_Y, 
+                            position: 'right', 
+                            title: { 
+                                display: true, 
+                                text: '数据使用量（GB）',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12,
+                                    weight: '600'
+                                },
+                                color: '#4B5563'
+                            }, 
+                            grid: { drawOnChartArea: false },
+                            offset: false
+                        },
+                        x: CHART_SCALES_X
+                    },
+                    animation: CHART_ANIMATION
+                }
+            });
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
@@ -2130,29 +2021,8 @@
                     responsive: true, 
                     maintainAspectRatio: false, 
                     plugins: { 
-                        legend: { 
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                pointStyle: 'circle',
-                                font: {
-                                    size: 13,
-                                    family: 'Inter, system-ui, sans-serif'
-                                },
-                                color: '#4B5563'
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: true
-                        }
+                        legend: CHART_LEGEND_BOTTOM,
+                        tooltip: CHART_TOOLTIP_LEGEND
                     }, 
                     cutout: '70%',
                     animation: {
@@ -2181,29 +2051,8 @@
                     responsive: true, 
                     maintainAspectRatio: false, 
                     plugins: { 
-                        legend: { 
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                pointStyle: 'circle',
-                                font: {
-                                    size: 13,
-                                    family: 'Inter, system-ui, sans-serif'
-                                },
-                                color: '#4B5563'
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: true
-                        }
+                        legend: CHART_LEGEND_BOTTOM,
+                        tooltip: CHART_TOOLTIP_LEGEND
                     }, 
                     cutout: '70%',
                     animation: {
@@ -2217,18 +2066,22 @@
             
             // 连接时段分布柱状图 - Cloudflare 风格
             timeChart = new Chart(document.getElementById('time-chart'), {
-                type: 'bar',
+                type: 'line',
                 data: { 
                     labels: Array.from({ length: 24 }, (_, i) => i + ':00'), 
                     datasets: [{ 
                         label: '连接次数', 
                         data: Array(24).fill(0), 
-                        backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
                         borderColor: '#2563EB',
-                        borderWidth: 1.5,
-                        borderRadius: 4,
-                        hoverBackgroundColor: 'rgba(37, 99, 235, 1)',
-                        hoverBorderColor: '#1D4ED8'
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 6
                     }] 
                 },
                 options: { 
@@ -2236,66 +2089,33 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false
-                        }
+                        tooltip: CHART_TOOLTIP_NOCOLOR
                     },
                     scales: { 
-                        y: { 
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(229, 231, 235, 0.5)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        }
+                        y: { ...CHART_SCALES_Y },
+                        x: CHART_SCALES_X
                     },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
+                    animation: CHART_ANIMATION
                 }
             });
             
             timeChartLarge = new Chart(document.getElementById('time-chart-large'), {
-                type: 'bar',
+                type: 'line',
                 data: { 
                     labels: Array.from({ length: 24 }, (_, i) => i + ':00'), 
                     datasets: [{ 
                         label: '连接次数', 
                         data: Array(24).fill(0), 
-                        backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
                         borderColor: '#2563EB',
-                        borderWidth: 1.5,
-                        borderRadius: 4,
-                        hoverBackgroundColor: 'rgba(37, 99, 235, 1)',
-                        hoverBorderColor: '#1D4ED8'
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 6
                     }] 
                 },
                 options: { 
@@ -2303,233 +2123,15 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
-                            borderColor: '#2563EB',
-                            borderWidth: 1,
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false
-                        }
+                        tooltip: CHART_TOOLTIP_NOCOLOR
                     },
                     scales: { 
-                        y: { 
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(229, 231, 235, 0.5)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#6B7280',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif'
-                                }
-                            }
-                        }
+                        y: { ...CHART_SCALES_Y },
+                        x: CHART_SCALES_X
                     },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
+                    animation: CHART_ANIMATION
                 }
             });
-
-            function createDailyChart(canvasId, type) {
-                return new Chart(document.getElementById(canvasId), {
-                    type: type,
-                    data: {
-                        labels: [],
-                        datasets: [
-                            { 
-                                label: '连接次数', 
-                                data: [], 
-                                backgroundColor: type === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
-                                borderColor: '#2563EB',
-                                borderWidth: 2,
-                                pointRadius: type === 'line' ? 0 : 4,
-                                pointBackgroundColor: '#2563EB',
-                                pointBorderColor: '#FFFFFF',
-                                pointBorderWidth: 2,
-                                pointHoverRadius: type === 'line' ? 0 : 6,
-                                fill: type === 'line',
-                                tension: 0.4,
-                                yAxisID: 'y' 
-                            },
-                            { 
-                                label: '使用时长（分钟）', 
-                                data: [], 
-                                backgroundColor: type === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
-                                borderColor: '#10B981',
-                                borderWidth: 2,
-                                pointRadius: type === 'line' ? 0 : 4,
-                                pointBackgroundColor: '#10B981',
-                                pointBorderColor: '#FFFFFF',
-                                pointBorderWidth: 2,
-                                pointHoverRadius: type === 'line' ? 0 : 6,
-                                fill: type === 'line',
-                                tension: 0.4,
-                                yAxisID: 'y1' 
-                            },
-                            { 
-                                label: '数据使用量（GB）', 
-                                data: [], 
-                                backgroundColor: type === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
-                                borderColor: '#8B5CF6',
-                                borderWidth: 2,
-                                pointRadius: type === 'line' ? 0 : 4,
-                                pointBackgroundColor: '#8B5CF6',
-                                pointBorderColor: '#FFFFFF',
-                                pointBorderWidth: 2,
-                                pointHoverRadius: type === 'line' ? 0 : 6,
-                                fill: type === 'line',
-                                tension: 0.4,
-                                yAxisID: 'y2' 
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                labels: {
-                                    padding: 20,
-                                    usePointStyle: true,
-                                    pointStyle: 'circle',
-                                    font: {
-                                        size: 12,
-                                        family: 'Inter, system-ui, sans-serif'
-                                    },
-                                    color: '#4B5563'
-                                }
-                            },
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false,
-                                backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                                titleColor: '#FFFFFF',
-                                bodyColor: '#FFFFFF',
-                                borderColor: '#2563EB',
-                                borderWidth: 1,
-                                padding: 12,
-                                cornerRadius: 8,
-                                usePointStyle: true,
-                                titleFont: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 13,
-                                    weight: 'bold'
-                                },
-                                bodyFont: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12
-                                }
-                            }
-                        },
-                        scales: {
-                            y: { 
-                                beginAtZero: true, 
-                                position: 'left', 
-                                title: { 
-                                    display: true, 
-                                    text: '连接次数',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif',
-                                        size: 12,
-                                        weight: '600'
-                                    },
-                                    color: '#4B5563'
-                                },
-                                grid: {
-                                    color: 'rgba(229, 231, 235, 0.5)',
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    color: '#6B7280',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif'
-                                    }
-                                }
-                            },
-                            y1: { 
-                                beginAtZero: true, 
-                                position: 'right', 
-                                title: { 
-                                    display: true, 
-                                    text: '使用时长（分钟）',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif',
-                                        size: 12,
-                                        weight: '600'
-                                    },
-                                    color: '#4B5563'
-                                }, 
-                                grid: { drawOnChartArea: false },
-                                ticks: {
-                                    color: '#6B7280',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif'
-                                    }
-                                }
-                            },
-                            y2: { 
-                                beginAtZero: true, 
-                                position: 'right', 
-                                title: { 
-                                    display: true, 
-                                    text: '数据使用量（GB）',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif',
-                                        size: 12,
-                                        weight: '600'
-                                    },
-                                    color: '#4B5563'
-                                }, 
-                                grid: { drawOnChartArea: false },
-                                offset: false,
-                                ticks: {
-                                    color: '#6B7280',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif'
-                                    }
-                                }
-                            },
-                            x: {
-                                grid: {
-                                    display: false,
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    color: '#6B7280',
-                                    font: {
-                                        family: 'Inter, system-ui, sans-serif'
-                                    }
-                                }
-                            }
-                        },
-                        animation: {
-                            duration: 800,
-                            easing: 'easeOutQuart'
-                        }
-                    }
-                });
-            }
 
             dailyChart = createDailyChart('daily-chart', currentChartType);
             dailyChartLarge = createDailyChart('daily-chart-large', currentChartType);
@@ -2555,7 +2157,6 @@
                 const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
                 monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
                 if (months.length) monthSelect.value = months[0];
-                updateDateSelectOptions();
                 updatePathDisplay();
             };
             const updatePathDisplay = () => {
@@ -2722,185 +2323,148 @@
             const progressText = document.getElementById('progress-text');
             const currentFileSpan = document.getElementById('current-file');
 
-            analyzeBtn.onclick = async () => {
-                loadingDiv.classList.remove('hidden');
-                const rangeType = document.getElementById('range-type').value;
-                const year = yearSelect.value;
-                const month = monthSelect.value;
+            function initLogData() {
+                return { connections: 0, uniqueIps: 0, totalData: 0, totalDuration: 0, avgDuration: 0,
+                    ipStats: {}, vpnProtocolStats: {}, timeStats: Array(24).fill(0), dailyStats: {} };
+            }
 
-                // 保存分析参数
-                lastAnalysisParams.rangeType = rangeType;
-                lastAnalysisParams.year = year;
-                lastAnalysisParams.month = month;
-                lastAnalysisParams.startDate = null;
-                lastAnalysisParams.endDate = null;
+            function finalizeAnalysis(logData, message) {
+                logData.uniqueIps = Object.keys(logData.ipStats).length;
+                logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
+                updateStats(logData);
+                allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections, totalDuration: st.totalDuration, totalData: st.totalData, mostUsedVPNProtocol: Object.entries(st.vpnProtocols).sort((a, b) => b[1] - a[1])[0]?.[0] || '未知', sessions: st.sessions }));
+                filteredIPStats = [...allIPStats];
+                currentPage = 1;
+                renderIPStatsTable();
+                updateCharts(logData);
+                loadingDiv.classList.add('hidden');
+                showNotification(message, 'success');
+            }
 
-                // 自动判断：自定义日期使用本地分析，其余使用服务器分析
-                if (rangeType !== 'custom-dates') {
-                    // ========== 服务器分析模式 ==========
-                    try {
-                        let logData = { connections: 0, uniqueIps: 0, totalData: 0, totalDuration: 0, avgDuration: 0,
-                            ipStats: {}, vpnProtocolStats: {}, timeStats: Array(24).fill(0), dailyStats: {} };
-
-                        if (rangeType === 'single-month') {
-                            currentFileSpan.textContent = `正在加载 ${year}${month} 的分析结果...`;
-                            logData = await loadMonthAnalysisOrRaw(`${year}${month}`, (fileName, percent) => {
-                                currentFileSpan.textContent = `正在读取 ${fileName} (${Math.round(percent * 100)}%)`;
-                            });
-                        } else if (rangeType === 'full-year') {
-                            const analysisFile = `analysis/${year}.json`;
-                            currentFileSpan.textContent = `正在加载分析结果...`;
-                            const response = await fetch(analysisFile);
-                            if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
-                            logData = await response.json();
-                        } else if (rangeType === 'all-logs') {
-                            const analysisFile = 'analysis/all.json';
-                            currentFileSpan.textContent = `正在加载分析结果...`;
-                            const response = await fetch(analysisFile);
-                            if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
-                            logData = await response.json();
-                        } else if (rangeType === 'partial-months') {
-                            const selectedMonths = [];
-                            document.querySelectorAll('#month-checkboxes input:checked').forEach(checkbox => {
-                                const m = checkbox.value;
-                                selectedMonths.push(`${year}${m}`);
-                            });
-                            if (selectedMonths.length === 0) {
-                                showNotification('请至少选择一个月份', 'error');
-                                loadingDiv.classList.add('hidden');
-                                return;
-                            }
-                            currentFileSpan.textContent =
-                                `正在加载 ${selectedMonths.length} 个月份的分析结果...`;
-                            for (let i = 0; i < selectedMonths.length; i++) {
-                                const monthStr = selectedMonths[i];
-                                const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
-                                    currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
-                                });
-                                if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
-                                logData.connections += monthData.connections;
-                                logData.totalData += monthData.totalData;
-                                logData.totalDuration += monthData.totalDuration;
-                                for (const [ip, stats] of Object.entries(monthData.ipStats)) {
-                                    if (!logData.ipStats[ip]) {
-                                        logData.ipStats[ip] = { connections: stats.connections, totalDuration: stats.totalDuration, totalData: stats.totalData, vpnProtocols: { ...stats.vpnProtocols }, sessions: stats.sessions || [] };
-                                    } else {
-                                        logData.ipStats[ip].connections += stats.connections;
-                                        logData.ipStats[ip].totalDuration += stats.totalDuration;
-                                        logData.ipStats[ip].totalData += stats.totalData;
-                                        for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                                            logData.ipStats[ip].vpnProtocols[proto] = (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                                        }
-                                        if (stats.sessions && Array.isArray(stats.sessions)) {
-                                            logData.ipStats[ip].sessions = logData.ipStats[ip].sessions || [];
-                                            logData.ipStats[ip].sessions.push(...stats.sessions);
-                                        }
-                                    }
-                                }
-                                for (const [proto, count] of Object.entries(monthData.vpnProtocolStats)) {
-                                    logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
-                                }
-                                for (let h = 0; h < 24; h++) { logData.timeStats[h] += monthData.timeStats[h]; }
-                                for (const [date, daily] of Object.entries(monthData.dailyStats)) {
-                                    if (!logData.dailyStats[date]) { logData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData }; } else { logData.dailyStats[date].connections += daily.connections;
-                                        logData.dailyStats[date].totalDuration += daily.totalDuration;
-                                        logData.dailyStats[date].totalData += daily.totalData; }
-                                }
-                            }
-                            logData.uniqueIps = Object.keys(logData.ipStats).length;
-                            logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
-                        } else if (rangeType === 'date-range') {
-                            const startDate = document.getElementById('start-date').value;
-                            const endDate = document.getElementById('end-date').value;
-                            if (!startDate || !endDate) {
-                                showNotification('请选择开始和结束日期', 'error');
-                                loadingDiv.classList.add('hidden');
-                                return;
-                            }
-                            // 保存日期参数
-                            lastAnalysisParams.startDate = startDate;
-                            lastAnalysisParams.endDate = endDate;
-                            const startYear = startDate.substring(2, 4);
-                            const startMonth = startDate.substring(5, 7);
-                            const endYear = endDate.substring(2, 4);
-                            const endMonth = endDate.substring(5, 7);
-                            const months = [];
-                            let currentYear = parseInt(startYear);
-                            let currentMonth = parseInt(startMonth);
-                            const endYearInt = parseInt(endYear);
-                            const endMonthInt = parseInt(endMonth);
-                            while (currentYear < endYearInt || (currentYear === endYearInt && currentMonth <= endMonthInt)) {
-                                const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
-                                months.push(monthStr);
-                                currentMonth++;
-                                if (currentMonth > 12) { currentMonth = 1; currentYear++; }
-                            }
-                            currentFileSpan.textContent = `正在加载 ${months.length} 个月份的分析结果...`;
-                            for (let i = 0; i < months.length; i++) {
-                                const monthStr = months[i];
-                                const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
-                                    currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
-                                });
-                                if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
-                                logData.connections += monthData.connections;
-                                logData.totalData += monthData.totalData;
-                                logData.totalDuration += monthData.totalDuration;
-                                for (const [ip, stats] of Object.entries(monthData.ipStats)) {
-                                    if (!logData.ipStats[ip]) {
-                                        logData.ipStats[ip] = { connections: stats.connections, totalDuration: stats.totalDuration, totalData: stats.totalData, vpnProtocols: { ...stats.vpnProtocols }, sessions: stats.sessions || [] };
-                                    } else {
-                                        logData.ipStats[ip].connections += stats.connections;
-                                        logData.ipStats[ip].totalDuration += stats.totalDuration;
-                                        logData.ipStats[ip].totalData += stats.totalData;
-                                        for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                                            logData.ipStats[ip].vpnProtocols[proto] = (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                                        }
-                                        if (stats.sessions && Array.isArray(stats.sessions)) {
-                                            logData.ipStats[ip].sessions = logData.ipStats[ip].sessions || [];
-                                            logData.ipStats[ip].sessions.push(...stats.sessions);
-                                        }
-                                    }
-                                }
-                                for (const [proto, count] of Object.entries(monthData.vpnProtocolStats)) {
-                                    logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
-                                }
-                                for (let h = 0; h < 24; h++) { logData.timeStats[h] += monthData.timeStats[h]; }
-                                for (const [date, daily] of Object.entries(monthData.dailyStats)) {
-                                    if (!logData.dailyStats[date]) { logData.dailyStats[date] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData }; } else { logData.dailyStats[date].connections += daily.connections;
-                                        logData.dailyStats[date].totalDuration += daily.totalDuration;
-                                        logData.dailyStats[date].totalData += daily.totalData; }
-                                }
-                            }
-                            logData.uniqueIps = Object.keys(logData.ipStats).length;
-                            logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
-                        }
-
-                        updateStats(logData);
-                        allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections, totalDuration: st.totalDuration, totalData: st.totalData, mostUsedVPNProtocol: Object.entries(st.vpnProtocols).sort((a, b) => b[1] - a[1])[0]?.[0] || '未知', sessions: st.sessions }));
-                        filteredIPStats = [...allIPStats];
-                        currentPage = 1;
-                        renderIPStatsTable();
-                        updateCharts(logData);
-                        loadingDiv.classList.add('hidden');
-                        showNotification('服务器分析完成', 'success');
-                    } catch (error) {
-                        console.error('服务器分析失败:', error);
-                        showNotification(`服务器分析失败: ${error.message}`, 'error');
-                        loadingDiv.classList.add('hidden');
-                    }
-                    return;
+            async function analyzeSingleMonth(year, month) {
+                try {
+                    currentFileSpan.textContent = `正在加载 ${year}${month} 的分析结果...`;
+                    const logData = await loadMonthAnalysisOrRaw(`${year}${month}`, (fileName, percent) => {
+                        currentFileSpan.textContent = `正在读取 ${fileName} (${Math.round(percent * 100)}%)`;
+                    });
+                    return logData;
+                } catch (error) {
+                    console.error('服务器分析失败:', error);
+                    showNotification(`服务器分析失败: ${error.message}`, 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
                 }
+            }
 
-                // ========== 本地分析模式（仅自定义日期） ==========
-                let allFileNames = [];
-                let allFolders = [];
-                const selectedDates = getSelectedDates(rangeType, year, month);
+            async function analyzeFullYear(year) {
+                try {
+                    const analysisFile = `analysis/${year}.json`;
+                    currentFileSpan.textContent = `正在加载分析结果...`;
+                    const response = await fetch(analysisFile);
+                    if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
+                    return await response.json();
+                } catch (error) {
+                    console.error('服务器分析失败:', error);
+                    showNotification(`服务器分析失败: ${error.message}`, 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
+                }
+            }
+
+            async function analyzeAllLogs() {
+                try {
+                    const analysisFile = 'analysis/all.json';
+                    currentFileSpan.textContent = `正在加载分析结果...`;
+                    const response = await fetch(analysisFile);
+                    if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
+                    return await response.json();
+                } catch (error) {
+                    console.error('服务器分析失败:', error);
+                    showNotification(`服务器分析失败: ${error.message}`, 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
+                }
+            }
+
+            async function analyzePartialMonths(year, selectedMonths) {
+                try {
+                    if (selectedMonths.length === 0) {
+                        showNotification('请至少选择一个月份', 'error');
+                        loadingDiv.classList.add('hidden');
+                        return null;
+                    }
+                    const logData = initLogData();
+                    currentFileSpan.textContent = `正在加载 ${selectedMonths.length} 个月份的分析结果...`;
+                    for (let i = 0; i < selectedMonths.length; i++) {
+                        const monthStr = selectedMonths[i];
+                        const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
+                            currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
+                        });
+                        if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
+                        mergeLogData(logData, monthData);
+                    }
+                    return logData;
+                } catch (error) {
+                    console.error('服务器分析失败:', error);
+                    showNotification(`服务器分析失败: ${error.message}`, 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
+                }
+            }
+
+            async function analyzeDateRange(startDate, endDate) {
+                try {
+                    if (!startDate || !endDate) {
+                        showNotification('请选择开始和结束日期', 'error');
+                        loadingDiv.classList.add('hidden');
+                        return null;
+                    }
+                    lastAnalysisParams.startDate = startDate;
+                    lastAnalysisParams.endDate = endDate;
+                    const startYear = startDate.substring(2, 4);
+                    const startMonth = startDate.substring(5, 7);
+                    const endYear = endDate.substring(2, 4);
+                    const endMonth = endDate.substring(5, 7);
+                    const months = [];
+                    let currentYear = parseInt(startYear);
+                    let currentMonth = parseInt(startMonth);
+                    const endYearInt = parseInt(endYear);
+                    const endMonthInt = parseInt(endMonth);
+                    while (currentYear < endYearInt || (currentYear === endYearInt && currentMonth <= endMonthInt)) {
+                        const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
+                        months.push(monthStr);
+                        currentMonth++;
+                        if (currentMonth > 12) { currentMonth = 1; currentYear++; }
+                    }
+                    const logData = initLogData();
+                    currentFileSpan.textContent = `正在加载 ${months.length} 个月份的分析结果...`;
+                    for (let i = 0; i < months.length; i++) {
+                        const monthStr = months[i];
+                        const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
+                            currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
+                        });
+                        if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
+                        mergeLogData(logData, monthData);
+                    }
+                    return logData;
+                } catch (error) {
+                    console.error('服务器分析失败:', error);
+                    showNotification(`服务器分析失败: ${error.message}`, 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
+                }
+            }
+
+            async function analyzeCustomDates(year, month) {
+                const selectedDates = getSelectedDates('custom-dates', year, month);
                 if (selectedDates.length === 0) {
                     showNotification('请至少选择一个日期', 'error');
                     loadingDiv.classList.add('hidden');
-                    return;
+                    return null;
                 }
                 const monthFolder = `${year}${month}`;
+                const allFileNames = [];
+                const allFolders = [];
                 for (const date of selectedDates) {
                     allFileNames.push(`vpn_20${year}${month}${date}.log`);
                     allFolders.push(monthFolder);
@@ -2915,15 +2479,8 @@
                 }
 
                 if (logData) {
-                    updateStats(logData);
-                    allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections, totalDuration: st.totalDuration, totalData: st.totalData, mostUsedVPNProtocol: Object.entries(st.vpnProtocols).sort((a, b) => b[1] - a[1])[0]?.[0] || '未知', sessions: st.sessions }));
-                    filteredIPStats = [...allIPStats];
-                    currentPage = 1;
-                    renderIPStatsTable();
-                    updateCharts(logData);
-                    loadingDiv.classList.add('hidden');
-                    showNotification('缓存命中，直接显示结果', 'success');
-                    return;
+                    finalizeAnalysis(logData, '缓存命中，直接显示结果');
+                    return null;
                 }
 
                 const onProgress = (fileName, percent) => {
@@ -2934,7 +2491,7 @@
                 };
 
                 try {
-                    logData = { connections: 0, uniqueIps: 0, totalData: 0, totalDuration: 0, avgDuration: 0, ipStats: {}, vpnProtocolStats: {}, timeStats: Array(24).fill(0), dailyStats: {} };
+                    logData = initLogData();
                     let totalFiles = allFileNames.length;
                     let processedFiles = 0;
 
@@ -2944,44 +2501,9 @@
                             const overallPercent = (processedFiles + percent) / totalFiles;
                             onProgress(fileName, overallPercent);
                         });
-                        logData.connections += folderLogData.connections;
-                        logData.totalData += folderLogData.totalData;
-                        logData.totalDuration += folderLogData.totalDuration;
-                        for (const [ip, stats] of Object.entries(folderLogData.ipStats)) {
-                            if (!logData.ipStats[ip]) {
-                                logData.ipStats[ip] = { connections: stats.connections, totalDuration: stats.totalDuration, totalData: stats.totalData, vpnProtocols: { ...stats.vpnProtocols }, sessions: [...stats.sessions] };
-                            } else {
-                                logData.ipStats[ip].connections += stats.connections;
-                                logData.ipStats[ip].totalDuration += stats.totalDuration;
-                                logData.ipStats[ip].totalData += stats.totalData;
-                                logData.ipStats[ip].sessions.push(...stats.sessions);
-                                for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
-                                    logData.ipStats[ip].vpnProtocols[proto] = (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
-                                }
-                            }
-                        }
-                        for (const [proto, count] of Object.entries(folderLogData.vpnProtocolStats)) {
-                            logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
-                        }
-                        for (let h = 0; h < 24; h++) { logData.timeStats[h] += folderLogData.timeStats[h]; }
-                        for (const [dateKey, daily] of Object.entries(folderLogData.dailyStats)) {
-                            if (!logData.dailyStats[dateKey]) { logData.dailyStats[dateKey] = { connections: daily.connections, totalDuration: daily.totalDuration, totalData: daily.totalData }; } else {
-                                logData.dailyStats[dateKey].connections += daily.connections;
-                                logData.dailyStats[dateKey].totalDuration += daily.totalDuration;
-                                logData.dailyStats[dateKey].totalData += daily.totalData;
-                            }
-                        }
+                        mergeLogData(logData, folderLogData);
                         processedFiles++;
                     }
-
-                    logData.uniqueIps = Object.keys(logData.ipStats).length;
-                    let totalConn = 0,
-                        totalDur = 0;
-                    for (const ipStat of Object.values(logData.ipStats)) {
-                        totalConn += ipStat.connections;
-                        totalDur += ipStat.totalDuration;
-                    }
-                    logData.avgDuration = totalConn ? totalDur / totalConn : 0;
 
                     const fileMetas = [];
                     for (const date of selectedDates) {
@@ -2991,18 +2513,55 @@
                     }
                     await saveCache(allFolders, allFileNames, logData, fileMetas);
 
-                    updateStats(logData);
-                    allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({ ip, connections: st.connections, totalDuration: st.totalDuration, totalData: st.totalData, mostUsedVPNProtocol: Object.entries(st.vpnProtocols).sort((a, b) => b[1] - a[1])[0]?.[0] || '未知', sessions: st.sessions }));
-                    filteredIPStats = [...allIPStats];
-                    currentPage = 1;
-                    renderIPStatsTable();
-                    updateCharts(logData);
-                    showNotification('分析完成，已缓存结果', 'success');
+                    return logData;
                 } catch (err) {
                     console.error(err);
                     showNotification('分析失败: ' + err.message, 'error');
-                } finally {
                     loadingDiv.classList.add('hidden');
+                    return null;
+                }
+            }
+
+            analyzeBtn.onclick = async () => {
+                loadingDiv.classList.remove('hidden');
+                const rangeType = document.getElementById('range-type').value;
+                const year = yearSelect.value;
+                const month = monthSelect.value;
+
+                lastAnalysisParams.rangeType = rangeType;
+                lastAnalysisParams.year = year;
+                lastAnalysisParams.month = month;
+                lastAnalysisParams.startDate = null;
+                lastAnalysisParams.endDate = null;
+
+                let logData = null;
+
+                switch (rangeType) {
+                    case 'single-month':
+                        logData = await analyzeSingleMonth(year, month);
+                        break;
+                    case 'full-year':
+                        logData = await analyzeFullYear(year);
+                        break;
+                    case 'partial-months':
+                        const selectedMonths = [];
+                        document.querySelectorAll('#month-checkboxes input:checked').forEach(cb => selectedMonths.push(`${year}${cb.value}`));
+                        logData = await analyzePartialMonths(year, selectedMonths);
+                        break;
+                    case 'date-range':
+                        logData = await analyzeDateRange(document.getElementById('start-date').value, document.getElementById('end-date').value);
+                        break;
+                    case 'custom-dates':
+                        logData = await analyzeCustomDates(year, month);
+                        break;
+                    case 'all-logs':
+                        logData = await analyzeAllLogs();
+                        break;
+                }
+
+                if (logData) {
+                    const message = rangeType === 'custom-dates' ? '分析完成，已缓存结果' : '服务器分析完成';
+                    finalizeAnalysis(logData, message);
                 }
             };
 
