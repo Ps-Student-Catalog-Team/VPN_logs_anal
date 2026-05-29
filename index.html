@@ -101,6 +101,8 @@
         body.dark-mode .bg-gray-100 {background-color: #334155 !important;}
         body.dark-mode #current-date {color: #f8fafc !important;}
         body.dark-mode #ip-deep-analysis-modal .bg-white { background-color: #1e293b !important; }
+        body.dark-mode #deep-analysis-loading { background-color: rgba(30, 41, 59, 0.8) !important; }
+        body.dark-mode #deep-analysis-loading-text { color: #cbd5e1 !important; }
     </style>
 </head>
 <body class="bg-gray-50 font-inter text-dark min-h-screen flex flex-col">
@@ -482,6 +484,12 @@
                                 <button id="close-deep-analysis-modal" class="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-110">
                                     <i class="fa fa-times text-gray-600 text-xl"></i>
                                 </button>
+                            </div>
+                        </div>
+                        <div id="deep-analysis-loading" class="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10 hidden">
+                            <div class="text-center">
+                                <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+                                <p class="text-gray-600" id="deep-analysis-loading-text">正在加载数据...</p>
                             </div>
                         </div>
                         <div class="flex-grow overflow-y-auto p-6">
@@ -1081,6 +1089,15 @@
             currentChartType = 'bar',
             currentLogData = null;
 
+        // 保存最近一次分析的参数
+        let lastAnalysisParams = {
+            rangeType: null,
+            year: null,
+            month: null,
+            startDate: null,
+            endDate: null
+        };
+
         // IP 深度分析相关变量
         let deepProtocolChart, deepTimeChart, deepDailyChart = null;
         let currentDeepIP = null;
@@ -1128,10 +1145,10 @@
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
                 row.innerHTML =
-                    `<td class="px-4 md:px-6 py-4"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDur(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><div class="flex gap-2"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button><button class="bg-primary text-white px-3 py-1 rounded-lg deep-analyze hover:bg-primary/80 transition-colors duration-300" data-ip="${d.ip}">深度分析</button></div></td>`;
+                    `<td class="px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze" data-ip="${d.ip}"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDur(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><div class="flex gap-2"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button></div></td>`;
             }
             document.querySelectorAll('.view-details').forEach(btn => btn.onclick = () => showIPDetails(btn.dataset.ip));
-            document.querySelectorAll('.deep-analyze').forEach(btn => btn.onclick = () => showIPDeepAnalysis(btn.dataset.ip));
+            document.querySelectorAll('.deep-analyze').forEach(td => td.onclick = () => showIPDeepAnalysis(td.dataset.ip));
             document.getElementById('shown-ips').textContent = filteredIPStats.length;
             document.getElementById('prev-page').disabled = currentPage === 1;
             document.getElementById('next-page').disabled = end >= filteredIPStats.length;
@@ -1267,6 +1284,10 @@
 
             // 设置日期筛选范围
             setDateFilterRange();
+            
+            // 初始化日期跟踪变量，避免初始设置触发重新加载
+            lastStartDate = document.getElementById('deep-start-date').value;
+            lastEndDate = document.getElementById('deep-end-date').value;
 
             // 渲染连接记录
             renderDeepConnectionTable();
@@ -1404,7 +1425,7 @@
                     scales: {
                         y: { beginAtZero: true, position: 'left', title: { display: true, text: '连接次数' } },
                         y1: { beginAtZero: true, position: 'right', title: { display: true, text: '使用时长（分钟）' }, grid: { drawOnChartArea: false } },
-                        y2: { beginAtZero: true, position: 'right', offset: true, title: { display: true, text: '数据使用量（GB）' }, grid: { drawOnChartArea: false } }
+                        y2: { beginAtZero: true, position: 'right', title: { display: true, text: '数据使用量（GB）' }, grid: { drawOnChartArea: false } }
                     }
                 }
             });
@@ -1515,11 +1536,199 @@
             }
         }
 
+        // 根据日期范围重新加载数据
+        async function reloadDataForDateRange(startDate, endDate) {
+            if (!currentDeepIP || !lastAnalysisParams.rangeType) {
+                return false;
+            }
+
+            // 显示加载指示器
+            const loadingDiv = document.getElementById('deep-analysis-loading');
+            const loadingText = document.getElementById('deep-analysis-loading-text');
+            loadingDiv.classList.remove('hidden');
+            loadingText.textContent = '正在加载数据...';
+
+            try {
+                let logData = { 
+                    connections: 0, 
+                    uniqueIps: 0, 
+                    totalData: 0, 
+                    totalDuration: 0, 
+                    avgDuration: 0,
+                    ipStats: {}, 
+                    vpnProtocolStats: {}, 
+                    timeStats: Array(24).fill(0), 
+                    dailyStats: {} 
+                };
+
+                if (lastAnalysisParams.rangeType === 'date-range' || 
+                    lastAnalysisParams.rangeType === 'single-month' || 
+                    lastAnalysisParams.rangeType === 'full-year' ||
+                    lastAnalysisParams.rangeType === 'all-logs' ||
+                    lastAnalysisParams.rangeType === 'partial-months') {
+                    // 服务器分析模式
+                    const rangeType = 'date-range';
+                    
+                    // 根据日期范围计算需要加载的月份
+                    const startYear = startDate.substring(0, 4);
+                    const startMonth = startDate.substring(5, 7);
+                    const endYear = endDate.substring(0, 4);
+                    const endMonth = endDate.substring(5, 7);
+                    
+                    const months = [];
+                    let currentYear = parseInt(startYear);
+                    let currentMonth = parseInt(startMonth);
+                    const endYearInt = parseInt(endYear);
+                    const endMonthInt = parseInt(endMonth);
+                    
+                    while (currentYear < endYearInt || 
+                          (currentYear === endYearInt && currentMonth <= endMonthInt)) {
+                        const monthStr = `${formatTwoDigits(currentYear % 100)}${formatTwoDigits(currentMonth)}`;
+                        months.push(monthStr);
+                        currentMonth++;
+                        if (currentMonth > 12) {
+                            currentMonth = 1;
+                            currentYear++;
+                        }
+                    }
+                    
+                    loadingText.textContent = `正在加载 ${months.length} 个月份的分析结果...`;
+                    
+                    // 加载各个月份的数据
+                    for (let i = 0; i < months.length; i++) {
+                        const monthStr = months[i];
+                        loadingText.textContent = `正在加载 ${monthStr} 的数据...`;
+                        
+                        const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
+                            loadingText.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
+                        });
+                        
+                        if (!monthData) continue;
+                        
+                        // 合并数据
+                        logData.connections += monthData.connections;
+                        logData.totalData += monthData.totalData;
+                        logData.totalDuration += monthData.totalDuration;
+                        
+                        for (const [ip, stats] of Object.entries(monthData.ipStats)) {
+                            if (!logData.ipStats[ip]) {
+                                logData.ipStats[ip] = {
+                                    connections: stats.connections,
+                                    totalDuration: stats.totalDuration,
+                                    totalData: stats.totalData,
+                                    vpnProtocols: { ...stats.vpnProtocols },
+                                    sessions: stats.sessions || []
+                                };
+                            } else {
+                                logData.ipStats[ip].connections += stats.connections;
+                                logData.ipStats[ip].totalDuration += stats.totalDuration;
+                                logData.ipStats[ip].totalData += stats.totalData;
+                                
+                                for (const [proto, count] of Object.entries(stats.vpnProtocols)) {
+                                    logData.ipStats[ip].vpnProtocols[proto] = 
+                                        (logData.ipStats[ip].vpnProtocols[proto] || 0) + count;
+                                }
+                                
+                                if (stats.sessions && Array.isArray(stats.sessions)) {
+                                    logData.ipStats[ip].sessions = logData.ipStats[ip].sessions || [];
+                                    logData.ipStats[ip].sessions.push(...stats.sessions);
+                                }
+                            }
+                        }
+                        
+                        for (const [proto, count] of Object.entries(monthData.vpnProtocolStats)) {
+                            logData.vpnProtocolStats[proto] = (logData.vpnProtocolStats[proto] || 0) + count;
+                        }
+                        
+                        for (let h = 0; h < 24; h++) {
+                            logData.timeStats[h] += monthData.timeStats[h];
+                        }
+                        
+                        for (const [date, daily] of Object.entries(monthData.dailyStats)) {
+                            if (!logData.dailyStats[date]) {
+                                logData.dailyStats[date] = {
+                                    connections: daily.connections,
+                                    totalDuration: daily.totalDuration,
+                                    totalData: daily.totalData
+                                };
+                            } else {
+                                logData.dailyStats[date].connections += daily.connections;
+                                logData.dailyStats[date].totalDuration += daily.totalDuration;
+                                logData.dailyStats[date].totalData += daily.totalData;
+                            }
+                        }
+                    }
+                    
+                    logData.uniqueIps = Object.keys(logData.ipStats).length;
+                    logData.avgDuration = logData.connections ? logData.totalDuration / logData.connections : 0;
+                }
+                
+                // 更新全局数据
+                allIPStats = Object.entries(logData.ipStats).map(([ip, st]) => ({
+                    ip,
+                    connections: st.connections,
+                    totalDuration: st.totalDuration,
+                    totalData: st.totalData,
+                    mostUsedVPNProtocol: Object.entries(st.vpnProtocols)
+                        .sort((a, b) => b[1] - a[1])[0]?.[0] || '未知',
+                    sessions: st.sessions
+                }));
+                
+                // 查找当前 IP 的数据
+                const ipData = allIPStats.find(i => i.ip === currentDeepIP);
+                if (!ipData) {
+                    showNotification('该 IP 在新日期范围内没有数据', 'warning');
+                    loadingDiv.classList.add('hidden');
+                    return false;
+                }
+                
+                // 更新深度分析数据
+                currentDeepSessions = [...(ipData.sessions || [])]
+                    .sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+                deepCurrentPage = 1;
+                
+                // 更新统计信息
+                updateDeepAnalysisStats(ipData);
+                
+                // 更新图表
+                initDeepCharts(ipData);
+                
+                // 更新协议筛选
+                updateProtocolFilter(ipData);
+                
+                // 应用筛选
+                applyDeepFilters();
+                
+                loadingDiv.classList.add('hidden');
+                return true;
+                
+            } catch (error) {
+                console.error('重新加载数据失败:', error);
+                showNotification('数据加载失败: ' + error.message, 'error');
+                loadingDiv.classList.add('hidden');
+                return false;
+            }
+        }
+
+        let lastStartDate = null;
+        let lastEndDate = null;
+
         function applyDeepFilters() {
             const searchTerm = document.getElementById('deep-connection-search').value.toLowerCase();
             const protocolFilter = document.getElementById('deep-protocol-filter').value;
             const startDate = document.getElementById('deep-start-date').value;
             const endDate = document.getElementById('deep-end-date').value;
+            
+            // 检查日期范围是否变化
+            const dateRangeChanged = (startDate !== lastStartDate) || (endDate !== lastEndDate);
+            lastStartDate = startDate;
+            lastEndDate = endDate;
+            
+            // 如果日期范围变化并且有历史分析参数，尝试重新加载数据
+            if (dateRangeChanged && startDate && endDate && lastAnalysisParams.rangeType) {
+                reloadDataForDateRange(startDate, endDate);
+                return;
+            }
 
             filteredDeepSessions = currentDeepSessions.filter(session => {
                 // 搜索过滤
@@ -1853,6 +2062,13 @@
                 const year = yearSelect.value;
                 const month = monthSelect.value;
 
+                // 保存分析参数
+                lastAnalysisParams.rangeType = rangeType;
+                lastAnalysisParams.year = year;
+                lastAnalysisParams.month = month;
+                lastAnalysisParams.startDate = null;
+                lastAnalysisParams.endDate = null;
+
                 // 自动判断：自定义日期使用本地分析，其余使用服务器分析
                 if (rangeType !== 'custom-dates') {
                     // ========== 服务器分析模式 ==========
@@ -1935,6 +2151,9 @@
                                 loadingDiv.classList.add('hidden');
                                 return;
                             }
+                            // 保存日期参数
+                            lastAnalysisParams.startDate = startDate;
+                            lastAnalysisParams.endDate = endDate;
                             const startYear = startDate.substring(2, 4);
                             const startMonth = startDate.substring(5, 7);
                             const endYear = endDate.substring(2, 4);
