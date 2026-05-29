@@ -11,15 +11,21 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF',
-                        secondary: '#0FC6C2',
-                        accent: '#722ED1',
-                        dark: '#1D2129',
-                        light: '#F2F3F5',
-                        success: '#52C41A',
-                        warning: '#FAAD14',
-                        error: '#F5222D',
-                        info: '#1890FF',
+                        primary: '#2563EB',
+                        secondary: '#0EA5E9',
+                        accent: '#8B5CF6',
+                        dark: '#111827',
+                        light: '#F9FAFB',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        error: '#EF4444',
+                        info: '#3B82F6',
+                        'cf-blue': '#2563EB',
+                        'cf-light-blue': '#0EA5E9',
+                        'cf-purple': '#8B5CF6',
+                        'cf-orange': '#F59E0B',
+                        'cf-green': '#10B981',
+                        'cf-red': '#EF4444',
                     },
                     fontFamily: {
                         inter: ['Inter', 'system-ui', 'sans-serif'],
@@ -1311,7 +1317,7 @@
             if (deepTimeChart) deepTimeChart.destroy();
             if (deepDailyChart) deepDailyChart.destroy();
 
-            // 协议分布饼图
+            // 协议分布饼图 - Cloudflare 风格
             const protocolStats = data.vpnProtocols || {};
             deepProtocolChart = new Chart(document.getElementById('deep-protocol-chart'), {
                 type: 'doughnut',
@@ -1319,8 +1325,11 @@
                     labels: Object.keys(protocolStats),
                     datasets: [{
                         data: Object.values(protocolStats),
-                        backgroundColor: ['#165DFF', '#0FC6C2', '#722ED1', '#FF7D00', '#F5222D'],
-                        borderWidth: 0
+                        backgroundColor: ['#2563EB', '#0EA5E9', '#8B5CF6', '#F59E0B', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF',
+                        hoverOffset: 10,
+                        hoverBorderWidth: 3
                     }]
                 },
                 options: {
@@ -1328,14 +1337,40 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'bottom'
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 13,
+                                    family: 'Inter, system-ui, sans-serif'
+                                },
+                                color: '#4B5563'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: true
                         }
                     },
-                    cutout: '70%'
+                    cutout: '70%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    }
                 }
             });
 
-            // 连接时段分布柱状图
+            // 连接时段分布柱状图 - Cloudflare 风格
             const timeStats = Array(24).fill(0);
             currentDeepSessions.forEach(session => {
                 if (session.startTime) {
@@ -1352,14 +1387,64 @@
                     datasets: [{
                         label: '连接次数',
                         data: timeStats,
-                        backgroundColor: '#165DFF'
+                        backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                        borderColor: '#2563EB',
+                        borderWidth: 1.5,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(37, 99, 235, 1)',
+                        hoverBorderColor: '#1D4ED8'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true }
+                        y: { 
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(229, 231, 235, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
                     }
                 }
             });
@@ -1388,33 +1473,56 @@
             // 销毁并重建图表以支持图表类型切换
             if (deepDailyChart) deepDailyChart.destroy();
             
+            const chartType = document.getElementById('deep-chart-type-select').value;
+            
             deepDailyChart = new Chart(document.getElementById('deep-daily-chart'), {
-                type: document.getElementById('deep-chart-type-select').value,
+                type: chartType,
                 data: {
                     labels: sortedDates,
                     datasets: [
                         {
                             label: '连接次数',
                             data: sortedDates.map(date => dailyStats[date].connections),
-                            backgroundColor: '#165DFF',
-                            borderColor: '#165DFF',
+                            backgroundColor: chartType === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
+                            borderColor: '#2563EB',
                             borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#2563EB',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 6,
+                            fill: chartType === 'line',
+                            tension: 0.4,
                             yAxisID: 'y'
                         },
                         {
                             label: '使用时长（分钟）',
                             data: sortedDates.map(date => dailyStats[date].duration),
-                            backgroundColor: '#0FC6C2',
-                            borderColor: '#0FC6C2',
+                            backgroundColor: chartType === 'bar' ? 'rgba(14, 165, 233, 0.8)' : 'rgba(14, 165, 233, 0.2)',
+                            borderColor: '#0EA5E9',
                             borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#0EA5E9',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 6,
+                            fill: chartType === 'line',
+                            tension: 0.4,
                             yAxisID: 'y1'
                         },
                         {
                             label: '数据使用量（GB）',
                             data: sortedDates.map(date => dailyStats[date].data / 1073741824),
-                            backgroundColor: '#FF7D00',
-                            borderColor: '#FF7D00',
+                            backgroundColor: chartType === 'bar' ? 'rgba(245, 158, 11, 0.8)' : 'rgba(245, 158, 11, 0.2)',
+                            borderColor: '#F59E0B',
                             borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#F59E0B',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 6,
+                            fill: chartType === 'line',
+                            tension: 0.4,
                             yAxisID: 'y2'
                         }
                     ]
@@ -1422,10 +1530,126 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 12,
+                                    family: 'Inter, system-ui, sans-serif'
+                                },
+                                color: '#4B5563'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            usePointStyle: true,
+                            titleFont: {
+                                family: 'Inter, system-ui, sans-serif',
+                                size: 13,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                family: 'Inter, system-ui, sans-serif',
+                                size: 12
+                            }
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true, position: 'left', title: { display: true, text: '连接次数' } },
-                        y1: { beginAtZero: true, position: 'right', title: { display: true, text: '使用时长（分钟）' }, grid: { drawOnChartArea: false } },
-                        y2: { beginAtZero: true, position: 'right', title: { display: true, text: '数据使用量（GB）' }, grid: { drawOnChartArea: false } }
+                        y: { 
+                            beginAtZero: true, 
+                            position: 'left', 
+                            title: { 
+                                display: true, 
+                                text: '连接次数',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12,
+                                    weight: '600'
+                                },
+                                color: '#4B5563'
+                            },
+                            grid: {
+                                color: 'rgba(229, 231, 235, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        y1: { 
+                            beginAtZero: true, 
+                            position: 'right', 
+                            title: { 
+                                display: true, 
+                                text: '使用时长（分钟）',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12,
+                                    weight: '600'
+                                },
+                                color: '#4B5563'
+                            }, 
+                            grid: { drawOnChartArea: false },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        y2: { 
+                            beginAtZero: true, 
+                            position: 'right', 
+                            title: { 
+                                display: true, 
+                                text: '数据使用量（GB）',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12,
+                                    weight: '600'
+                                },
+                                color: '#4B5563'
+                            }, 
+                            grid: { drawOnChartArea: false },
+                            offset: false,
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
                     }
                 }
             });
@@ -1821,25 +2045,242 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
+            // 协议分布饼图 - Cloudflare 风格
             protocolChart = new Chart(document.getElementById('protocol-chart'), {
                 type: 'doughnut',
-                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#165DFF', '#0FC6C2', '#722ED1', '#FF7D00', '#F5222D'], borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '70%' }
+                data: { 
+                    labels: [], 
+                    datasets: [{ 
+                        data: [], 
+                        backgroundColor: ['#2563EB', '#0EA5E9', '#8B5CF6', '#F59E0B', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF',
+                        hoverOffset: 10,
+                        hoverBorderWidth: 3
+                    }] 
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 13,
+                                    family: 'Inter, system-ui, sans-serif'
+                                },
+                                color: '#4B5563'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: true
+                        }
+                    }, 
+                    cutout: '70%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    }
+                }
             });
+            
             protocolChartLarge = new Chart(document.getElementById('protocol-chart-large'), {
                 type: 'doughnut',
-                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#165DFF', '#0FC6C2', '#722ED1', '#FF7D00', '#F5222D'], borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '70%' }
+                data: { 
+                    labels: [], 
+                    datasets: [{ 
+                        data: [], 
+                        backgroundColor: ['#2563EB', '#0EA5E9', '#8B5CF6', '#F59E0B', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF',
+                        hoverOffset: 10,
+                        hoverBorderWidth: 3
+                    }] 
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 13,
+                                    family: 'Inter, system-ui, sans-serif'
+                                },
+                                color: '#4B5563'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: true
+                        }
+                    }, 
+                    cutout: '70%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    }
+                }
             });
+            
+            // 连接时段分布柱状图 - Cloudflare 风格
             timeChart = new Chart(document.getElementById('time-chart'), {
                 type: 'bar',
-                data: { labels: Array.from({ length: 24 }, (_, i) => i + ':00'), datasets: [{ label: '连接次数', data: Array(24).fill(0), backgroundColor: '#165DFF' }] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                data: { 
+                    labels: Array.from({ length: 24 }, (_, i) => i + ':00'), 
+                    datasets: [{ 
+                        label: '连接次数', 
+                        data: Array(24).fill(0), 
+                        backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                        borderColor: '#2563EB',
+                        borderWidth: 1.5,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(37, 99, 235, 1)',
+                        hoverBorderColor: '#1D4ED8'
+                    }] 
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(229, 231, 235, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
+                    }
+                }
             });
+            
             timeChartLarge = new Chart(document.getElementById('time-chart-large'), {
                 type: 'bar',
-                data: { labels: Array.from({ length: 24 }, (_, i) => i + ':00'), datasets: [{ label: '连接次数', data: Array(24).fill(0), backgroundColor: '#165DFF' }] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                data: { 
+                    labels: Array.from({ length: 24 }, (_, i) => i + ':00'), 
+                    datasets: [{ 
+                        label: '连接次数', 
+                        data: Array(24).fill(0), 
+                        backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                        borderColor: '#2563EB',
+                        borderWidth: 1.5,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(37, 99, 235, 1)',
+                        hoverBorderColor: '#1D4ED8'
+                    }] 
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#2563EB',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(229, 231, 235, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
+                    }
+                }
             });
 
             function createDailyChart(canvasId, type) {
@@ -1848,18 +2289,176 @@
                     data: {
                         labels: [],
                         datasets: [
-                            { label: '连接次数', data: [], backgroundColor: '#165DFF', borderColor: '#165DFF', borderWidth: 2, yAxisID: 'y' },
-                            { label: '使用时长（分钟）', data: [], backgroundColor: '#0FC6C2', borderColor: '#0FC6C2', borderWidth: 2, yAxisID: 'y1' },
-                            { label: '数据使用量（GB）', data: [], backgroundColor: '#FF7D00', borderColor: '#FF7D00', borderWidth: 2, yAxisID: 'y2' }
+                            { 
+                                label: '连接次数', 
+                                data: [], 
+                                backgroundColor: type === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
+                                borderColor: '#2563EB',
+                                borderWidth: 2,
+                                pointRadius: 4,
+                                pointBackgroundColor: '#2563EB',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                fill: type === 'line',
+                                tension: 0.4,
+                                yAxisID: 'y' 
+                            },
+                            { 
+                                label: '使用时长（分钟）', 
+                                data: [], 
+                                backgroundColor: type === 'bar' ? 'rgba(14, 165, 233, 0.8)' : 'rgba(14, 165, 233, 0.2)',
+                                borderColor: '#0EA5E9',
+                                borderWidth: 2,
+                                pointRadius: 4,
+                                pointBackgroundColor: '#0EA5E9',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                fill: type === 'line',
+                                tension: 0.4,
+                                yAxisID: 'y1' 
+                            },
+                            { 
+                                label: '数据使用量（GB）', 
+                                data: [], 
+                                backgroundColor: type === 'bar' ? 'rgba(245, 158, 11, 0.8)' : 'rgba(245, 158, 11, 0.2)',
+                                borderColor: '#F59E0B',
+                                borderWidth: 2,
+                                pointRadius: 4,
+                                pointBackgroundColor: '#F59E0B',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                fill: type === 'line',
+                                tension: 0.4,
+                                yAxisID: 'y2' 
+                            }
                         ]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    padding: 20,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle',
+                                    font: {
+                                        size: 12,
+                                        family: 'Inter, system-ui, sans-serif'
+                                    },
+                                    color: '#4B5563'
+                                }
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#FFFFFF',
+                                borderColor: '#2563EB',
+                                borderWidth: 1,
+                                padding: 12,
+                                cornerRadius: 8,
+                                usePointStyle: true,
+                                titleFont: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 13,
+                                    weight: 'bold'
+                                },
+                                bodyFont: {
+                                    family: 'Inter, system-ui, sans-serif',
+                                    size: 12
+                                }
+                            }
+                        },
                         scales: {
-                            y: { beginAtZero: true, position: 'left', title: { display: true, text: '连接次数' } },
-                            y1: { beginAtZero: true, position: 'right', title: { display: true, text: '使用时长（分钟）' }, grid: { drawOnChartArea: false } },
-                            y2: { beginAtZero: true, position: 'right', title: { display: true, text: '数据使用量（GB）' }, grid: { drawOnChartArea: false } }
+                            y: { 
+                                beginAtZero: true, 
+                                position: 'left', 
+                                title: { 
+                                    display: true, 
+                                    text: '连接次数',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif',
+                                        size: 12,
+                                        weight: '600'
+                                    },
+                                    color: '#4B5563'
+                                },
+                                grid: {
+                                    color: 'rgba(229, 231, 235, 0.5)',
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif'
+                                    }
+                                }
+                            },
+                            y1: { 
+                                beginAtZero: true, 
+                                position: 'right', 
+                                title: { 
+                                    display: true, 
+                                    text: '使用时长（分钟）',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif',
+                                        size: 12,
+                                        weight: '600'
+                                    },
+                                    color: '#4B5563'
+                                }, 
+                                grid: { drawOnChartArea: false },
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif'
+                                    }
+                                }
+                            },
+                            y2: { 
+                                beginAtZero: true, 
+                                position: 'right', 
+                                title: { 
+                                    display: true, 
+                                    text: '数据使用量（GB）',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif',
+                                        size: 12,
+                                        weight: '600'
+                                    },
+                                    color: '#4B5563'
+                                }, 
+                                grid: { drawOnChartArea: false },
+                                offset: false,
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif'
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: {
+                                        family: 'Inter, system-ui, sans-serif'
+                                    }
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 800,
+                            easing: 'easeOutQuart'
                         }
                     }
                 });
