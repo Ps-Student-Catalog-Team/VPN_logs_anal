@@ -2284,6 +2284,7 @@
                         dateRangeContainer.classList.remove('hidden');
                     } else if (isCustomDates) {
                         const year = yearSelect.value;
+                        updateMonthOptions();
                         const month = monthSelect.value;
                         generateDateCheckboxes(year, month);
                         customDatesContainer.classList.remove('hidden');
