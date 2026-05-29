@@ -548,14 +548,14 @@
                             </div>
 
                             <!-- 图表区域 -->
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                                <div class="bg-white rounded-xl shadow-soft p-5 border border-gray-100">
-                                    <h4 class="text-lg font-bold mb-4 text-dark flex items-center gap-2">
-                                        <i class="fa fa-pie-chart text-primary"></i>
-                                        VPN 协议分布
-                                    </h4>
-                                    <div class="h-64"><canvas id="deep-protocol-chart"></canvas></div>
-                                </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-soft p-5 border border-gray-100">
+                    <h4 class="text-lg font-bold mb-4 text-dark flex items-center gap-2">
+                        <i class="fa fa-database text-primary"></i>
+                        数据使用量分布
+                    </h4>
+                    <div class="h-64"><canvas id="deep-data-chart"></canvas></div>
+                </div>
                                 <div class="bg-white rounded-xl shadow-soft p-5 border border-gray-100">
                                     <h4 class="text-lg font-bold mb-4 text-dark flex items-center gap-2">
                                         <i class="fa fa-clock-o text-secondary"></i>
@@ -1105,7 +1105,7 @@
         };
 
         // IP 深度分析相关变量
-        let deepProtocolChart, deepTimeChart, deepDailyChart = null;
+        let deepDataChart, deepTimeChart, deepDailyChart = null;
         let currentDeepIP = null;
         let currentDeepSessions = [];
         let filteredDeepSessions = [];
@@ -1313,23 +1313,44 @@
 
         function initDeepCharts(data) {
             // 销毁现有图表（如果存在）
-            if (deepProtocolChart) deepProtocolChart.destroy();
+            if (deepDataChart) deepDataChart.destroy();
             if (deepTimeChart) deepTimeChart.destroy();
             if (deepDailyChart) deepDailyChart.destroy();
 
-            // 协议分布饼图 - Cloudflare 风格
-            const protocolStats = data.vpnProtocols || {};
-            deepProtocolChart = new Chart(document.getElementById('deep-protocol-chart'), {
-                type: 'doughnut',
+            // 数据使用量分布柱状图 - Cloudflare 风格
+            // 定义数据量区间（字节）
+            const dataRanges = [
+                { label: '< 100MB', min: 0, max: 100 * 1024 * 1024 },
+                { label: '100MB - 1GB', min: 100 * 1024 * 1024, max: 1 * 1024 * 1024 * 1024 },
+                { label: '1GB - 5GB', min: 1 * 1024 * 1024 * 1024, max: 5 * 1024 * 1024 * 1024 },
+                { label: '5GB - 10GB', min: 5 * 1024 * 1024 * 1024, max: 10 * 1024 * 1024 * 1024 },
+                { label: '> 10GB', min: 10 * 1024 * 1024 * 1024, max: Infinity }
+            ];
+            const dataStats = Array(dataRanges.length).fill(0);
+            
+            currentDeepSessions.forEach(session => {
+                const totalData = (session.inputData || 0) + (session.outputData || 0);
+                for (let i = 0; i < dataRanges.length; i++) {
+                    if (totalData >= dataRanges[i].min && totalData < dataRanges[i].max) {
+                        dataStats[i]++;
+                        break;
+                    }
+                }
+            });
+            
+            deepDataChart = new Chart(document.getElementById('deep-data-chart'), {
+                type: 'bar',
                 data: {
-                    labels: Object.keys(protocolStats),
+                    labels: dataRanges.map(r => r.label),
                     datasets: [{
-                        data: Object.values(protocolStats),
+                        label: '会话次数',
+                        data: dataStats,
                         backgroundColor: ['#2563EB', '#0EA5E9', '#8B5CF6', '#F59E0B', '#10B981'],
-                        borderWidth: 2,
+                        borderWidth: 1.5,
                         borderColor: '#FFFFFF',
-                        hoverOffset: 10,
-                        hoverBorderWidth: 3
+                        borderRadius: 4,
+                        hoverBackgroundColor: ['#1D4ED8', '#0284C7', '#7C3AED', '#D97706', '#059669'],
+                        hoverBorderColor: '#FFFFFF'
                     }]
                 },
                 options: {
@@ -1337,19 +1358,11 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                pointStyle: 'circle',
-                                font: {
-                                    size: 13,
-                                    family: 'Inter, system-ui, sans-serif'
-                                },
-                                color: '#4B5563'
-                            }
+                            display: false
                         },
                         tooltip: {
+                            mode: 'index',
+                            intersect: false,
                             backgroundColor: 'rgba(17, 24, 39, 0.95)',
                             titleColor: '#FFFFFF',
                             bodyColor: '#FFFFFF',
@@ -1357,14 +1370,38 @@
                             borderWidth: 1,
                             padding: 12,
                             cornerRadius: 8,
-                            displayColors: true
+                            displayColors: false
                         }
                     },
-                    cutout: '70%',
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(229, 231, 235, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: 'Inter, system-ui, sans-serif'
+                                }
+                            }
+                        }
+                    },
                     animation: {
-                        animateRotate: true,
-                        animateScale: true,
-                        duration: 1000,
+                        duration: 800,
                         easing: 'easeOutQuart'
                     }
                 }
@@ -1486,11 +1523,11 @@
                             backgroundColor: chartType === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
                             borderColor: '#2563EB',
                             borderWidth: 2,
-                            pointRadius: 4,
+                            pointRadius: chartType === 'line' ? 0 : 4,
                             pointBackgroundColor: '#2563EB',
                             pointBorderColor: '#FFFFFF',
                             pointBorderWidth: 2,
-                            pointHoverRadius: 6,
+                            pointHoverRadius: chartType === 'line' ? 0 : 6,
                             fill: chartType === 'line',
                             tension: 0.4,
                             yAxisID: 'y'
@@ -1498,14 +1535,14 @@
                         {
                             label: '使用时长（分钟）',
                             data: sortedDates.map(date => dailyStats[date].duration),
-                            backgroundColor: chartType === 'bar' ? 'rgba(14, 165, 233, 0.8)' : 'rgba(14, 165, 233, 0.2)',
-                            borderColor: '#0EA5E9',
+                            backgroundColor: chartType === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
+                            borderColor: '#10B981',
                             borderWidth: 2,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#0EA5E9',
+                            pointRadius: chartType === 'line' ? 0 : 4,
+                            pointBackgroundColor: '#10B981',
                             pointBorderColor: '#FFFFFF',
                             pointBorderWidth: 2,
-                            pointHoverRadius: 6,
+                            pointHoverRadius: chartType === 'line' ? 0 : 6,
                             fill: chartType === 'line',
                             tension: 0.4,
                             yAxisID: 'y1'
@@ -1513,14 +1550,14 @@
                         {
                             label: '数据使用量（GB）',
                             data: sortedDates.map(date => dailyStats[date].data / 1073741824),
-                            backgroundColor: chartType === 'bar' ? 'rgba(245, 158, 11, 0.8)' : 'rgba(245, 158, 11, 0.2)',
-                            borderColor: '#F59E0B',
+                            backgroundColor: chartType === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
+                            borderColor: '#8B5CF6',
                             borderWidth: 2,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#F59E0B',
+                            pointRadius: chartType === 'line' ? 0 : 4,
+                            pointBackgroundColor: '#8B5CF6',
                             pointBorderColor: '#FFFFFF',
                             pointBorderWidth: 2,
-                            pointHoverRadius: 6,
+                            pointHoverRadius: chartType === 'line' ? 0 : 6,
                             fill: chartType === 'line',
                             tension: 0.4,
                             yAxisID: 'y2'
@@ -1984,7 +2021,37 @@
             
             // 重新应用排序
             sortDeepConnections(deepSortColumn);
+            updateDeepDataChart();
             updateDeepDailyChart();
+        }
+
+        function updateDeepDataChart() {
+            // 数据使用量分布统计
+            const dataRanges = [
+                { label: '< 100MB', min: 0, max: 100 * 1024 * 1024 },
+                { label: '100MB - 1GB', min: 100 * 1024 * 1024, max: 1 * 1024 * 1024 * 1024 },
+                { label: '1GB - 5GB', min: 1 * 1024 * 1024 * 1024, max: 5 * 1024 * 1024 * 1024 },
+                { label: '5GB - 10GB', min: 5 * 1024 * 1024 * 1024, max: 10 * 1024 * 1024 * 1024 },
+                { label: '> 10GB', min: 10 * 1024 * 1024 * 1024, max: Infinity }
+            ];
+            const dataStats = Array(dataRanges.length).fill(0);
+            
+            filteredDeepSessions.forEach(session => {
+                const totalData = (session.inputData || 0) + (session.outputData || 0);
+                for (let i = 0; i < dataRanges.length; i++) {
+                    if (totalData >= dataRanges[i].min && totalData < dataRanges[i].max) {
+                        dataStats[i]++;
+                        break;
+                    }
+                }
+            });
+            
+            // 更新图表数据
+            if (deepDataChart) {
+                deepDataChart.data.labels = dataRanges.map(r => r.label);
+                deepDataChart.data.datasets[0].data = dataStats;
+                deepDataChart.update('none');
+            }
         }
 
         function exportJSON() {
@@ -2295,11 +2362,11 @@
                                 backgroundColor: type === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
                                 borderColor: '#2563EB',
                                 borderWidth: 2,
-                                pointRadius: 4,
+                                pointRadius: type === 'line' ? 0 : 4,
                                 pointBackgroundColor: '#2563EB',
                                 pointBorderColor: '#FFFFFF',
                                 pointBorderWidth: 2,
-                                pointHoverRadius: 6,
+                                pointHoverRadius: type === 'line' ? 0 : 6,
                                 fill: type === 'line',
                                 tension: 0.4,
                                 yAxisID: 'y' 
@@ -2307,14 +2374,14 @@
                             { 
                                 label: '使用时长（分钟）', 
                                 data: [], 
-                                backgroundColor: type === 'bar' ? 'rgba(14, 165, 233, 0.8)' : 'rgba(14, 165, 233, 0.2)',
-                                borderColor: '#0EA5E9',
+                                backgroundColor: type === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
+                                borderColor: '#10B981',
                                 borderWidth: 2,
-                                pointRadius: 4,
-                                pointBackgroundColor: '#0EA5E9',
+                                pointRadius: type === 'line' ? 0 : 4,
+                                pointBackgroundColor: '#10B981',
                                 pointBorderColor: '#FFFFFF',
                                 pointBorderWidth: 2,
-                                pointHoverRadius: 6,
+                                pointHoverRadius: type === 'line' ? 0 : 6,
                                 fill: type === 'line',
                                 tension: 0.4,
                                 yAxisID: 'y1' 
@@ -2322,14 +2389,14 @@
                             { 
                                 label: '数据使用量（GB）', 
                                 data: [], 
-                                backgroundColor: type === 'bar' ? 'rgba(245, 158, 11, 0.8)' : 'rgba(245, 158, 11, 0.2)',
-                                borderColor: '#F59E0B',
+                                backgroundColor: type === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
+                                borderColor: '#8B5CF6',
                                 borderWidth: 2,
-                                pointRadius: 4,
-                                pointBackgroundColor: '#F59E0B',
+                                pointRadius: type === 'line' ? 0 : 4,
+                                pointBackgroundColor: '#8B5CF6',
                                 pointBorderColor: '#FFFFFF',
                                 pointBorderWidth: 2,
-                                pointHoverRadius: 6,
+                                pointHoverRadius: type === 'line' ? 0 : 6,
                                 fill: type === 'line',
                                 tension: 0.4,
                                 yAxisID: 'y2' 
