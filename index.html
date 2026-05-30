@@ -60,7 +60,6 @@
         body.dark-mode #navbar,
         body.dark-mode footer { background-color: #1e293b !important; border-color: #334155 !important; }
         body.dark-mode .bg-white,
-        body.dark-mode .bg-gray-50,
         body.dark-mode .bg-white\/80,
         body.dark-mode .bg-white\/80.backdrop-blur-sm,
         body.dark-mode .bg-gray-50.rounded-lg { background-color: #1e293b !important; background-image: none !important; }
@@ -118,6 +117,9 @@
         body.dark-mode .bg-blue-50 { background-color: #1e3a8a !important; }
         body.dark-mode .border-blue-400 { border-color: #2563eb !important; }
         body.dark-mode .bg-green-100 { background-color: #065f46 !important; }
+        body.dark-mode .bg-yellow-50 { background-color: #78350f !important; }
+        body.dark-mode .text-yellow-800 { color: #fcd34d !important; }
+        body.dark-mode .border-yellow-400 { border-color: #f59e0b !important; }
         body.dark-mode .text-gray-800 { color: #e2e8f0 !important; }
         body.dark-mode .hover\:bg-gray-300:hover { background-color: #475569 !important; }
         body.dark-mode .shadow-soft { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important; }
@@ -764,8 +766,8 @@
 
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full ${type === 'success' ? 'bg-green-50 text-green-800 border-l-4 border-green-400' : type === 'error' ? 'bg-red-50 text-red-800 border-l-4 border-red-400' : 'bg-blue-50 text-blue-800 border-l-4 border-blue-400'}`;
-            notification.innerHTML = `<div class="flex items-center"><div class="flex-shrink-0"><i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} text-xl"></i></div><div class="ml-3"><p class="text-sm font-medium">${message}</p></div><button class="ml-auto focus:outline-none"><i class="fa fa-times text-gray-400 hover:text-gray-600"></i></button></div>`;
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full ${type === 'success' ? 'bg-green-50 text-green-800 border-l-4 border-green-400' : type === 'error' ? 'bg-red-50 text-red-800 border-l-4 border-red-400' : type === 'warning' ? 'bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400' : 'bg-blue-50 text-blue-800 border-l-4 border-blue-400'}`;
+            notification.innerHTML = `<div class="flex items-center"><div class="flex-shrink-0"><i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'} text-xl"></i></div><div class="ml-3"><p class="text-sm font-medium">${message}</p></div><button class="ml-auto focus:outline-none"><i class="fa fa-times text-gray-400 hover:text-gray-600"></i></button></div>`;
             document.body.appendChild(notification);
             setTimeout(() => notification.classList.remove('translate-x-full'), 100);
             const closeBtn = notification.querySelector('button');
@@ -870,60 +872,6 @@
                 return ['2502', '2603'];
             }
             return Array.from(existing).sort();
-        }
-
-        function getExistingYears(existingMonths) {
-            const years = [...new Set(existingMonths.map(m => m.slice(0, 2)))].sort();
-            return years;
-        }
-
-        function getSelectedMonths(rangeType, selectedYear, selectedMonth, existingMonths) {
-            switch (rangeType) {
-                case 'single-month':
-                    return [`${selectedYear}${selectedMonth}`];
-                case 'full-year':
-                    return existingMonths.filter(m => m.startsWith(selectedYear));
-                case 'partial-months':
-                    const selectedMonths = [];
-                    document.querySelectorAll('#month-checkboxes input:checked').forEach(checkbox => {
-                        const month = checkbox.value;
-                        selectedMonths.push(`${selectedYear}${month}`);
-                    });
-                    return selectedMonths.length > 0 ? selectedMonths : [`${selectedYear}${selectedMonth}`];
-                case 'date-range':
-                    const startDate = document.getElementById('start-date').value;
-                    const endDate = document.getElementById('end-date').value;
-                    if (!startDate || !endDate) {
-                        return [`${selectedYear}${selectedMonth}`];
-                    }
-                    const startYear = startDate.substring(2, 4);
-                    const startMonth = startDate.substring(5, 7);
-                    const endYear = endDate.substring(2, 4);
-                    const endMonth = endDate.substring(5, 7);
-                    const months = [];
-                    let currentYear = parseInt(startYear);
-                    let currentMonth = parseInt(startMonth);
-                    const endYearInt = parseInt(endYear);
-                    const endMonthInt = parseInt(endMonth);
-                    while (currentYear < endYearInt || (currentYear === endYearInt && currentMonth <= endMonthInt)) {
-                        const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
-                        if (existingMonths.includes(monthStr)) {
-                            months.push(monthStr);
-                        }
-                        currentMonth++;
-                        if (currentMonth > 12) {
-                            currentMonth = 1;
-                            currentYear++;
-                        }
-                    }
-                    return months.length > 0 ? months : [`${selectedYear}${selectedMonth}`];
-                case 'custom-dates':
-                    return [`${selectedYear}${selectedMonth}`];
-                case 'all-logs':
-                    return existingMonths;
-                default:
-                    return [`${selectedYear}${selectedMonth}`];
-            }
         }
 
         function getSelectedDates(rangeType, selectedYear, selectedMonth) {
@@ -1184,7 +1132,7 @@
         };
 
         // IP 深度分析相关变量
-        let deepDataChart, deepTimeChart, deepDailyChart = null;
+        let deepDataChart = null, deepTimeChart = null, deepDailyChart = null;
         let currentDeepIP = null;
         let currentDeepSessions = [];
         let filteredDeepSessions = [];
@@ -1300,9 +1248,12 @@
             currentDetailSessions = sorted;
             renderDetailTable(currentDetailSessions);
             // 更新表头图标（可选）
-            document.querySelectorAll('#connection-details thead th i').forEach(i => i.className = 'fa fa-sort');
-            const th = document.querySelector(`#connection-details thead th[data-sort="${column}"] i`);
-            if (th) th.className = currentDetailSortOrder === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc';
+            const detailTable = document.querySelector('#connection-details')?.closest('table');
+            if (detailTable) {
+                detailTable.querySelectorAll('thead th i').forEach(i => i.className = 'fa fa-sort');
+                const th = detailTable.querySelector(`thead th[data-sort="${column}"] i`);
+                if (th) th.className = currentDetailSortOrder === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc';
+            }
         }
 
         function showIPDetails(ip) {
@@ -1380,13 +1331,13 @@
             document.getElementById('deep-total-connections').textContent = data.connections;
             document.getElementById('deep-total-duration').textContent = formatDuration(data.totalDuration);
             document.getElementById('deep-total-data').textContent = formatSize(data.totalData);
-            document.getElementById('deep-avg-duration').textContent = formatDuration(data.totalDuration / data.connections);
+            document.getElementById('deep-avg-duration').textContent = formatDuration(data.connections ? data.totalDuration / data.connections : 0);
         }
 
         function initDeepCharts(data) {
             // 销毁现有图表（如果存在）
-            if (deepDataChart) deepDataChart.destroy();
-            if (deepTimeChart) deepTimeChart.destroy();
+            if (deepDataChart) { deepDataChart.destroy(); deepDataChart = null; }
+            if (deepTimeChart) { deepTimeChart.destroy(); deepTimeChart = null; }
             if (deepDailyChart) { deepDailyChart.destroy(); deepDailyChart = null; }
 
             // 数据使用量分布柱状图 - Cloudflare 风格
@@ -1613,7 +1564,7 @@
         }
 
         function updateDeepSortIcons() {
-            document.querySelectorAll('#deep-connection-details ~ thead i, #deep-sort-start i, #deep-sort-end i, #deep-sort-duration i, #deep-sort-data i').forEach(i => {
+            document.querySelectorAll('#deep-sort-start i, #deep-sort-end i, #deep-sort-duration i, #deep-sort-data i').forEach(i => {
                 i.className = 'fa fa-sort';
             });
             
@@ -1901,11 +1852,11 @@
                             backgroundColor: type === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
                             borderColor: '#2563EB',
                             borderWidth: 2,
-                            pointRadius: type === 'line' ? 0 : 4,
+                            pointRadius: type === 'line' ? 4 : 0,
                             pointBackgroundColor: '#2563EB',
                             pointBorderColor: '#FFFFFF',
                             pointBorderWidth: 2,
-                            pointHoverRadius: type === 'line' ? 0 : 6,
+                            pointHoverRadius: type === 'line' ? 6 : 0,
                             fill: type === 'line',
                             tension: 0.4,
                             yAxisID: 'y' 
@@ -1916,11 +1867,11 @@
                             backgroundColor: type === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
                             borderColor: '#10B981',
                             borderWidth: 2,
-                            pointRadius: type === 'line' ? 0 : 4,
+                            pointRadius: type === 'line' ? 4 : 0,
                             pointBackgroundColor: '#10B981',
                             pointBorderColor: '#FFFFFF',
                             pointBorderWidth: 2,
-                            pointHoverRadius: type === 'line' ? 0 : 6,
+                            pointHoverRadius: type === 'line' ? 6 : 0,
                             fill: type === 'line',
                             tension: 0.4,
                             yAxisID: 'y1' 
@@ -1931,11 +1882,11 @@
                             backgroundColor: type === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
                             borderColor: '#8B5CF6',
                             borderWidth: 2,
-                            pointRadius: type === 'line' ? 0 : 4,
+                            pointRadius: type === 'line' ? 4 : 0,
                             pointBackgroundColor: '#8B5CF6',
                             pointBorderColor: '#FFFFFF',
                             pointBorderWidth: 2,
-                            pointHoverRadius: type === 'line' ? 0 : 6,
+                            pointHoverRadius: type === 'line' ? 6 : 0,
                             fill: type === 'line',
                             tension: 0.4,
                             yAxisID: 'y2' 
@@ -2387,7 +2338,7 @@
                 }
             }
 
-            async function analyzePartialMonths(year, selectedMonths) {
+            async function analyzePartialMonths(selectedMonths) {
                 try {
                     if (selectedMonths.length === 0) {
                         showNotification('请至少选择一个月份', 'error');
@@ -2547,7 +2498,7 @@
                     case 'partial-months':
                         const selectedMonths = [];
                         document.querySelectorAll('#month-checkboxes input:checked').forEach(cb => selectedMonths.push(`${year}${cb.value}`));
-                        logData = await analyzePartialMonths(year, selectedMonths);
+                        logData = await analyzePartialMonths(selectedMonths);
                         break;
                     case 'date-range':
                         logData = await analyzeDateRange(document.getElementById('start-date').value, document.getElementById('end-date').value);
