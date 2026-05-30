@@ -643,7 +643,7 @@
         </div>
     </footer>
 
-    <script src="./chart.umd.min.js" defer></script>
+    <script src="./chart.umd.min.js"></script>
     <script>
         const CHART_TOOLTIP = {
             backgroundColor: 'rgba(17, 24, 39, 0.95)',
@@ -770,16 +770,36 @@
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full ${type === 'success' ? 'bg-green-50 text-green-800 border-l-4 border-green-400' : type === 'error' ? 'bg-red-50 text-red-800 border-l-4 border-red-400' : type === 'warning' ? 'bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400' : 'bg-blue-50 text-blue-800 border-l-4 border-blue-400'}`;
-            notification.innerHTML = `<div class="flex items-center"><div class="flex-shrink-0"><i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'} text-xl"></i></div><div class="ml-3"><p class="text-sm font-medium">${message}</p></div><button class="ml-auto focus:outline-none"><i class="fa fa-times text-gray-400 hover:text-gray-600"></i></button></div>`;
+            const content = document.createElement('div');
+            content.className = 'flex items-center';
+
+            const iconWrapper = document.createElement('div');
+            iconWrapper.className = 'flex-shrink-0';
+            const icon = document.createElement('i');
+            icon.className = `fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'} text-xl`;
+            iconWrapper.appendChild(icon);
+
+            const textWrapper = document.createElement('div');
+            textWrapper.className = 'ml-3';
+            const text = document.createElement('p');
+            text.className = 'text-sm font-medium';
+            text.textContent = message;
+            textWrapper.appendChild(text);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'ml-auto focus:outline-none';
+            closeBtn.innerHTML = '<i class="fa fa-times text-gray-400 hover:text-gray-600"></i>';
+            closeBtn.onclick = () => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => notification.remove(), 300);
+            };
+
+            content.appendChild(iconWrapper);
+            content.appendChild(textWrapper);
+            content.appendChild(closeBtn);
+            notification.appendChild(content);
             document.body.appendChild(notification);
             setTimeout(() => notification.classList.remove('translate-x-full'), 100);
-            const closeBtn = notification.querySelector('button');
-            if (closeBtn) {
-                closeBtn.onclick = () => {
-                    notification.classList.add('translate-x-full');
-                    setTimeout(() => notification.remove(), 300);
-                };
-            }
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.classList.add('translate-x-full');
@@ -1200,8 +1220,47 @@
                 const d = filteredIPStats[i];
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
-                row.innerHTML =
-                    `<td class="px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze" data-ip="${d.ip}"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDuration(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><div class="flex gap-2"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button></div></td>`;
+
+                const ipCell = row.insertCell();
+                ipCell.className = 'px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze';
+                ipCell.dataset.ip = d.ip;
+                const ipFlex = document.createElement('div');
+                ipFlex.className = 'flex items-center';
+                const ipIcon = document.createElement('i');
+                ipIcon.className = 'fa fa-server text-primary mr-2';
+                ipFlex.appendChild(ipIcon);
+                ipFlex.appendChild(document.createTextNode(d.ip));
+                ipCell.appendChild(ipFlex);
+
+                const connectionsCell = row.insertCell();
+                connectionsCell.className = 'px-4 md:px-6 py-4';
+                connectionsCell.textContent = d.connections;
+
+                const durationCell = row.insertCell();
+                durationCell.className = 'px-4 md:px-6 py-4';
+                durationCell.textContent = formatDuration(d.totalDuration);
+
+                const dataCell = row.insertCell();
+                dataCell.className = 'px-4 md:px-6 py-4';
+                dataCell.textContent = formatSize(d.totalData);
+
+                const protoCell = row.insertCell();
+                protoCell.className = 'px-4 md:px-6 py-4';
+                const protoBadge = document.createElement('span');
+                protoBadge.className = 'px-2 py-1 rounded-full bg-blue-100 text-blue-800';
+                protoBadge.textContent = d.mostUsedVPNProtocol;
+                protoCell.appendChild(protoBadge);
+
+                const actionCell = row.insertCell();
+                actionCell.className = 'px-4 md:px-6 py-4';
+                const actionWrapper = document.createElement('div');
+                actionWrapper.className = 'flex gap-2';
+                const detailsButton = document.createElement('button');
+                detailsButton.className = 'text-primary view-details hover:text-primary/80 transition-colors duration-300';
+                detailsButton.dataset.ip = d.ip;
+                detailsButton.textContent = '查看详情';
+                actionWrapper.appendChild(detailsButton);
+                actionCell.appendChild(actionWrapper);
             }
             document.querySelectorAll('.view-details').forEach(btn => btn.onclick = () => showIPDetails(btn.dataset.ip));
             document.querySelectorAll('.deep-analyze').forEach(td => td.onclick = () => showIPDeepAnalysis(td.dataset.ip));
@@ -1500,9 +1559,16 @@
 
         function updateProtocolFilter(data) {
             const select = document.getElementById('deep-protocol-filter');
-            select.innerHTML = '<option value="">全部协议</option>';
+            select.innerHTML = '';
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = '全部协议';
+            select.appendChild(defaultOption);
             Object.keys(data.vpnProtocols || {}).forEach(proto => {
-                select.innerHTML += `<option value="${proto}">${proto}</option>`;
+                const option = document.createElement('option');
+                option.value = proto;
+                option.textContent = proto;
+                select.appendChild(option);
             });
         }
 
@@ -1530,13 +1596,29 @@
             pageData.forEach(s => {
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
-                row.innerHTML = `
-                    <td class="px-4 py-3">${s.startTime || '-'}</td>
-                    <td class="px-4 py-3">${s.endTime || '-'}</td>
-                    <td class="px-4 py-3">${formatDuration(s.duration)}</td>
-                    <td class="px-4 py-3"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${s.vpnProtocol || '未知'}</span></td>
-                    <td class="px-4 py-3">${formatSize((s.inputData || 0) + (s.outputData || 0))}</td>
-                `;
+
+                const startCell = row.insertCell();
+                startCell.className = 'px-4 py-3';
+                startCell.textContent = s.startTime || '-';
+
+                const endCell = row.insertCell();
+                endCell.className = 'px-4 py-3';
+                endCell.textContent = s.endTime || '-';
+
+                const durationCell = row.insertCell();
+                durationCell.className = 'px-4 py-3';
+                durationCell.textContent = formatDuration(s.duration);
+
+                const protocolCell = row.insertCell();
+                protocolCell.className = 'px-4 py-3';
+                const protocolBadge = document.createElement('span');
+                protocolBadge.className = 'px-2 py-1 rounded-full bg-blue-100 text-blue-800';
+                protocolBadge.textContent = s.vpnProtocol || '未知';
+                protocolCell.appendChild(protocolBadge);
+
+                const dataCell = row.insertCell();
+                dataCell.className = 'px-4 py-3';
+                dataCell.textContent = formatSize((s.inputData || 0) + (s.outputData || 0));
             });
 
             document.getElementById('deep-shown-count').textContent = pageData.length;
@@ -2111,19 +2193,32 @@
 
             const existingMonths = await detectExistingMonths();
             const availableDatesByMonth = {};
+            // 全局缓存：{ `${yearMonth}_${day}`: boolean }
+            const fileExistsCache = new Map();
             let dateRangeStartPicker = null;
             let dateRangeEndPicker = null;
             await loadAllAvailableDates();
             updateDateRangePickers();
             const years = [...new Set(existingMonths.map(m => m.slice(0, 2)))].sort();
+            const currentDate = new Date();
+            const currentYearShort = currentDate.getFullYear().toString().slice(-2);
+            const currentMonthNumber = formatTwoDigits(currentDate.getMonth() + 1);
+
             const yearSelect = document.getElementById('year-select');
             yearSelect.innerHTML = years.map(y => `<option value="${y}">20${y}年</option>`).join('');
+            const selectedYear = years.includes(currentYearShort) ? currentYearShort : years[years.length - 1];
+            if (selectedYear) {
+                yearSelect.value = selectedYear;
+            }
+
             const monthSelect = document.getElementById('month-select');
             const updateMonthOptions = () => {
                 const year = yearSelect.value;
                 const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
                 monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
-                if (months.length) monthSelect.value = months[0];
+                if (months.length) {
+                    monthSelect.value = months.includes(currentMonthNumber) ? currentMonthNumber : months[months.length - 1];
+                }
                 updatePathDisplay();
             };
             const updatePathDisplay = () => {
@@ -2491,9 +2586,6 @@
 
                 return newLogData;
             }
-
-            // 全局缓存：{ `${yearMonth}_${day}`: boolean }
-            const fileExistsCache = new Map();
 
             /**
              * 检测指定日期的日志文件是否存在
