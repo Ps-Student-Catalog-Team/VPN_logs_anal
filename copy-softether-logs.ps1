@@ -10,6 +10,7 @@ try {
         Write-Output "No files found in $Source"
     } else {
         Write-Output "Found $($files.Count) files in $Source"
+        $changed = New-Object System.Collections.Generic.List[string]
         $processed = 0
         $skipped = 0
         $errors = 0
@@ -49,10 +50,14 @@ try {
                     # If different, overwrite (no timestamp appended)
                     Copy-Item -Path $file.FullName -Destination $target -Force
                     Write-Output "Overwrote $name -> $target"
+                    $rel = $target.Substring($DestRoot.Length + 1).TrimStart('\\')
+                    $changed.Add($rel)
                     $processed++
                 } else {
                     Copy-Item -Path $file.FullName -Destination $target -Force
                     Write-Output "Copied $name -> $target"
+                    $rel = $target.Substring($DestRoot.Length + 1).TrimStart('\\')
+                    $changed.Add($rel)
                     $processed++
                 }
             } catch {
@@ -63,6 +68,27 @@ try {
         }
 
         Write-Output "All logs processed into $DestRoot. Processed: $processed, Skipped: $skipped, Errors: $errors"
+
+        # Git commit & push changed files
+        if ($changed.Count -gt 0) {
+            try {
+                Get-Command git -ErrorAction Stop | Out-Null
+                git -C $DestRoot add -- $changed
+                $status = git -C $DestRoot status --porcelain
+                if ($status) {
+                    $message = "Auto: add SoftEther logs ($($changed.Count) files) $(Get-Date -Format 'yyyy-MM-dd_HH:mm:ss')"
+                    git -C $DestRoot commit -m $message
+                    git -C $DestRoot push
+                    Write-Output "Git: committed and pushed $($changed.Count) files"
+                } else {
+                    Write-Output "Git: no changes to commit"
+                }
+            } catch {
+                Write-Warning "Git push failed: $_"
+            }
+        } else {
+            Write-Output "No files changed; skipping git commit"
+        }
     }
 
 
