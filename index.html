@@ -839,39 +839,32 @@
             }
         }
 
+        let cachedMonthsData = null;
+
         async function detectExistingMonths() {
+            if (cachedMonthsData) {
+                return cachedMonthsData.months;
+            }
             try {
                 const res = await fetch('analysis/existing-months.json');
                 if (res.ok) {
                     const data = await res.json();
                     if (data && Array.isArray(data.months) && data.months.length > 0) {
+                        cachedMonthsData = data;
                         return data.months.sort();
                     }
                 }
             } catch (e) {
-                console.warn('读取 existing-months.json 失败，使用回退方法检测月份:', e);
+                console.warn('读取 existing-months.json 失败:', e);
             }
-            const existing = new Set();
-            const testDays = ['01', '15'];
-            const possibleYears = ['25', '26'];
-            for (let y of possibleYears) {
-                for (let m = 1; m <= 12; m++) {
-                    const mm = formatTwoDigits(m);
-                    let found = false;
-                    for (let d of testDays) {
-                        try {
-                            const url = `${y}${mm}/vpn_20${y}${mm}${d}.log`;
-                            const res = await fetch(url, { method: 'HEAD' });
-                            if (res.ok) { found = true; break; }
-                        } catch (e) { /* 忽略 */ }
-                    }
-                    if (found) existing.add(`${y}${mm}`);
-                }
+            return ['2502', '2603'];
+        }
+
+        function getMonthFiles(monthStr) {
+            if (cachedMonthsData && cachedMonthsData.monthsWithFiles && cachedMonthsData.monthsWithFiles[monthStr]) {
+                return cachedMonthsData.monthsWithFiles[monthStr];
             }
-            if (existing.size === 0) {
-                return ['2502', '2603'];
-            }
-            return Array.from(existing).sort();
+            return null;
         }
 
         function getSelectedDates(rangeType, selectedYear, selectedMonth) {
@@ -1046,6 +1039,11 @@
         }
 
         async function readMonthLogs(yearMonth, onProgress) {
+            const cachedFiles = getMonthFiles(yearMonth);
+            if (cachedFiles && cachedFiles.length > 0) {
+                return await readAndAnalyzeLogs(yearMonth, cachedFiles, onProgress);
+            }
+            
             const year = parseInt(yearMonth.substring(0, 2), 10) + 2000;
             const month = parseInt(yearMonth.substring(2), 10);
             const daysInMonth = getDaysInMonth(year, month);
@@ -1059,7 +1057,6 @@
                         fileNames.push(fileName);
                     }
                 } catch (e) {
-                    // 忽略不存在的文件
                 }
             }
             if (fileNames.length === 0) {
