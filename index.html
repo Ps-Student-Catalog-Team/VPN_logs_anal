@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>来....来看个日志吧</title>
     <script src="./tailwind.js"></script>
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./flatpickr/flatpickr.min.css">
+    <script src="./flatpickr/flatpickr.min.js"></script>
     <link href="./css/font-awesome.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -640,7 +643,7 @@
         </div>
     </footer>
 
-    <script src="./chart.umd.min.js" defer></script>
+    <script src="./chart.umd.min.js"></script>
     <script>
         const CHART_TOOLTIP = {
             backgroundColor: 'rgba(17, 24, 39, 0.95)',
@@ -767,16 +770,36 @@
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full ${type === 'success' ? 'bg-green-50 text-green-800 border-l-4 border-green-400' : type === 'error' ? 'bg-red-50 text-red-800 border-l-4 border-red-400' : type === 'warning' ? 'bg-yellow-50 text-yellow-800 border-l-4 border-yellow-400' : 'bg-blue-50 text-blue-800 border-l-4 border-blue-400'}`;
-            notification.innerHTML = `<div class="flex items-center"><div class="flex-shrink-0"><i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'} text-xl"></i></div><div class="ml-3"><p class="text-sm font-medium">${message}</p></div><button class="ml-auto focus:outline-none"><i class="fa fa-times text-gray-400 hover:text-gray-600"></i></button></div>`;
+            const content = document.createElement('div');
+            content.className = 'flex items-center';
+
+            const iconWrapper = document.createElement('div');
+            iconWrapper.className = 'flex-shrink-0';
+            const icon = document.createElement('i');
+            icon.className = `fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'} text-xl`;
+            iconWrapper.appendChild(icon);
+
+            const textWrapper = document.createElement('div');
+            textWrapper.className = 'ml-3';
+            const text = document.createElement('p');
+            text.className = 'text-sm font-medium';
+            text.textContent = message;
+            textWrapper.appendChild(text);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'ml-auto focus:outline-none';
+            closeBtn.innerHTML = '<i class="fa fa-times text-gray-400 hover:text-gray-600"></i>';
+            closeBtn.onclick = () => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => notification.remove(), 300);
+            };
+
+            content.appendChild(iconWrapper);
+            content.appendChild(textWrapper);
+            content.appendChild(closeBtn);
+            notification.appendChild(content);
             document.body.appendChild(notification);
             setTimeout(() => notification.classList.remove('translate-x-full'), 100);
-            const closeBtn = notification.querySelector('button');
-            if (closeBtn) {
-                closeBtn.onclick = () => {
-                    notification.classList.add('translate-x-full');
-                    setTimeout(() => notification.remove(), 300);
-                };
-            }
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.classList.add('translate-x-full');
@@ -1090,21 +1113,20 @@
         // 统一使用 GB 单位，保留两位小数
         const formatSize = (bytes) => {
             if (typeof bytes !== 'number' || isNaN(bytes) || bytes < 0) bytes = 0;
+
             const gb = bytes / 1073741824;
-            if (gb.toFixed(2) !== "0.00") {
+            if (gb >= 1) {
                 return gb.toFixed(2) + ' GB';
             }
+
+            // GB < 1，检查 MB
             const mb = bytes / 1048576;
-            // 若 MB < 0.1 且 bytes > 0，则显示 KB（避免显示 0.0x MB）
-            if (mb < 0.1 && bytes > 0) {
+            if (mb < 1) {
                 const kb = bytes / 1024;
                 return kb.toFixed(2) + ' KB';
-            }
-            if (mb.toFixed(2) !== "0.00") {
+            } else {
                 return mb.toFixed(2) + ' MB';
             }
-            const kb = bytes / 1024;
-            return kb.toFixed(2) + ' KB';
         };
         function updateStats(logData) {
             document.getElementById('total-connections').textContent = logData.connections;
@@ -1138,30 +1160,52 @@
         let deepSortOrder = 'desc';
 
         function updateCharts(logData) {
-            currentLogData = logData;
-            protocolChart.data.labels = Object.keys(logData.vpnProtocolStats);
-            protocolChart.data.datasets[0].data = Object.values(logData.vpnProtocolStats);
-            protocolChart.update();
-            protocolChartLarge.data.labels = Object.keys(logData.vpnProtocolStats);
-            protocolChartLarge.data.datasets[0].data = Object.values(logData.vpnProtocolStats);
-            protocolChartLarge.update();
-            timeChart.data.datasets[0].data = logData.timeStats;
-            timeChart.update();
-            timeChartLarge.data.datasets[0].data = logData.timeStats;
-            timeChartLarge.update();
-            const sortedDates = Object.keys(logData.dailyStats).sort();
-            dailyChart.data.labels = sortedDates;
-            dailyChart.data.datasets[0].data = sortedDates.map(date => logData.dailyStats[date].connections);
-            dailyChart.data.datasets[1].data = sortedDates.map(date => logData.dailyStats[date].totalDuration);
-            dailyChart.data.datasets[2].data = sortedDates.map(date => logData.dailyStats[date].totalData / 1073741824);
-            dailyChart.update();
-            dailyChartLarge.data.labels = sortedDates;
-            dailyChartLarge.data.datasets[0].data = sortedDates.map(date => logData.dailyStats[date].connections);
-            dailyChartLarge.data.datasets[1].data = sortedDates.map(date => logData.dailyStats[date].totalDuration);
-            dailyChartLarge.data.datasets[2].data = sortedDates.map(date => logData.dailyStats[date].totalData / 1073741824);
-            dailyChartLarge.update();
-        }
+            if (!logData) return;
 
+            currentLogData = logData;
+
+            // 更新协议图表
+            const protocolLabels = Object.keys(logData.vpnProtocolStats);
+            const protocolValues = Object.values(logData.vpnProtocolStats);
+            if (protocolChart && protocolLabels.length) {
+                protocolChart.data.labels = protocolLabels;
+                protocolChart.data.datasets[0].data = protocolValues;
+                protocolChart.update('none');
+            }
+            if (protocolChartLarge && protocolLabels.length) {
+                protocolChartLarge.data.labels = protocolLabels;
+                protocolChartLarge.data.datasets[0].data = protocolValues;
+                protocolChartLarge.update('none');
+            }
+
+            // 更新时间分布图表（确保 timeStats 是 24 个元素的数组）
+            const timeStats = logData.timeStats && logData.timeStats.length === 24 ? logData.timeStats : Array(24).fill(0);
+            if (timeChart) {
+                timeChart.data.datasets[0].data = timeStats;
+                timeChart.update('none');
+            }
+            if (timeChartLarge) {
+                timeChartLarge.data.datasets[0].data = timeStats;
+                timeChartLarge.update('none');
+            }
+
+            // 更新每日图表
+            const sortedDates = Object.keys(logData.dailyStats).sort();
+            if (dailyChart && dailyChart.data) {
+                dailyChart.data.labels = sortedDates;
+                dailyChart.data.datasets[0].data = sortedDates.map(date => logData.dailyStats[date]?.connections ?? 0);
+                dailyChart.data.datasets[1].data = sortedDates.map(date => logData.dailyStats[date]?.totalDuration ?? 0);
+                dailyChart.data.datasets[2].data = sortedDates.map(date => (logData.dailyStats[date]?.totalData ?? 0) / 1073741824);
+                dailyChart.update('none');
+            }
+            if (dailyChartLarge && dailyChartLarge.data) {
+                dailyChartLarge.data.labels = sortedDates;
+                dailyChartLarge.data.datasets[0].data = sortedDates.map(date => logData.dailyStats[date]?.connections ?? 0);
+                dailyChartLarge.data.datasets[1].data = sortedDates.map(date => logData.dailyStats[date]?.totalDuration ?? 0);
+                dailyChartLarge.data.datasets[2].data = sortedDates.map(date => (logData.dailyStats[date]?.totalData ?? 0) / 1073741824);
+                dailyChartLarge.update('none');
+            }
+        }
         function renderIPStatsTable() {
             const tbody = document.getElementById('ip-stats-table');
             const start = (currentPage - 1) * 10;
@@ -1173,8 +1217,47 @@
                 const d = filteredIPStats[i];
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
-                row.innerHTML =
-                    `<td class="px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze" data-ip="${d.ip}"><div class="flex items-center"><i class="fa fa-server text-primary mr-2"></i>${d.ip}</div></td><td class="px-4 md:px-6 py-4">${d.connections}</td><td class="px-4 md:px-6 py-4">${formatDuration(d.totalDuration)}</td><td class="px-4 md:px-6 py-4">${formatSize(d.totalData)}</td><td class="px-4 md:px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${d.mostUsedVPNProtocol}</span></td><td class="px-4 md:px-6 py-4"><div class="flex gap-2"><button class="text-primary view-details hover:text-primary/80 transition-colors duration-300" data-ip="${d.ip}">查看详情</button></div></td>`;
+
+                const ipCell = row.insertCell();
+                ipCell.className = 'px-4 md:px-6 py-4 cursor-pointer hover:text-primary transition-colors duration-300 deep-analyze';
+                ipCell.dataset.ip = d.ip;
+                const ipFlex = document.createElement('div');
+                ipFlex.className = 'flex items-center';
+                const ipIcon = document.createElement('i');
+                ipIcon.className = 'fa fa-server text-primary mr-2';
+                ipFlex.appendChild(ipIcon);
+                ipFlex.appendChild(document.createTextNode(d.ip));
+                ipCell.appendChild(ipFlex);
+
+                const connectionsCell = row.insertCell();
+                connectionsCell.className = 'px-4 md:px-6 py-4';
+                connectionsCell.textContent = d.connections;
+
+                const durationCell = row.insertCell();
+                durationCell.className = 'px-4 md:px-6 py-4';
+                durationCell.textContent = formatDuration(d.totalDuration);
+
+                const dataCell = row.insertCell();
+                dataCell.className = 'px-4 md:px-6 py-4';
+                dataCell.textContent = formatSize(d.totalData);
+
+                const protoCell = row.insertCell();
+                protoCell.className = 'px-4 md:px-6 py-4';
+                const protoBadge = document.createElement('span');
+                protoBadge.className = 'px-2 py-1 rounded-full bg-blue-100 text-blue-800';
+                protoBadge.textContent = d.mostUsedVPNProtocol;
+                protoCell.appendChild(protoBadge);
+
+                const actionCell = row.insertCell();
+                actionCell.className = 'px-4 md:px-6 py-4';
+                const actionWrapper = document.createElement('div');
+                actionWrapper.className = 'flex gap-2';
+                const detailsButton = document.createElement('button');
+                detailsButton.className = 'text-primary view-details hover:text-primary/80 transition-colors duration-300';
+                detailsButton.dataset.ip = d.ip;
+                detailsButton.textContent = '查看详情';
+                actionWrapper.appendChild(detailsButton);
+                actionCell.appendChild(actionWrapper);
             }
             document.querySelectorAll('.view-details').forEach(btn => btn.onclick = () => showIPDetails(btn.dataset.ip));
             document.querySelectorAll('.deep-analyze').forEach(td => td.onclick = () => showIPDeepAnalysis(td.dataset.ip));
@@ -1473,9 +1556,16 @@
 
         function updateProtocolFilter(data) {
             const select = document.getElementById('deep-protocol-filter');
-            select.innerHTML = '<option value="">全部协议</option>';
+            select.innerHTML = '';
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = '全部协议';
+            select.appendChild(defaultOption);
             Object.keys(data.vpnProtocols || {}).forEach(proto => {
-                select.innerHTML += `<option value="${proto}">${proto}</option>`;
+                const option = document.createElement('option');
+                option.value = proto;
+                option.textContent = proto;
+                select.appendChild(option);
             });
         }
 
@@ -1503,13 +1593,29 @@
             pageData.forEach(s => {
                 const row = tbody.insertRow();
                 row.className = 'transition-all duration-300 hover:bg-gray-50';
-                row.innerHTML = `
-                    <td class="px-4 py-3">${s.startTime || '-'}</td>
-                    <td class="px-4 py-3">${s.endTime || '-'}</td>
-                    <td class="px-4 py-3">${formatDuration(s.duration)}</td>
-                    <td class="px-4 py-3"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">${s.vpnProtocol || '未知'}</span></td>
-                    <td class="px-4 py-3">${formatSize((s.inputData || 0) + (s.outputData || 0))}</td>
-                `;
+
+                const startCell = row.insertCell();
+                startCell.className = 'px-4 py-3';
+                startCell.textContent = s.startTime || '-';
+
+                const endCell = row.insertCell();
+                endCell.className = 'px-4 py-3';
+                endCell.textContent = s.endTime || '-';
+
+                const durationCell = row.insertCell();
+                durationCell.className = 'px-4 py-3';
+                durationCell.textContent = formatDuration(s.duration);
+
+                const protocolCell = row.insertCell();
+                protocolCell.className = 'px-4 py-3';
+                const protocolBadge = document.createElement('span');
+                protocolBadge.className = 'px-2 py-1 rounded-full bg-blue-100 text-blue-800';
+                protocolBadge.textContent = s.vpnProtocol || '未知';
+                protocolCell.appendChild(protocolBadge);
+
+                const dataCell = row.insertCell();
+                dataCell.className = 'px-4 py-3';
+                dataCell.textContent = formatSize((s.inputData || 0) + (s.outputData || 0));
             });
 
             document.getElementById('deep-shown-count').textContent = pageData.length;
@@ -1683,7 +1789,35 @@
                 updateProtocolFilter(ipData);
                 
                 // 应用筛选
-                applyDeepFilters();
+                filteredDeepSessions = currentDeepSessions.filter(session => {
+                    // 这里的过滤条件应与 applyDeepFilters 中的逻辑一致，但不再检查日期范围变化
+                    const searchTerm = document.getElementById('deep-connection-search').value.toLowerCase();
+                    const protocolFilter = document.getElementById('deep-protocol-filter').value;
+                    const startDate = document.getElementById('deep-start-date').value;
+                    const endDate = document.getElementById('deep-end-date').value;
+
+                    if (searchTerm) {
+                        const text = `${session.startTime || ''} ${session.endTime || ''} ${session.vpnProtocol || ''}`.toLowerCase();
+                        if (!text.includes(searchTerm)) return false;
+                    }
+                    if (protocolFilter && session.vpnProtocol !== protocolFilter) return false;
+                    if (startDate || endDate) {
+                        const sessionDate = session.startTime?.substring(0, 10);
+                        if (!sessionDate) return false;
+                        if (startDate && sessionDate < startDate) return false;
+                        if (endDate && sessionDate > endDate) return false;
+                    }
+                    return true;
+                });
+
+                // 重新排序并渲染
+                sortDeepConnections(deepSortColumn);  // 注意此函数内部会更新 filteredDeepSessions
+                renderDeepConnectionTable();
+                updateDeepDataChart();
+                updateDeepDailyChart();
+
+                loadingDiv.classList.add('hidden');
+                return true;
                 
                 loadingDiv.classList.add('hidden');
                 return true;
@@ -1832,14 +1966,21 @@
         }
 
         function createDailyChart(canvasId, type) {
-            return new Chart(document.getElementById(canvasId), {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return null;
+
+            // 确保画布上下文存在
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return null;
+
+            return new Chart(ctx, {
                 type: type,
                 data: {
                     labels: [],
                     datasets: [
-                        { 
-                            label: '连接次数', 
-                            data: [], 
+                        {
+                            label: '连接次数',
+                            data: [],
                             backgroundColor: type === 'bar' ? 'rgba(37, 99, 235, 0.8)' : 'rgba(37, 99, 235, 0.2)',
                             borderColor: '#2563EB',
                             borderWidth: 2,
@@ -1847,11 +1988,11 @@
                             pointHoverRadius: 0,
                             fill: type === 'line',
                             tension: 0.4,
-                            yAxisID: 'y' 
+                            yAxisID: 'y'
                         },
-                        { 
-                            label: '使用时长（分钟）', 
-                            data: [], 
+                        {
+                            label: '使用时长（分钟）',
+                            data: [],
                             backgroundColor: type === 'bar' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(16, 185, 129, 0.2)',
                             borderColor: '#10B981',
                             borderWidth: 2,
@@ -1859,11 +2000,11 @@
                             pointHoverRadius: 0,
                             fill: type === 'line',
                             tension: 0.4,
-                            yAxisID: 'y1' 
+                            yAxisID: 'y1'
                         },
-                        { 
-                            label: '数据使用量（GB）', 
-                            data: [], 
+                        {
+                            label: '数据使用量（GB）',
+                            data: [],
                             backgroundColor: type === 'bar' ? 'rgba(139, 92, 246, 0.8)' : 'rgba(139, 92, 246, 0.2)',
                             borderColor: '#8B5CF6',
                             borderWidth: 2,
@@ -1871,7 +2012,7 @@
                             pointHoverRadius: 0,
                             fill: type === 'line',
                             tension: 0.4,
-                            yAxisID: 'y2' 
+                            yAxisID: 'y2'
                         }
                     ]
                 },
@@ -1883,48 +2024,21 @@
                         tooltip: { ...CHART_TOOLTIP_INDEX, usePointStyle: true, titleFont: { family: 'Inter, system-ui, sans-serif', size: 13, weight: 'bold' }, bodyFont: { family: 'Inter, system-ui, sans-serif', size: 12 } }
                     },
                     scales: {
-                        y: { 
-                            ...CHART_SCALES_Y, 
-                            position: 'left', 
-                            title: { 
-                                display: true, 
-                                text: '连接次数',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12,
-                                    weight: '600'
-                                },
-                                color: '#4B5563'
-                            }
+                        y: {
+                            ...CHART_SCALES_Y,
+                            position: 'left',
+                            title: { display: true, text: '连接次数', font: { family: 'Inter, system-ui, sans-serif', size: 12, weight: '600' }, color: '#4B5563' }
                         },
-                        y1: { 
-                            ...CHART_SCALES_Y, 
-                            position: 'right', 
-                            title: { 
-                                display: true, 
-                                text: '使用时长（分钟）',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12,
-                                    weight: '600'
-                                },
-                                color: '#4B5563'
-                            }, 
+                        y1: {
+                            ...CHART_SCALES_Y,
+                            position: 'right',
+                            title: { display: true, text: '使用时长（分钟）', font: { family: 'Inter, system-ui, sans-serif', size: 12, weight: '600' }, color: '#4B5563' },
                             grid: { drawOnChartArea: false }
                         },
-                        y2: { 
-                            ...CHART_SCALES_Y, 
-                            position: 'right', 
-                            title: { 
-                                display: true, 
-                                text: '数据使用量（GB）',
-                                font: {
-                                    family: 'Inter, system-ui, sans-serif',
-                                    size: 12,
-                                    weight: '600'
-                                },
-                                color: '#4B5563'
-                            }, 
+                        y2: {
+                            ...CHART_SCALES_Y,
+                            position: 'right',
+                            title: { display: true, text: '数据使用量（GB）', font: { family: 'Inter, system-ui, sans-serif', size: 12, weight: '600' }, color: '#4B5563' },
                             grid: { drawOnChartArea: false },
                             offset: false
                         },
@@ -2075,15 +2189,33 @@
             });
 
             const existingMonths = await detectExistingMonths();
+            const availableDatesByMonth = {};
+            // 全局缓存：{ `${yearMonth}_${day}`: boolean }
+            const fileExistsCache = new Map();
+            let dateRangeStartPicker = null;
+            let dateRangeEndPicker = null;
+            await loadAllAvailableDates();
+            updateDateRangePickers();
             const years = [...new Set(existingMonths.map(m => m.slice(0, 2)))].sort();
+            const currentDate = new Date();
+            const currentYearShort = currentDate.getFullYear().toString().slice(-2);
+            const currentMonthNumber = formatTwoDigits(currentDate.getMonth() + 1);
+
             const yearSelect = document.getElementById('year-select');
             yearSelect.innerHTML = years.map(y => `<option value="${y}">20${y}年</option>`).join('');
+            const selectedYear = years.includes(currentYearShort) ? currentYearShort : years[years.length - 1];
+            if (selectedYear) {
+                yearSelect.value = selectedYear;
+            }
+
             const monthSelect = document.getElementById('month-select');
             const updateMonthOptions = () => {
                 const year = yearSelect.value;
                 const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
                 monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
-                if (months.length) monthSelect.value = months[0];
+                if (months.length) {
+                    monthSelect.value = months.includes(currentMonthNumber) ? currentMonthNumber : months[months.length - 1];
+                }
                 updatePathDisplay();
             };
             const updatePathDisplay = () => {
@@ -2137,7 +2269,6 @@
                 }
                 document.getElementById('current-path').textContent = path;
             };
-
             const rangeTypeSelect = document.getElementById('range-type');
             const multiMonthContainer = document.getElementById('multi-month-container');
             const dateRangeContainer = document.getElementById('date-range-container');
@@ -2161,21 +2292,120 @@
                 }
             }
 
-            function generateDateCheckboxes(year, month) {
-                dateCheckboxes.innerHTML = '';
-                const days = getDaysInMonth(parseInt(year) + 2000, parseInt(month));
-                for (let i = 1; i <= days; i++) {
-                    const dd = formatTwoDigits(i);
-                    const checkbox = document.createElement('div');
-                    checkbox.className = 'flex items-center justify-center';
-                    checkbox.innerHTML = `
-                        <input type="checkbox" id="date-${dd}" value="${dd}" class="mr-1 h-4 w-4 text-primary focus:ring-primary/50 border-gray-300 rounded">
-                        <label for="date-${dd}" class="text-sm text-gray-700">${i}</label>
-                    `;
-                    dateCheckboxes.appendChild(checkbox);
+            /**
+     * 异步生成日期复选框，根据日志文件存在性禁用不可用日期
+     * @param {string} year - 后两位年份，如 "26"
+     * @param {string} month - 两位月份，如 "03"
+     */
+            function formatDateForInput(year, month, day) {
+                return `${year}-${formatTwoDigits(month)}-${formatTwoDigits(day)}`;
+            }
+
+            async function loadAvailableDatesForMonth(yearMonth) {
+                if (availableDatesByMonth[yearMonth]) {
+                    return availableDatesByMonth[yearMonth];
+                }
+                const year = 2000 + parseInt(yearMonth.substring(0, 2), 10);
+                const month = parseInt(yearMonth.substring(2), 10);
+                const daysInMonth = getDaysInMonth(year, month);
+                const available = [];
+                const tasks = [];
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dd = formatTwoDigits(day);
+                    tasks.push(isLogFileExists(yearMonth, dd).then(exists => {
+                        if (exists) {
+                            available.push(formatDateForInput(year, month, day));
+                        }
+                    }));
+                }
+                await Promise.all(tasks);
+                availableDatesByMonth[yearMonth] = available.sort();
+                return availableDatesByMonth[yearMonth];
+            }
+
+            function getAllAvailableDates() {
+                return Object.values(availableDatesByMonth).flat().sort();
+            }
+
+            async function loadAllAvailableDates() {
+                for (const month of existingMonths) {
+                    await loadAvailableDatesForMonth(month);
                 }
             }
 
+            function updateDateRangePickers() {
+                if (!window.flatpickr) return;
+                const allDates = getAllAvailableDates();
+                const dateFormat = 'Y-m-d';
+                const startDateInput = document.getElementById('start-date');
+                const endDateInput = document.getElementById('end-date');
+
+                const createPicker = (element, onChange) => {
+                    return flatpickr(element, {
+                        dateFormat,
+                        enable: allDates,
+                        disableMobile: true,
+                        onChange: onChange
+                    });
+                };
+
+                if (dateRangeStartPicker) {
+                    dateRangeStartPicker.destroy();
+                }
+                if (dateRangeEndPicker) {
+                    dateRangeEndPicker.destroy();
+                }
+
+                dateRangeStartPicker = createPicker(startDateInput, function(selectedDates) {
+                    if (selectedDates.length) {
+                        dateRangeEndPicker.set('minDate', selectedDates[0]);
+                        if (dateRangeEndPicker.selectedDates.length && dateRangeEndPicker.selectedDates[0] < selectedDates[0]) {
+                            dateRangeEndPicker.clear();
+                        }
+                    }
+                    updatePathDisplay();
+                });
+                dateRangeEndPicker = createPicker(endDateInput, function(selectedDates) {
+                    if (selectedDates.length) {
+                        dateRangeStartPicker.set('maxDate', selectedDates[0]);
+                        if (dateRangeStartPicker.selectedDates.length && dateRangeStartPicker.selectedDates[0] > selectedDates[0]) {
+                            dateRangeStartPicker.clear();
+                        }
+                    }
+                    updatePathDisplay();
+                });
+            }
+
+            async function generateDateCheckboxes(year, month) {
+                const container = document.getElementById('date-checkboxes');
+                if (!container) return;
+
+                container.innerHTML = '<div class="col-span-full text-center text-gray-400 py-4"><i class="fa fa-spinner fa-spin mr-2"></i>正在检查日志文件...</div>';
+                const yearMonth = `${year}${month}`;
+                const availableDates = await loadAvailableDatesForMonth(yearMonth);
+                const availableDays = new Set(availableDates.map(date => date.slice(-2)));
+                const yearNum = 2000 + parseInt(year, 10);
+                const monthNum = parseInt(month, 10);
+                const daysInMonth = getDaysInMonth(yearNum, monthNum);
+
+                container.innerHTML = '';
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dd = formatTwoDigits(day);
+                    const exists = availableDays.has(dd);
+                    const div = document.createElement('div');
+                    div.className = 'flex items-center justify-center';
+                    div.innerHTML = `
+                        <input type="checkbox" id="date-${dd}" value="${dd}"
+                            class="mr-1 h-4 w-4 text-primary focus:ring-primary/50 border-gray-300 rounded"
+                            ${exists ? '' : 'disabled'}>
+                        <label for="date-${dd}" class="text-sm ${exists ? 'text-gray-700' : 'text-gray-400'}">${day}</label>
+                    `;
+                    container.appendChild(div);
+                }
+                container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', () => updatePathDisplay());
+                });
+            }
             const updateUIForRangeType = () => {
                 const rangeType = rangeTypeSelect.value;
                 const isSingleMonth = rangeType === 'single-month';
@@ -2234,7 +2464,11 @@
             });
             monthSelect.addEventListener('change', () => {
                 if (rangeTypeSelect.value === 'custom-dates') {
-                    generateDateCheckboxes(yearSelect.value, monthSelect.value);
+                    const year = yearSelect.value;
+                    const month = monthSelect.value;
+                    if (year && month) {
+                        generateDateCheckboxes(year, month);
+                    }
                 }
                 updatePathDisplay();
             });
@@ -2267,6 +2501,110 @@
                 updateCharts(logData);
                 loadingDiv.classList.add('hidden');
                 showNotification(message, 'success');
+            }
+
+            function filterLogDataByDateRange(logData, startDate, endDate) {
+                const newLogData = {
+                    connections: 0,
+                    uniqueIps: 0,
+                    totalData: 0,
+                    totalDuration: 0,
+                    avgDuration: 0,
+                    ipStats: {},
+                    vpnProtocolStats: {},
+                    timeStats: Array(24).fill(0),
+                    dailyStats: {}
+                };
+
+                // 遍历每个IP的统计数据
+                for (const [ip, stats] of Object.entries(logData.ipStats)) {
+                    if (!stats.sessions || stats.sessions.length === 0) continue;
+
+                    // 过滤出日期范围内的会话
+                    const filteredSessions = stats.sessions.filter(session => {
+                        const sessionDate = session.startTime?.substring(0, 10);
+                        return sessionDate && sessionDate >= startDate && sessionDate <= endDate;
+                    });
+
+                    if (filteredSessions.length === 0) continue;
+
+                    // 重新计算该IP的统计值
+                    let ipConnections = 0;
+                    let ipTotalDuration = 0;
+                    let ipTotalData = 0;
+                    const ipVpnProtocols = {};
+
+                    for (const session of filteredSessions) {
+                        ipConnections++;
+                        ipTotalDuration += session.duration || 0;
+                        const dataSize = (session.inputData || 0) + (session.outputData || 0);
+                        ipTotalData += dataSize;
+
+                        // 协议统计
+                        const proto = session.vpnProtocol || '未知协议';
+                        ipVpnProtocols[proto] = (ipVpnProtocols[proto] || 0) + 1;
+
+                        // 全局时段统计
+                        const hour = parseInt(session.startTime?.substring(11, 13) || 0);
+                        if (!isNaN(hour)) newLogData.timeStats[hour]++;
+
+                        // 全局每日统计
+                        const date = session.startTime?.substring(0, 10);
+                        if (date) {
+                            if (!newLogData.dailyStats[date]) {
+                                newLogData.dailyStats[date] = { connections: 0, totalDuration: 0, totalData: 0 };
+                            }
+                            newLogData.dailyStats[date].connections++;
+                            newLogData.dailyStats[date].totalDuration += session.duration || 0;
+                            newLogData.dailyStats[date].totalData += dataSize;
+                        }
+
+                        // 全局协议统计
+                        newLogData.vpnProtocolStats[proto] = (newLogData.vpnProtocolStats[proto] || 0) + 1;
+                    }
+
+                    // 累加全局总量
+                    newLogData.connections += ipConnections;
+                    newLogData.totalDuration += ipTotalDuration;
+                    newLogData.totalData += ipTotalData;
+
+                    // 保存该IP的过滤后数据
+                    newLogData.ipStats[ip] = {
+                        connections: ipConnections,
+                        totalDuration: ipTotalDuration,
+                        totalData: ipTotalData,
+                        vpnProtocols: ipVpnProtocols,
+                        sessions: filteredSessions
+                    };
+                }
+
+                newLogData.uniqueIps = Object.keys(newLogData.ipStats).length;
+                newLogData.avgDuration = newLogData.connections ? newLogData.totalDuration / newLogData.connections : 0;
+
+                return newLogData;
+            }
+
+            /**
+             * 检测指定日期的日志文件是否存在
+             * @param {string} yearMonth - 格式 "YYMM"
+             * @param {string} day - 格式 "DD"
+             * @returns {Promise<boolean>}
+             */
+            async function isLogFileExists(yearMonth, day) {
+                const cacheKey = `${yearMonth}_${day}`;
+                if (fileExistsCache.has(cacheKey)) {
+                    return fileExistsCache.get(cacheKey);
+                }
+                const fileName = `vpn_20${yearMonth}${day}.log`;
+                try {
+                    const res = await fetch(`${yearMonth}/${fileName}`, { method: 'HEAD' });
+                    const exists = res.ok;
+                    fileExistsCache.set(cacheKey, exists);
+                    return exists;
+                } catch (err) {
+                    fileExistsCache.set(cacheKey, false);
+                    return false;
+                }
             }
 
             async function analyzeSingleMonth(year, month) {
@@ -2341,48 +2679,84 @@
             }
 
             async function analyzeDateRange(startDate, endDate) {
-                try {
-                    if (!startDate || !endDate) {
-                        showNotification('请选择开始和结束日期', 'error');
-                        loadingDiv.classList.add('hidden');
-                        return null;
-                    }
-                    lastAnalysisParams.startDate = startDate;
-                    lastAnalysisParams.endDate = endDate;
-                    const startYear = startDate.substring(2, 4);
-                    const startMonth = startDate.substring(5, 7);
-                    const endYear = endDate.substring(2, 4);
-                    const endMonth = endDate.substring(5, 7);
-                    const months = [];
-                    let currentYear = parseInt(startYear);
-                    let currentMonth = parseInt(startMonth);
-                    const endYearInt = parseInt(endYear);
-                    const endMonthInt = parseInt(endMonth);
-                    while (currentYear < endYearInt || (currentYear === endYearInt && currentMonth <= endMonthInt)) {
-                        const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
-                        months.push(monthStr);
-                        currentMonth++;
-                        if (currentMonth > 12) { currentMonth = 1; currentYear++; }
-                    }
-                    const logData = initLogData();
-                    currentFileSpan.textContent = `正在加载 ${months.length} 个月份的分析结果...`;
-                    for (let i = 0; i < months.length; i++) {
-                        const monthStr = months[i];
-                        const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
-                            currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
-                        });
-                        if (!monthData) { console.warn(`无法加载 ${monthStr} 的分析结果，跳过`); continue; }
-                        mergeLogData(logData, monthData);
-                    }
-                    return logData;
-                } catch (error) {
-                    console.error('服务器分析失败:', error);
-                    showNotification(`服务器分析失败: ${error.message}`, 'error');
+                // 1. 参数有效性校验
+                if (!startDate || !endDate) {
+                    showNotification('请选择开始和结束日期', 'error');
                     loadingDiv.classList.add('hidden');
                     return null;
                 }
-            }
+                if (new Date(startDate) > new Date(endDate)) {
+                    showNotification('开始日期不能大于结束日期', 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
+                }
 
+                // 保存参数供深度分析等后续使用
+                lastAnalysisParams.startDate = startDate;
+                lastAnalysisParams.endDate = endDate;
+
+                // 2. 计算需要加载的月份列表（基于年份后两位，例如 "26" 代表 2026 年）
+                const startYear2 = startDate.substring(2, 4);   // "26"
+                const startMonth = startDate.substring(5, 7);   // "03"
+                const endYear2 = endDate.substring(2, 4);
+                const endMonth = endDate.substring(5, 7);
+
+                const months = [];
+                let currentYear = parseInt(startYear2);
+                let currentMonth = parseInt(startMonth);
+                const endYearInt = parseInt(endYear2);
+                const endMonthInt = parseInt(endMonth);
+
+                while (currentYear < endYearInt || (currentYear === endYearInt && currentMonth <= endMonthInt)) {
+                    const monthStr = `${formatTwoDigits(currentYear)}${formatTwoDigits(currentMonth)}`;
+                    months.push(monthStr);
+                    currentMonth++;
+                    if (currentMonth > 12) {
+                        currentMonth = 1;
+                        currentYear++;
+                    }
+                }
+
+                // 3. 只保留实际存在的月份（避免请求不存在的目录）
+                const validMonths = months.filter(m => existingMonths.includes(m));
+                if (validMonths.length === 0) {
+                    showNotification('所选日期范围内没有可用的日志月份', 'error');
+                    loadingDiv.classList.add('hidden');
+                    return null;
+                }
+
+                // 4. 初始化汇总数据结构
+                const logData = {
+                    connections: 0,
+                    uniqueIps: 0,
+                    totalData: 0,
+                    totalDuration: 0,
+                    avgDuration: 0,
+                    ipStats: {},
+                    vpnProtocolStats: {},
+                    timeStats: Array(24).fill(0),
+                    dailyStats: {}
+                };
+
+                // 5. 依次加载各个月份的数据并合并
+                currentFileSpan.textContent = `正在加载 ${validMonths.length} 个月份的分析结果...`;
+
+                for (let i = 0; i < validMonths.length; i++) {
+                    const monthStr = validMonths[i];
+                    const monthData = await loadMonthAnalysisOrRaw(monthStr, (fileName, percent) => {
+                        currentFileSpan.textContent = `正在读取 ${monthStr} 的 ${fileName} (${Math.round(percent * 100)}%)`;
+                    });
+                    if (!monthData) {
+                        console.warn(`无法加载 ${monthStr} 的分析结果，跳过`);
+                        continue;
+                    }
+                    mergeLogData(logData, monthData);
+                }
+
+                // 6. 根据精确的日期范围过滤会话（只保留 startTime 在 [startDate, endDate] 内的会话）
+                const filteredLogData = filterLogDataByDateRange(logData, startDate, endDate);
+                return filteredLogData;
+            }
             async function analyzeCustomDates(year, month) {
                 const selectedDates = getSelectedDates('custom-dates', year, month);
                 if (selectedDates.length === 0) {
@@ -2508,7 +2882,6 @@
             document.getElementById('time-chart-container').onclick = function() { document.getElementById('time-chart-modal').classList.remove('hidden'); };
             document.getElementById('close-time-modal').onclick = function() { document.getElementById('time-chart-modal').classList.add('hidden'); };
             document.getElementById('close-time-modal-btn').onclick = function() { document.getElementById('time-chart-modal').classList.add('hidden'); };
-            document.getElementById('daily-chart-container').onclick = function() { document.getElementById('daily-chart-modal').classList.remove('hidden'); };
             document.getElementById('close-daily-modal').onclick = function() { document.getElementById('daily-chart-modal').classList.add('hidden'); };
             document.getElementById('close-daily-modal-btn').onclick = function() { document.getElementById('daily-chart-modal').classList.add('hidden'); };
             
@@ -2590,6 +2963,42 @@
                 };
                 setMonth();
             }
+            function refreshAllCharts() {
+                const charts = [protocolChart, protocolChartLarge, timeChart, timeChartLarge, dailyChart, dailyChartLarge];
+                charts.forEach(chart => {
+                    if (chart && typeof chart.update === 'function') {
+                        chart.update();
+                    }
+                });
+            }
+
+            // 主题切换
+            document.getElementById('theme-toggle').onclick = function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-moon-o')) {
+                    icon.classList.remove('fa-moon-o');
+                    icon.classList.add('fa-sun-o');
+                    document.body.classList.add('dark-mode');
+                } else {
+                    icon.classList.remove('fa-sun-o');
+                    icon.classList.add('fa-moon-o');
+                    document.body.classList.remove('dark-mode');
+                }
+                refreshAllCharts();
+            };
+
+            // 每日图表模态框（已有修改）
+            document.getElementById('daily-chart-container').onclick = function() {
+                const modal = document.getElementById('daily-chart-modal');
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    if (dailyChartLarge) {
+                        dailyChartLarge.resize();
+                        dailyChartLarge.update();
+                    }
+                    refreshAllCharts(); // 可选
+                }, 100);
+            };
         });
     </script>
 </body>
