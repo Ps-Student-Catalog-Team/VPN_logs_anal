@@ -490,7 +490,6 @@ async function analyzeLogFile(filePath) {
     }
 }
 
-// 检测存在的月份（动态识别年份）
 function detectExistingMonths() {
     const existing = new Set();
     
@@ -501,13 +500,9 @@ function detectExistingMonths() {
             if (!entry.isDirectory()) continue;
             
             const dirName = entry.name;
-            // 匹配格式：YYMM（如2502、2603）
             const match = dirName.match(/^(\d{2})(\d{2})$/);
             if (match) {
-                const year = match[1];
                 const month = parseInt(match[2]);
-                
-                // 验证月份合理性
                 if (month >= 1 && month <= 12) {
                     existing.add(dirName);
                 }
@@ -518,6 +513,11 @@ function detectExistingMonths() {
     }
     
     return Array.from(existing).sort();
+}
+
+function getMonthFileList(month) {
+    const { files } = getFilesInMonth(month);
+    return files.map(f => path.basename(f));
 }
 
 /**
@@ -738,11 +738,16 @@ async function main() {
     const existingMonths = detectExistingMonths();
     console.log(`检测到的月份: ${existingMonths.join(', ')}`);
     
-    // 保存存在的月份到文件
+    const monthsWithFiles = {};
+    for (const month of existingMonths) {
+        monthsWithFiles[month] = getMonthFileList(month);
+    }
+    
     saveAnalysisResult(path.join(__dirname, 'analysis', 'existing-months.json'), { 
-    months: existingMonths,
-    all: true   
-});
+        months: existingMonths,
+        monthsWithFiles: monthsWithFiles,
+        all: true   
+    });
     
     // 并行处理月份分析（按配置的并行度）
     console.log(`使用并行度 ${CONFIG.parallelMonths} 处理月份...`);
