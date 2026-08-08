@@ -69,6 +69,8 @@ try {
 
         Write-Output "All logs processed into $DestRoot. Processed: $processed, Skipped: $skipped, Errors: $errors"
 
+        node generate-analysis.js
+
         # Git commit & push changed files
         if ($changed.Count -gt 0) {
             try {
