@@ -1,7 +1,7 @@
 # Copy SoftEther server_log into D:\zmmmawzfl.github.io organized by YYMM folder
 # Source and destination
-$Source = 'C:\Program Files\SoftEther VPN Server Developer Edition\server_log'
-$DestRoot = 'D:\\zmmmawzfl.github.io'
+$Source = 'C:\Program Files\SoftEther VPN Server\server_log'
+$DestRoot = 'D:\VPN_logs_anal\'
 
 try {
 
