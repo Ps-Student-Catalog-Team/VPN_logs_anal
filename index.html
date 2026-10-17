@@ -2212,9 +2212,12 @@
             const updateMonthOptions = () => {
                 const year = yearSelect.value;
                 const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
+                const previousMonth = monthSelect.value;
                 monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
                 if (months.length) {
-                    monthSelect.value = months.includes(currentMonthNumber) ? currentMonthNumber : months[months.length - 1];
+                    const selectedMonth = months.includes(previousMonth) ? previousMonth :
+                        months.includes(currentMonthNumber) ? currentMonthNumber : months[months.length - 1];
+                    monthSelect.value = selectedMonth;
                 }
                 updatePathDisplay();
             };
@@ -2424,15 +2427,20 @@
                     monthSelect.innerHTML = '<option value="">全部月份</option>';
                 } else {
                     const years = [...new Set(existingMonths.map(m => m.slice(0, 2)))].sort();
+                    const previousYear = yearSelect.value;
                     yearSelect.innerHTML = years.map(y => `<option value="${y}">20${y}年</option>`).join('');
                     if (years.length > 0) {
-                        yearSelect.value = years[0];
+                        yearSelect.value = years.includes(previousYear) ? previousYear :
+                            years.includes(currentYearShort) ? currentYearShort : years[0];
                     }
                     if (isFullYear) {
                         const year = yearSelect.value;
                         const months = existingMonths.filter(m => m.startsWith(year)).map(m => m.slice(2)).sort();
+                        const previousMonth = monthSelect.value;
                         monthSelect.innerHTML = months.map(m => `<option value="${m}">${parseInt(m)}月</option>`).join('');
-                        if (months.length) monthSelect.value = months[0];
+                        if (months.length) {
+                            monthSelect.value = months.includes(previousMonth) ? previousMonth : months[0];
+                        }
                     } else if (isPartialMonths) {
                         const year = yearSelect.value;
                         generateMonthCheckboxes(year);
@@ -2927,23 +2935,14 @@
                 const yearSelect = document.getElementById('year-select');
                 const monthSelect = document.getElementById('month-select');
                 yearSelect.value = currentYear;
-
-                // 等待月份下拉框选项加载完成后设置当前月份
-                const setMonth = () => {
-                    if (monthSelect.querySelector(`option[value="${currentMonth}"]`)) {
-                        monthSelect.value = currentMonth;
-                        // 可选：更新路径显示
-                        if (typeof updatePathDisplay === 'function') updatePathDisplay();
-                    } else {
-                        setTimeout(setMonth, 100);
-                    }
-                };
-                setMonth();
+                updateMonthOptions();
+                monthSelect.value = currentMonth;
+                updatePathDisplay();
             } else if (existingMonths.length > 0) {
-                // 如果当前月份不可用，则选择第一个可用月份（仅设置，不分析）
-                const firstMonth = existingMonths[0];
-                const firstYear = firstMonth.slice(0, 2);
-                const firstMonthNum = firstMonth.slice(2);
+                // 当前月份不可用时选择最近的可用月份（仅设置，不分析）
+                const latestMonth = existingMonths[existingMonths.length - 1];
+                const latestYear = latestMonth.slice(0, 2);
+                const latestMonthNum = latestMonth.slice(2);
 
                 const rangeTypeSelect = document.getElementById('range-type');
                 rangeTypeSelect.value = 'single-month';
@@ -2951,17 +2950,10 @@
 
                 const yearSelect = document.getElementById('year-select');
                 const monthSelect = document.getElementById('month-select');
-                yearSelect.value = firstYear;
-
-                const setMonth = () => {
-                    if (monthSelect.querySelector(`option[value="${firstMonthNum}"]`)) {
-                        monthSelect.value = firstMonthNum;
-                        if (typeof updatePathDisplay === 'function') updatePathDisplay();
-                    } else {
-                        setTimeout(setMonth, 100);
-                    }
-                };
-                setMonth();
+                yearSelect.value = latestYear;
+                updateMonthOptions();
+                monthSelect.value = latestMonthNum;
+                updatePathDisplay();
             }
             function refreshAllCharts() {
                 const charts = [protocolChart, protocolChartLarge, timeChart, timeChartLarge, dailyChart, dailyChartLarge];
