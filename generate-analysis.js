@@ -706,18 +706,13 @@ async function analyzeAllLogs(forceRebuild = false) {
 
 // 保存分析结果为JSON文件
 function saveAnalysisResult(filePath, data) {
-    try {
-        // 确保目录存在
-        const dir = path.dirname(filePath);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-        
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-        console.log(`分析结果已保存到: ${filePath}`);
-    } catch (error) {
-        console.error(`保存分析结果失败:`, error);
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
     }
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    console.log(`分析结果已保存到: ${filePath}`);
 }
 
 // 主函数
@@ -781,4 +776,7 @@ async function main() {
 }
 
 // 运行主函数
-main().catch(console.error);
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});

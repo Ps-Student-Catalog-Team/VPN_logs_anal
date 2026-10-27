@@ -43,6 +43,10 @@ node server.js
 
 然后访问 http://127.0.0.1:8080。默认只允许本机访问；如需更换端口，可在 PowerShell 中先运行 `$env:PORT=8081`，再启动服务器。`u.php` 需要 PHP 运行环境，Node 静态服务器不会执行 PHP。
 
+## SoftEther 日志自动同步
+
+运行 `copy-softether-logs.ps1` 会将服务器日志按月份复制到对应目录。脚本使用 `%LOCALAPPDATA%\SoftEtherLogSync\hash-cache.json` 缓存文件哈希；仅在日志被复制或覆盖时才运行分析。分析结果依赖全量日志，分析器仍会更新月度、年度和全量汇总。提交时日志和 `analysis/` 生成结果会一起暂存，并在推送前执行 rebase；Git 提交身份使用 `LogBot <logbot@local>`。
+
 ## 技术栈
 
 - **前端**：HTML, Tailwind CSS, Chart.js, JavaScript
