@@ -1,0 +1,232 @@
+{
+  "connections": 11,
+  "uniqueIps": 6,
+  "totalData": 16672144158,
+  "totalDuration": 466.76666666666665,
+  "avgDuration": 42.43333333333333,
+  "ipStats": {
+    "10.88.214.130": {
+      "connections": 1,
+      "totalDuration": 0,
+      "totalData": 0,
+      "vpnProtocols": {
+        "L2TP": 1
+      },
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.214.130",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-08-31 14:01:30",
+          "endTime": null,
+          "duration": 0,
+          "inputData": 0,
+          "outputData": 0,
+          "isIncomplete": true
+        }
+      ]
+    },
+    "10.88.208.4": {
+      "connections": 1,
+      "totalDuration": 143.45,
+      "totalData": 62220094,
+      "vpnProtocols": {
+        "OpenVPN": 1
+      },
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.208.4",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 15:05:02",
+          "endTime": "2026-08-31 17:28:29",
+          "duration": 143.45,
+          "inputData": 8230905,
+          "outputData": 53989189
+        }
+      ]
+    },
+    "10.88.202.63": {
+      "connections": 1,
+      "totalDuration": 18.5,
+      "totalData": 437511957,
+      "vpnProtocols": {
+        "L2TP": 1
+      },
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.202.63",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-08-31 17:04:48",
+          "endTime": "2026-08-31 17:23:18",
+          "duration": 18.5,
+          "inputData": 10790769,
+          "outputData": 426721188
+        }
+      ]
+    },
+    "10.88.214.129": {
+      "connections": 3,
+      "totalDuration": 226.18333333333334,
+      "totalData": 16000584145,
+      "vpnProtocols": {
+        "OpenVPN": 4
+      },
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-5",
+          "connectionId": "CID-8",
+          "ip": "10.88.214.129",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 17:26:00",
+          "endTime": "2026-08-31 18:14:05",
+          "duration": 48.083333333333336,
+          "inputData": 93652500,
+          "outputData": 4512665432
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-2",
+          "connectionId": "CID-1",
+          "ip": "10.88.214.129",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 18:55:09",
+          "endTime": "2026-08-31 18:56:10",
+          "duration": 1.0166666666666666,
+          "inputData": 24100,
+          "outputData": 7386
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-3",
+          "connectionId": "CID-2",
+          "ip": "10.88.214.129",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 18:55:41",
+          "endTime": "2026-08-31 21:52:46",
+          "duration": 177.08333333333334,
+          "inputData": 213732478,
+          "outputData": 11180502249
+        }
+      ]
+    },
+    "10.88.208.7": {
+      "connections": 4,
+      "totalDuration": 73.15,
+      "totalData": 122397082,
+      "vpnProtocols": {
+        "OpenVPN": 4
+      },
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-4",
+          "connectionId": "CID-3",
+          "ip": "10.88.208.7",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 20:16:31",
+          "endTime": "2026-08-31 20:17:09",
+          "duration": 0.6333333333333333,
+          "inputData": 14879,
+          "outputData": 20342
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-5",
+          "connectionId": "CID-4",
+          "ip": "10.88.208.7",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 20:16:40",
+          "endTime": "2026-08-31 20:18:21",
+          "duration": 1.6833333333333333,
+          "inputData": 1652834,
+          "outputData": 19379074
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-6",
+          "connectionId": "CID-5",
+          "ip": "10.88.208.7",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 20:18:40",
+          "endTime": "2026-08-31 20:50:51",
+          "duration": 32.18333333333333,
+          "inputData": 6284938,
+          "outputData": 57511106
+        },
+        {
+          "sessionId": "SID-PS-[OPENVPN_L3]-7",
+          "connectionId": "CID-6",
+          "ip": "10.88.208.7",
+          "vpnProtocol": "OpenVPN",
+          "startTime": "2026-08-31 21:16:38",
+          "endTime": "2026-08-31 21:55:17",
+          "duration": 38.65,
+          "inputData": 3123176,
+          "outputData": 34410733
+        }
+      ]
+    },
+    "10.88.202.62": {
+      "connections": 1,
+      "totalDuration": 5.483333333333333,
+      "totalData": 49430880,
+      "vpnProtocols": {
+        "L2TP": 1
+      },
+      "sessions": [
+        {
+          "sessionId": "SID-PS-[L2TP]-8",
+          "connectionId": "CID-7",
+          "ip": "10.88.202.62",
+          "vpnProtocol": "L2TP",
+          "startTime": "2026-08-31 21:52:28",
+          "endTime": "2026-08-31 21:57:57",
+          "duration": 5.483333333333333,
+          "inputData": 3718211,
+          "outputData": 45712669
+        }
+      ]
+    }
+  },
+  "vpnProtocolStats": {
+    "L2TP": 3,
+    "OpenVPN": 9
+  },
+  "timeStats": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    2,
+    3,
+    0,
+    3,
+    2,
+    0,
+    0
+  ],
+  "dailyStats": {
+    "2026-08-31": {
+      "connections": 11,
+      "totalDuration": 466.76666666666665,
+      "totalData": 16672144158
+    }
+  },
+  "__sourceHashes": {
+    "vpn_20260822.log": "7e523536a7c4d37d42cee511519991bdaa96278bdbfc0bea7d360ac039fc4788",
+    "vpn_20260831.log": "2fc8ed0fee7e7138514913ec57d3c2fdcf97cac17220b675f040d2c75b18d39e"
+  }
+}
