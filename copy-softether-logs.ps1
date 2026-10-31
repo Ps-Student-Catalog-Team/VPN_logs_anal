@@ -161,8 +161,8 @@ try {
                 if ($diffExitCode -eq 1) {
                     $message = "Auto: add SoftEther logs ($($changed.Count) files) $(Get-Date -Format 'yyyy-MM-dd_HH:mm:ss')"
                     $commitArguments = @(
-                        '-c', 'user.name=LogBot',
-                        '-c', 'user.email=logbot@local',
+                        '-c', 'user.name=zmmmawzfl',
+                        '-c', 'user.email=kaiyu_he2009@163.com',
                         'commit', '-m', $message, '--'
                     ) + $gitPaths + @('analysis')
                     Invoke-Git -GitArguments $commitArguments
