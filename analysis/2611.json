@@ -1,0 +1,40 @@
+{
+  "connections": 0,
+  "uniqueIps": 0,
+  "totalData": 0,
+  "totalDuration": 0,
+  "avgDuration": 0,
+  "ipStats": {},
+  "vpnProtocolStats": {},
+  "timeStats": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "dailyStats": {},
+  "__sourceHashes": {
+    "vpn_20261101.log": "8801c1811656b3f9583b868f3579e52fc75d3f1dbca68f7c439e81b28a957a78",
+    "vpn_20261102.log": "c35b32a69d7f7833ac29b72e90e46e19bb2c107690ff3ae0c6a958376cd2fa38"
+  }
+}
